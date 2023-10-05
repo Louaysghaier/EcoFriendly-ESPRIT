@@ -5,6 +5,8 @@
  */
 package jdbc;
 
+import static com.sun.org.apache.xml.internal.security.utils.XMLUtils.newDocument;
+import java.util.ArrayList;
 import java.util.List;
 import models.documents;
 import models.topic;
@@ -33,23 +35,34 @@ public class main {
         documents nouveauDocument = new documents();
         nouveauDocument.setTitre("Nouveau Document");
         nouveauDocument.setType("Type de Document");
-        documentsService.ajouter(nouveauDocument);
+       // documentsService.ajouter(nouveauDocument);
         System.out.println("Document ajouté avec succès.");
+         nouveauDocument.setTitre("DORRA");
+        nouveauDocument.setType("JAI");
+     //   documentsService.ajouter(nouveauDocument);
+        System.out.println("Document ajouté .");
         
-        
-        List<documents> tousLesDocuments = documentsService.getAll(nouveauDocument);
-        for (documents document : tousLesDocuments) {
+       List<documents> docs=documentsService.getAll();
+                System.out.println("louay .");
+
+        for (documents document : docs) {
             System.out.println("ID : " + document.getId());
             System.out.println("Titre : " + document.getTitre());
             System.out.println("Type : " + document.getType());
-            System.out.println();
-        }
+            System.out.println();       
         
+        /*documentsservice documentService = new documentsservice();
+
+        
+        int id = 43; 
+
+        
+        documentService.supprimer(id);
+     System.out.println("Document SUPPRIME .");
+    /*
     
     
-    
-    
-    topicservice  topicservice = new  topicservice();
+    /*topicservice  topicservice = new  topicservice();
 
      
         topic nouveautopic = new topic ();
@@ -66,9 +79,25 @@ public class main {
             
             System.out.println();
    
+  */ 
+    documentsservice documentService = new documentsservice();
+
+       
+        documents documentToUpdate = new documents();
+        documentToUpdate.setId(44); 
+        documentToUpdate.setTitre("OLALA"); 
+        documentToUpdate.setType("FADIT"); 
+
+        
+        documentService.modifier(documentToUpdate); 
+    
+    
+    
+    
+    
     } 
-    }
-}
+        
+}}
     
  
     

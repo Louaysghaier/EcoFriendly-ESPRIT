@@ -117,7 +117,7 @@ public topicservice(){
 
 
     @Override
-    public List<topic> getAll(topic t) {
+    public List<topic> getAll() {
       String req = "SELECT * FROM `topic`";
       ArrayList<topic> listetopic= new ArrayList();
     Statement stm;
@@ -132,7 +132,7 @@ public topicservice(){
         to.setname(rs.getString("name"));
       
         
-        listetopic.add(t);
+        listetopic.add(to);
     }
         
         

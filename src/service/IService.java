@@ -17,6 +17,6 @@ import java.util.List;
     public void modifier(T t);
     public void supprimer(int id);
     public T getOne(T t);
-    public List<T> getAll(T t);
+    public List<T> getAll();
     
 }

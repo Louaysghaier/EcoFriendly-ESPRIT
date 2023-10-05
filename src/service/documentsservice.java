@@ -42,7 +42,7 @@ public documentsservice(){
     @Override
    public void modifier(documents d) {
     try {
-                String req = "UPDATE `documents` SET `titre` = ?, `type` = ? , 'date'=? WHERE `id` = ?";
+                String req = "UPDATE `documents` SET `titre` = ?, `type` = ?  WHERE `id` = ?";
         PreparedStatement preparedStatement = cnx.prepareStatement(req);
         preparedStatement.setString(1, d.getTitre());
         preparedStatement.setString(2, d.getType());
@@ -113,9 +113,9 @@ public documentsservice(){
 
 
     @Override
-    public List<documents> getAll(documents d) {
+    public List<documents> getAll() {
       String req = "SELECT * FROM `documents`";
-      ArrayList<documents> listedocuments= new ArrayList();
+      List<documents> listedocuments= new ArrayList();
     Statement stm;
     try {
         stm = this.cnx.createStatement();
@@ -128,8 +128,16 @@ public documentsservice(){
         de.setTitre(rs.getString("titre"));
         de.setType(rs.getString(3));
         
-        listedocuments.add(d);
+        
+        listedocuments.add(de);
     }
+     if (stm != null) {
+            stm.close();
+        }
+    
+    
+    
+
         
         
     } catch (SQLException ex) {
