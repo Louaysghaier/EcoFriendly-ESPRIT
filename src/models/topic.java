@@ -13,19 +13,18 @@ import java.util.Objects;
  */
 public class topic {
     private int idtopic ;
-    private String name ;
-    private int id;
-     private int documentsId; // Clé étrangère
+    private String nom ;
+   
+    
 
- public topic (int idtopic ,String name){
+ public topic (int idtopic ,String nom){
      this.idtopic =idtopic;
-     this.name=name;
-     this.documentsId = documentsId;
+     this.nom=nom;
     
  }  
- public topic (String name){
-     this.name=name;
-     this.documentsId = documentsId;
+ public topic (String nom){
+     this.nom=nom;
+    
  }
  public topic (){
 }
@@ -37,20 +36,16 @@ public int getidtopic(){
 public void setidtopic(int idtopic){
     this.idtopic=idtopic;
 }
- public String getname() {
-        return name;
+ public String getnom() {
+        return nom;
     }
 
-    public void setname(String name) {
-        this.name = name;
+    public void setnom(String nom) {
+        this.nom = nom;
     }
-       public int getDocumentsId() {
-        return documentsId;
-    }
+      
 
-    public void setDocumentsId(int documentsId) {
-        this.documentsId = documentsId;
-    }
+  
 
 
 
@@ -63,7 +58,7 @@ public void setidtopic(int idtopic){
     public String toString() {
         return "Topic{" +
                 "idtopic=" + idtopic +
-                ", name='" + name + '\'' +
+                ", nom='" + nom + '\'' +
                 '}';
     }
      @Override
@@ -72,7 +67,7 @@ public void setidtopic(int idtopic){
         if (o == null || getClass() != o.getClass()) return false;
         topic topic= (topic) o;
         return idtopic == topic.idtopic &&
-                Objects.equals(name, topic.name) ;
+                Objects.equals(nom, topic.nom) ;
                        
               
     }
@@ -81,7 +76,7 @@ public void setidtopic(int idtopic){
     public int hashCode() {
         int hash = 7;
         hash = 79 * hash + this.idtopic;
-        hash = 79 * hash + Objects.hashCode(this.name);
+        hash = 79 * hash + Objects.hashCode(this.nom);
         return hash;
     }
 

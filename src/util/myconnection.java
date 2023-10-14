@@ -20,7 +20,7 @@ public class myconnection {
    
     
     //DB Credentials
-    final String URL = "jdbc:mysql://localhost:3306/bib";
+    final String URL = "jdbc:mysql://localhost:3306/bibliotheque";
     final String USR = "root";
     final String PWD = "";
     

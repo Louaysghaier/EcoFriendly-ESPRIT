@@ -5,39 +5,118 @@
  */
 
 package models;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
+import models.topic;
 /**
  *
  * @author Dorra
  */
 public class documents {
-    private int id;
+    private int id_docu;
     private String titre;
     private String type;
-    private Date date; // Utilisation de java.util.Date
+    private Date date;
+     byte[] image;
+     private topic topic;
 
-    // Constructeur
-    public documents (String titre, String type, Date date){
-      this.titre = titre;
-        this.type = type;
-        this.date = date;  
+    public documents(String titre, String type, java.sql.Date date, topic topic, byte[] image) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public documents(){};
-    public documents(int id, String titre, String type, Date date) {
-        this.id = id;
+
+    @Override
+    public String toString() {
+        return "documents{" + "id_docu=" + id_docu + ", titre=" + titre + ", type=" + type + ", date=" + date + ", image=" + image + ", top=" + topic + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + this.id_docu;
+        hash = 53 * hash + Objects.hashCode(this.titre);
+        hash = 53 * hash + Objects.hashCode(this.type);
+        hash = 53 * hash + Objects.hashCode(this.date);
+        hash = 53 * hash + Arrays.hashCode(this.image);
+        hash = 53 * hash + Objects.hashCode(this.topic);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final documents other = (documents) obj;
+        if (this.id_docu != other.id_docu) {
+            return false;
+        }
+        if (!Objects.equals(this.titre, other.titre)) {
+            return false;
+        }
+        if (!Objects.equals(this.type, other.type)) {
+            return false;
+        }
+        if (!Objects.equals(this.date, other.date)) {
+            return false;
+        }
+        if (!Arrays.equals(this.image, other.image)) {
+            return false;
+        }
+        if (!Objects.equals(this.topic, other.topic)) {
+            return false;
+        }
+        return true;
+    }
+
+    public documents(int id_docu, String titre, String type, Date date, byte[] image, topic topic) {
+        this.id_docu = id_docu;
         this.titre = titre;
         this.type = type;
         this.date = date;
+        this.image = image;
+        this.topic = topic;
     }
 
-    // Getters et setters (méthodes d'accès)
-    public int getId() {
-        return id;
+    public topic getTop() {
+        return topic;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTop(topic topic) {
+        this.topic = topic;
+    }
+
+    public documents() {
+    }
+
+    public documents(int id_docu, String titre, String type, topic topic, byte[] image) {
+        this.id_docu = id_docu;
+        this.titre = titre;
+        this.type = type;
+         this.topic = topic;
+        this.image = image;
+    }
+    
+    public documents( String titre, String type,topic topic ,byte[] image) {
+     
+        this.titre = titre;
+        this.type = type;
+        this.topic = topic;
+        this.image = image;
+    }
+
+    public int getId_docu() {
+        return id_docu;
+    }
+
+    public void setId_docu(int id_docu) {
+        this.id_docu = id_docu;
     }
 
     public String getTitre() {
@@ -63,28 +142,18 @@ public class documents {
     public void setDate(Date date) {
         this.date = date;
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        documents documents = (documents) o;
-        return id == documents.id &&
-                Objects.equals(titre, documents.titre) &&
-                Objects.equals(type, documents.type) &&
-                Objects.equals(date, documents.date);
+
+    public byte[] getImage() {
+        return image;
     }
-     @Override
-    public int hashCode() {
-        return Objects.hash(id, titre, type, date);
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
-     @Override
-    public String toString() {
-        return "Documents{" +
-                "id=" + id +
-                ", titre='" + titre + '\'' +
-                ", type='" + type + '\'' +
-                ", date=" + date +
-                '}';
-    }
+
+
+    
+
+   
 }
 

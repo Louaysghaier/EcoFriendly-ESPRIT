@@ -5,6 +5,7 @@
  */
 package service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -18,5 +19,6 @@ import java.util.List;
     public void supprimer(int id);
     public T getOne(T t);
     public List<T> getAll();
-    
+     
+
 }

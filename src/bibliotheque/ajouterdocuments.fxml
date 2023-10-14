@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="bibliotheque.AjouterdocumentsController">
+    <stylesheets>
+        <URL value="@ajouterdocuments.css" />
+    </stylesheets>
+   <children>
+      <Label layoutX="71.0" layoutY="67.0" text="Label" />
+      <Label layoutX="71.0" layoutY="106.0" text="Label" />
+      <Label layoutX="71.0" layoutY="144.0" text="Label" />
+      <Label layoutX="71.0" layoutY="191.0" text="Label" />
+      <TextField fx:id="dtitre" layoutX="135.0" layoutY="72.0" />
+      <TextField fx:id="dtype" layoutX="136.0" layoutY="111.0" />
+      <DatePicker fx:id="ddate" layoutX="123.0" layoutY="149.0" />
+      <ComboBox fx:id="dtopic" layoutX="135.0" layoutY="187.0" prefWidth="150.0" />
+      <Button layoutX="446.0" layoutY="196.0" mnemonicParsing="false" onAction="#dimporter" text="Button" />
+      <Button layoutX="259.0" layoutY="339.0" mnemonicParsing="false" onAction="#denregistrer" text="Button" />
+   </children>
+</AnchorPane>

@@ -33,7 +33,7 @@ public topicservice(){
     @Override
     public void ajouter(topic t) {
         try {
-            String req = "INSERT INTO `topic`( `idtopic`, `name`) VALUES ('" + t.getidtopic() + "','" + t.getname() + "')";
+            String req = "INSERT INTO `topic`( `idtopic`, `nom`) VALUES ('" + t.getidtopic() + "','" + t.getnom() + "')";
             
             Statement stm = cnx.createStatement();
             stm.executeUpdate(req);
@@ -46,10 +46,10 @@ public topicservice(){
     @Override
    public void modifier(topic t) {
     try {
-                String req = "UPDATE `documents` SET `name` = ?";
+                String req = "UPDATE `documents` SET `nom` = ?";
         PreparedStatement preparedStatement = cnx.prepareStatement(req);
         
-        preparedStatement.setString(2, t.getname());
+        preparedStatement.setString(2, t.getnom());
         /*preparedStatement.setInt(3, t.getId());
 */
         int rowCount = preparedStatement.executeUpdate();
@@ -94,7 +94,7 @@ public topicservice(){
       
         String req = "SELECT * FROM `topic` WHERE `nom` = ?";
         PreparedStatement preparedStatement = cnx.prepareStatement(req);
-        preparedStatement.setString(1, t.getname());
+        preparedStatement.setString(1, t.getnom());
      
 
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -102,7 +102,7 @@ public topicservice(){
         if (resultSet.next()) {
           topic foundtopic = new topic();
             foundtopic.setidtopic(resultSet.getInt("idtopic"));
-          foundtopic.setname(resultSet.getString("name"));
+          foundtopic.setnom(resultSet.getString("nom"));
           
             
             return foundtopic; 
@@ -129,7 +129,7 @@ public topicservice(){
     while (rs.next()){
         topic to = new topic();
         to.setidtopic(rs.getInt(1));
-        to.setname(rs.getString("name"));
+        to.setnom(rs.getString("nom"));
       
         
         listetopic.add(to);
