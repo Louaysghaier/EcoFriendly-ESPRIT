@@ -5,10 +5,9 @@
  */
 package ECOserviceApp;
 import java.util.List;
-import models.ECOservice;
+import models.service;
 import models.Utilisateur;
 import models.PrestataireServ;
-import models.Role;
 import services.ECOserviceService;
 import services.UserService;
 import services.PrestataireService;
@@ -24,10 +23,10 @@ public class MAINServices {
     public static void main(String[] args) {
 
         // Création d'un utilisateur
-        Utilisateur demandeur1 = new Utilisateur(1,"louay", "sghaier", Role.ETUDIANT);
-         Utilisateur demandeur2 = new Utilisateur(2,"dorra", "jaiden", Role.ETUDIANT);
-         Utilisateur demandeur3 = new Utilisateur(3,"dorra", "jaiden", Role.ETUDIANT);
-         Utilisateur demandeur4 = new Utilisateur(4,"dorra", "jaiden", Role.ETUDIANT);
+        Utilisateur demandeur1 = new Utilisateur(1,"louay", "sghaier", "ETUDIANT");
+         Utilisateur demandeur2 = new Utilisateur(2,"dorra", "jaiden", "ETUDIANT");
+         Utilisateur demandeur3 = new Utilisateur(3,"dorra", "jaiden", "ETUDIANT");
+         Utilisateur demandeur4 = new Utilisateur(4,"dorra", "jaiden", "ETUDIANT");
 
          UserService userservice =new UserService();
 /*         
@@ -37,10 +36,10 @@ public class MAINServices {
          // Création d'un prestataire de service
         //livreur1
         PrestataireService prestataireService = new PrestataireService();
-        PrestataireServ prestataire1 = new PrestataireServ( 1,"Ahmed", "delevery", Role.livreur, null, null);
+        PrestataireServ prestataire1 = new PrestataireServ( 1,"Ahmed", "delevery", "livreur", null, null);
 //        prestataireService.ajouterpre(prestataire1);
         //pressing
-        PrestataireServ prestataire2 = new PrestataireServ( 2,"studio", "pressing", Role.pressing, null, null);
+        PrestataireServ prestataire2 = new PrestataireServ( 2,"studio", "pressing", "pressing", null, null);
 //        prestataireService.ajouterpre(prestataire2);
         
    /*     
@@ -65,8 +64,8 @@ public class MAINServices {
      
              if(prests.size()>0){
              PrestataireServ PrestataireServModif=prests.get(0);
-             PrestataireServModif.setNom("koussay");
-             PrestataireServModif.setPrenom("benkemla");
+             PrestataireServModif.setNomuser("koussay");
+             PrestataireServModif.setPrenomuser("benkemla");
              
              prestataireService.modifierpre(PrestataireServModif);
              System.out.println("prestataire modifié avec succès.");
@@ -84,21 +83,21 @@ public class MAINServices {
             System.out.println("error de suppression de prestataire.");
         }         
                         */         
-        // Création d'un service ECOservice
+        // Création d'un service service
         //livraison
        ECOserviceService ecoService = new ECOserviceService();
-        /*ECOservice service1 = new ECOservice("Livraison", demandeur1);
+        /*service service1 = new service("Livraison", demandeur1);
         ecoService.ajouter(service1);
       */
         //lessive
-      /*  ECOservice service2 = new ECOservice("lessive", demandeur2);
+      /*  service service2 = new service("lessive", demandeur2);
         ecoService.ajouter(service2);
         */
         
         // Récupération de tous les services
-        List<ECOservice> services = ecoService.getAll();
+        List<service> services = ecoService.getAll();
   /*      System.out.println("Liste des services :");
-         for (ECOservice service : services) {
+         for (service service : services) {
             System.out.println("Service ID: " + service.getServiceId());
             System.out.println("Type: " + service.getType());
             System.out.println("État: " + service.getEtat());
@@ -110,7 +109,7 @@ public class MAINServices {
          */
          // Modification d'un service
   /*     if (services.size() > 0) {
-            ECOservice serviceAModifier = services.get(0);
+            service serviceAModifier = services.get(0);
             serviceAModifier.setType("Maintenance");
             ecoService.modifier(serviceAModifier);
             System.out.println("Service modifié avec succès.");

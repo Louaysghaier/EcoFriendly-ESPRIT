@@ -9,7 +9,7 @@ package models;
  *
  * @author louay
  */
-public class lessive extends ECOservice{
+public class lessive extends service{
     private int maintenanceId;
     private String typeProbleme;
     private String instructions;
@@ -45,9 +45,6 @@ public class lessive extends ECOservice{
         this.instructions = instructions;
     }
 
-    @Override
-    public String toString() {
-        return "lessive{" + "maintenanceId=" + maintenanceId + ", typeProbleme=" + typeProbleme + ", instructions=" + instructions + '}';
-    }
+    
     
 }

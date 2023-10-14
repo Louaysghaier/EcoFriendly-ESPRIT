@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import models.PrestataireServ;
-import models.Role;
 import util.MyConnection;
 
 /**
@@ -55,8 +54,8 @@ public class PrestataireService implements IprestatService<PrestataireServ>  {
 String req = "INSERT INTO prestataireserv(idUSER, nom, prenom, role) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = cnx.prepareStatement(req)) {
             preparedStatement.setInt(1, prestataire.getIdUSER());
-            preparedStatement.setString(2, prestataire.getNom());
-            preparedStatement.setString(3, prestataire.getPrenom());
+            preparedStatement.setString(2, prestataire.getNomuser());
+            preparedStatement.setString(3, prestataire.getPrenomuser());
             preparedStatement.setString(4, prestataire.getRole().toString());
 
             preparedStatement.executeUpdate();
@@ -69,8 +68,8 @@ String req = "INSERT INTO prestataireserv(idUSER, nom, prenom, role) VALUES (?, 
     public void modifierpre(PrestataireServ prestataire) {
 String req = "UPDATE prestataireserv SET nom = ?, prenom = ? WHERE idUSER = ?";
         try (PreparedStatement preparedStatement = cnx.prepareStatement(req)) {
-            preparedStatement.setString(1, prestataire.getNom());
-            preparedStatement.setString(2, prestataire.getPrenom());
+            preparedStatement.setString(1, prestataire.getNomuser());
+            preparedStatement.setString(2, prestataire.getPrenomuser());
             preparedStatement.setInt(3, prestataire.getIdUSER());
 
             int rowCount = preparedStatement.executeUpdate();
@@ -115,7 +114,7 @@ String req = "SELECT * FROM prestataireserv WHERE idUSER = ?";
                 int idUSER = resultSet.getInt("idUSER");
                 String nom = resultSet.getString("nom");
                 String prenom = resultSet.getString("prenom");
-                Role role = Role.valueOf(resultSet.getString("role"));
+                String role = String.valueOf(resultSet.getString("role"));
 
                 return new PrestataireServ(idUSER, nom, prenom, role, new ArrayList<>(), null);
             } else {
@@ -138,7 +137,7 @@ String req = "SELECT * FROM prestataireserv WHERE idUSER = ?";
                 int idUSER = resultSet.getInt("idUSER");
                 String nom = resultSet.getString("nom");
                 String prenom = resultSet.getString("prenom");
-                Role role = Role.valueOf(resultSet.getString("role"));
+                String role = String.valueOf(resultSet.getString("role"));
 
                 PrestataireServ prestataire = new PrestataireServ(idUSER, nom, prenom, role, new ArrayList<>(), null);
                 prestataires.add(prestataire);

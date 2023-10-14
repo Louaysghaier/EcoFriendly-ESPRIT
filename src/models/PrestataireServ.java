@@ -12,16 +12,16 @@ import java.util.List;
  * @author louay
  */
 public class PrestataireServ extends Utilisateur {
-    private List<ECOservice> servicesEffectues;
-    private ECOservice serviceAssigne;
+    private List<service> servicesEffectues;
+    private service serviceAssigne;
 
-    public PrestataireServ(int idUSER, String nom, String prenom, Role role, List<ECOservice> servicesEffectues, ECOservice serviceAssigne) {
+    public PrestataireServ(int idUSER, String nom, String prenom, String role, List<service> servicesEffectues, service serviceAssigne) {
         super(idUSER, nom, prenom, role);
         this.servicesEffectues = servicesEffectues;
         this.serviceAssigne = serviceAssigne;
     }
 
-    public PrestataireServ(String nom, String prenom, Role role) {
+    public PrestataireServ(String nom, String prenom, String role) {
         super(nom, prenom, role);
     }
 
@@ -31,27 +31,24 @@ public class PrestataireServ extends Utilisateur {
 
     }
 
-    @Override
-    public String toString() {
-        return "PrestataireServ{" + "servicesEffectues=" + servicesEffectues + ", serviceAssigne=" + serviceAssigne + '}';
-    }
+   
 
  
     
 
-    public List<ECOservice> getServicesEffectues() {
+    public List<service> getServicesEffectues() {
         return servicesEffectues;
     }
 
-    public void setServicesEffectues(List<ECOservice> servicesEffectues) {
+    public void setServicesEffectues(List<service> servicesEffectues) {
         this.servicesEffectues = servicesEffectues;
     }
 
-    public ECOservice getServiceAssigne() {
+    public service getServiceAssigne() {
         return serviceAssigne;
     }
 
-    public void setServiceAssigne(ECOservice serviceAssigne) {
+    public void setServiceAssigne(service serviceAssigne) {
         this.serviceAssigne = serviceAssigne;
     }
 }

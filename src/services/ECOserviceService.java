@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import models.ECOservice;
+import models.service;
 import models.EtatService;
 import models.PrestataireServ;
 import util.MyConnection;
@@ -22,11 +22,11 @@ import interfaces.IECOservice;
  *
  * @author louay
  */
-public class ECOserviceService implements IECOservice<ECOservice> {
+public class ECOserviceService implements IECOservice<service> {
     Connection cnx = MyConnection.getInstance().getCnx();
 
     @Override
-    public void ajouter(ECOservice eco) {
+    public void ajouter(service eco) {
        try {
             String req = "INSERT INTO ecoservice(type, etat, dateDemande, demandeurId) VALUES (?, ?, ?, ?)";
             
@@ -47,7 +47,7 @@ public class ECOserviceService implements IECOservice<ECOservice> {
     
 
     @Override
-    public void modifier(ECOservice eco) {
+    public void modifier(service eco) {
 
 try {
     String req = "UPDATE ecoservice SET type = ?, etat = ?, dateDemande = ?, demandeurId = ?, prestataireId = ? WHERE serviceId = ?";
@@ -97,7 +97,7 @@ try {
     }
 
     @Override
-public ECOservice getOne(int serviceId) {
+public service getOne(int serviceId) {
         
 String req = "SELECT * FROM ecoservice WHERE serviceId = ?";
         
@@ -108,16 +108,16 @@ String req = "SELECT * FROM ecoservice WHERE serviceId = ?";
 
         if (resultSet.next()) {
             // Récupération du demandeur de service associé à ce service
-            int demandeurId = resultSet.getInt("demandeurId"); // Assurez-vous d'avoir la colonne demandeurId dans votre table ECOservice
+            int demandeurId = resultSet.getInt("demandeurId"); // Assurez-vous d'avoir la colonne demandeurId dans votre table service
             UserService utilisateurDataAccess = new UserService();
             Utilisateur demandeur = utilisateurDataAccess.getUtilisateurById(demandeurId);
             
             // Récupération du prestataire de service associé à ce service
-            int prestataireId = resultSet.getInt("prestataireId"); // Assurez-vous d'avoir la colonne prestataireId dans votre table ECOservice
+            int prestataireId = resultSet.getInt("prestataireId"); // Assurez-vous d'avoir la colonne prestataireId dans votre table service
             PrestataireService prestataireDataAccess = new PrestataireService();
             PrestataireServ prestataire = prestataireDataAccess.getPrestataireServById(prestataireId);
 
-            ECOservice foundService = new ECOservice(resultSet.getString("type"), demandeur);
+            service foundService = new service(resultSet.getString("type"), demandeur);
             foundService.setServiceId(resultSet.getInt("serviceId"));
             foundService.setEtat(EtatService.valueOf(resultSet.getString("etat"))); 
             foundService.setDateDemande(resultSet.getDate("dateDemande"));
@@ -135,8 +135,8 @@ String req = "SELECT * FROM ecoservice WHERE serviceId = ?";
        }
 
     @Override
- public List<ECOservice> getAll() {
-         List<ECOservice> services = new ArrayList<>();
+ public List<service> getAll() {
+         List<service> services = new ArrayList<>();
     String req = "SELECT * FROM `ecoservice`";
 
     try (Statement stm = this.cnx.createStatement()) {
@@ -153,7 +153,7 @@ String req = "SELECT * FROM ecoservice WHERE serviceId = ?";
             PrestataireService prestataireDataAccess = new PrestataireService();
             PrestataireServ prestataire = prestataireDataAccess.getPrestataireServById(prestataireId);
 
-            ECOservice service = new ECOservice(rs.getString("type"), demandeur);
+            service service = new service(rs.getString("type"), demandeur);
             service.setServiceId(rs.getInt("serviceId"));
             service.setEtat(EtatService.valueOf(rs.getString("etat"))); 
             service.setDateDemande(rs.getDate("dateDemande"));

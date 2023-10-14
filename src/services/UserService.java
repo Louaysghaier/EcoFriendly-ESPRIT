@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import models.Role;
 import models.Utilisateur;
 import util.MyConnection;
 
@@ -26,8 +25,8 @@ public void ajouteruser(Utilisateur utilisateur) {
         try (PreparedStatement preparedStatement = cnx.prepareStatement(req)) {
             
                        preparedStatement.setInt(1, utilisateur.getIdUSER());
-                 preparedStatement.setString(2, utilisateur.getNom());
-            preparedStatement.setString(3, utilisateur.getPrenom());
+                 preparedStatement.setString(2, utilisateur.getNomuser());
+            preparedStatement.setString(3, utilisateur.getPrenomuser());
             preparedStatement.setString(4, utilisateur.getRole().toString());
 
             preparedStatement.executeUpdate();

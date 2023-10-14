@@ -11,35 +11,32 @@ package models;
  */
 public class Utilisateur {
     private int idUSER;
-     private String nom;
-    private String prenom;
+     private String nomuser;
+    private String prenomuser;
   
-    private Role role; 
+    private String role; 
 
-    public Utilisateur(String nom, String prenom, Role role) {
-        this.nom = nom;
-        this.prenom = prenom;
+    public Utilisateur(String nom, String prenom, String role) {
+        this.nomuser = nom;
+        this.prenomuser = prenom;
         this.role = role;
     }
 
-    public Utilisateur(int idUSER, String nom, String prenom, Role role) {
+    public Utilisateur(int idUSER, String nom, String prenom, String role) {
         this.idUSER = idUSER;
-        this.nom = nom;
-        this.prenom = prenom;
+        this.nomuser = nom;
+        this.prenomuser = prenom;
         this.role = role;
     }
 
     public Utilisateur(int idUSER, String nom, String prenom) {
         this.idUSER = idUSER;
-        this.nom = nom;
-        this.prenom = prenom;
+        this.nomuser = nom;
+        this.prenomuser = prenom;
       //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public String toString() {
-        return "Utilisateur{" + "nom=" + nom + ", prenom=" + prenom + ", role=" + role + '}';
-    }
+   
 
    
     public int getIdUSER() {
@@ -50,27 +47,27 @@ public class Utilisateur {
         this.idUSER = idUSER;
     }
 
-    public String getNom() {
-        return nom;
+    public String getNomuser() {
+        return nomuser;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNomuser(String nomuser) {
+        this.nomuser = nomuser;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public String getPrenomuser() {
+        return prenomuser;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setPrenomuser(String prenomuser) {
+        this.prenomuser = prenomuser;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

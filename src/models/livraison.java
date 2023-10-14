@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author louay
  */
-public class livraison extends ECOservice {
+public class livraison extends service {
        private int livraisonId;
     private String adresseLivraison;
     private List<String> articles;
@@ -49,9 +49,5 @@ public class livraison extends ECOservice {
         this.articles = articles;
     }
 
-    @Override
-    public String toString() {
-        return "livraison{" + "livraisonId=" + livraisonId + ", adresseLivraison=" + adresseLivraison + ", articles=" + articles + '}';
-    }
-    
+ 
 }

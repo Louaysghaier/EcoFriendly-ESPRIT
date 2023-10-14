@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author louay
  */
-public class ECOservice {
+public class service {
     
     private int serviceId;
     private String type; // Livraison, lessive, maintenance, etc.
@@ -19,8 +19,8 @@ public class ECOservice {
     private Date dateDemande;
     private Utilisateur demandeur; // Utilisateur qui a demandé le service
     private PrestataireServ prestataire;//prestateur de service 
-
-    public ECOservice(String type, EtatService etat, Date dateDemande, Utilisateur demandeur, PrestataireServ prestataire) {
+    private float prixservice ;
+    public service(String type, EtatService etat, Date dateDemande, Utilisateur demandeur, PrestataireServ prestataire) {
         this.type = type;
         this.etat = etat;
         this.dateDemande = dateDemande;
@@ -29,7 +29,18 @@ public class ECOservice {
     }
 
     // Constructeur
-    public ECOservice(String type, Utilisateur demandeur) {
+    
+    public service(int serviceId, String type, EtatService etat, Date dateDemande, Utilisateur demandeur, PrestataireServ prestataire, float prixservice) {
+        this.serviceId = serviceId;
+        this.type = type;
+        this.etat = etat;
+        this.dateDemande = dateDemande;
+        this.demandeur = demandeur;
+        this.prestataire = prestataire;
+        this.prixservice = prixservice;
+    }
+
+    public service(String type, Utilisateur demandeur) {
         this.type = type;
         this.etat = EtatService.EN_ATTENTE;
         this.dateDemande = new Date();
