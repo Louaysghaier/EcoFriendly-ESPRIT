@@ -26,7 +26,7 @@ public class ECOFRIENDLYESPRIT extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/GUI/mainform.fxml"));
-        
+      //   Parent root = FXMLLoader.load(getClass().getResource("/ADMIN/Adminservice.fxml"));
         Scene scene = new Scene(root);
         
         stage.setMinWidth(750);

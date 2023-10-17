@@ -5,54 +5,80 @@
  */
 package MODELS;
 
+import java.util.Date;
+
 /**
  *
  * @author louay
  */
 public class recue {
-   private int  idrecue;
-    private service demandeurservice;
-    private service idservice;
-    private float prixfinal;
+   
+    private int ticketNumber;
+    private Orders order;
+    private Date creationDate;
+    private Date completionDate;
+    private double totalAmount;
+    private boolean isPaid;
 
-    public recue(int idrecue, service demandeurservice, service idservice, float prixfinal) {
-        this.idrecue = idrecue;
-        this.demandeurservice = demandeurservice;
-        this.idservice = idservice;
-        this.prixfinal = prixfinal;
+    public recue(int ticketNumber, Orders order, Date creationDate, Date completionDate, double totalAmount, boolean isPaid) {
+        this.ticketNumber = ticketNumber;
+        this.order = order;
+        this.creationDate = creationDate;
+        this.completionDate = completionDate;
+        this.totalAmount = totalAmount;
+        this.isPaid = isPaid;
     }
 
-    public int getIdrecue() {
-        return idrecue;
+    public int getTicketNumber() {
+        return ticketNumber;
     }
 
-    public void setIdrecue(int idrecue) {
-        this.idrecue = idrecue;
+    public void setTicketNumber(int ticketNumber) {
+        this.ticketNumber = ticketNumber;
     }
 
-    public service getDemandeurservice() {
-        return demandeurservice;
+    public Orders getOrder() {
+        return order;
     }
 
-    public void setDemandeurservice(service demandeurservice) {
-        this.demandeurservice = demandeurservice;
+    public void setOrder(Orders order) {
+        this.order = order;
     }
 
-    public service getIdservice() {
-        return idservice;
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public void setIdservice(service idservice) {
-        this.idservice = idservice;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public float getPrixfinal() {
-        return prixfinal;
+    public Date getCompletionDate() {
+        return completionDate;
     }
 
-    public void setPrixfinal(float prixfinal) {
-        this.prixfinal = prixfinal;
+    public void setCompletionDate(Date completionDate) {
+        this.completionDate = completionDate;
     }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public boolean isIsPaid() {
+        return isPaid;
+    }
+
+    public void setIsPaid(boolean isPaid) {
+        this.isPaid = isPaid;
+    }
+
+
+   
     
     
     
