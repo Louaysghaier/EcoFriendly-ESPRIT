@@ -54,7 +54,7 @@ public class ServicescardsController implements Initializable {
         public void setData(Service getS) {
             getStomodify=getS;
             id = getS.getServiceId();
-            serviceName = getS.getServiceName();
+        
             price = getS.getPrice();
             String uri = getS.getImg();
             path = getS.getImg();

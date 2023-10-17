@@ -84,7 +84,7 @@ public class AdminserviceController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {
         ObservableList<String> services = FXCollections.observableArrayList();
         services.add("pressing");
         services.add("maintenance");
@@ -92,23 +92,23 @@ public void initialize(URL url, ResourceBundle rb) {
 
         // Assuming service_type is a ComboBox in your FXML file
         service_type.setItems(services);
-         servicesShowData();
-          // Set up a listener for the TableView's selection model
+        servicesShowData();
+        // Set up a listener for the TableView's selection model
         service_tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             // Call servicesSelectData() with the selected Service object
-            servicesSelectData(newValue);});
-                }
+            servicesSelectData(newValue);
+        });
+    }
 
 
 
 
 // TO SHOW YOUR DATA IN OUR TABLEVIEW
-int id;
-ObservableList<Service> servicesListData = FXCollections.observableArrayList();
-ECOservice eco = new ECOservice();
-        Alert alert;
-        Connection cnx = MyConnection.getInstance().getCnx();
-
+    int id;
+    ObservableList<Service> servicesListData = FXCollections.observableArrayList();
+    ECOservice eco = new ECOservice();
+    Alert alert;
+    Connection cnx = MyConnection.getInstance().getCnx();
 
 
 
@@ -284,7 +284,7 @@ private void servicesUpdateBtn(ActionEvent event) {
             Optional<ButtonType> option = alert.showAndWait();
             if (option.get().equals(ButtonType.OK)) {
                 eco.supprimer(id);
-                System.out.println("louay hna");
+               // System.out.println("louay hna");
 
                 // TO CLEAR ALL FIELDS
                 servicesClearBtn();

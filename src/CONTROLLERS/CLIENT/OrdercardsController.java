@@ -5,6 +5,9 @@
  */
 package CONTROLLERS.CLIENT;
 
+import MODELS.Orders;
+import MODELS.Service;
+import SERVICES.OrderService;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -12,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -29,10 +33,19 @@ public class OrdercardsController implements Initializable {
     private Label card_datOrder;
     @FXML
     private Button card_moreInfo;
-
+    private OrderService ordserv;
+    private Orders ordrmodif;
+    private int order_id;
     /**
      * Initializes the controller class.
      */
+     public void setData(Orders order) {
+            ordrmodif =order ;
+            order_id = order.getOrderId();
+           card_datOrder.setText(order.getPickupDateTime().toString()); 
+             order_number.setText(String.valueOf(order.getNum_order()));
+}
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

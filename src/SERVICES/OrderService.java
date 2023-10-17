@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -62,7 +63,7 @@ public void ajouterorder(Orders order) {
 
     @Override
 public void supprimerorder(int id) {
-    String deleteQuery = "DELETE FROM orders WHERE order_id = ?";
+    String deleteQuery = "DELETE FROM orders WHERE orderId = ?";
     
     try {
         Connection connection = MyConnection.getInstance().getCnx();
@@ -92,7 +93,7 @@ public void supprimerorder(int id) {
  @Override
 public Orders getOneorder(int id) {
     Orders order = null;
-    String selectQuery = "SELECT * FROM orders WHERE order_id = ?";
+    String selectQuery = "SELECT * FROM orders WHERE orderId = ?";
     
     try {
         Connection connection = MyConnection.getInstance().getCnx();
@@ -148,22 +149,20 @@ User user1=new User(1);
 
     @Override
     public List<Orders> getAllorder() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
-    
-   public float orderTotal() {
-    String sql = "SELECT SUM(price) FROM orders WHERE userId = ?";
+public float orderTotal() {
+    String sql = "SELECT SUM(priceOrder) FROM orders WHERE userId = ?";
 
-    float totalP = 0; // Initialize totalP here
+    float totalP = 0;
 
-    try (Connection connection = MyConnection.getInstance().getCnx();
-         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-        preparedStatement.setInt(1, user1.getIduser()); // Set the user ID parameter
-
+    try {Connection connection = MyConnection.getInstance().getCnx();
+         PreparedStatement preparedStatement = connection.prepareStatement(sql) ;
+        preparedStatement.setInt(1, 1); 
         try (ResultSet result = preparedStatement.executeQuery()) {
             if (result.next()) {
-                totalP = result.getFloat(1); // Retrieve the result using the column index
+                totalP = result.getFloat(1); 
             }
         }
     } catch (SQLException e) {
@@ -173,4 +172,61 @@ User user1=new User(1);
     return totalP;
 }
 
+
+   
+   
+public ObservableList<Orders> getorderbyidUser(int id) {
+    List<Orders> ordersList = new ArrayList<>();
+    String selectQuery = "SELECT * FROM orders WHERE userId = ?";
+    
+    try {
+        Connection connection = MyConnection.getInstance().getCnx();
+        PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        
+        while (resultSet.next()) {
+            int orderId = resultSet.getInt("orderId");
+            int numOrder = resultSet.getInt("num_order");
+            int userId = resultSet.getInt("userId");
+            // Retrieve other fields from the result set
+            String status = resultSet.getString("status");
+            Date pickupDateTime = resultSet.getTimestamp("pickupDateTime");
+            int serviceId = resultSet.getInt("services");
+            String phonenumber = resultSet.getString("phonenumber");
+            float priceorder = resultSet.getFloat("priceorder");
+            
+            // Retrieve User object (assuming you have a UserDAO to retrieve User by ID)
+            User user1 = new User(userId);
+            // User user = user.getUserId();
+            
+            // Retrieve Service object (assuming you have a ServiceDAO to retrieve Service by ID)
+            Service service = eco.getOne(serviceId);
+            
+            // Create an Orders object with retrieved data
+            Orders order = new Orders();
+            order.setOrderId(orderId);
+            order.setNum_order(numOrder);
+            order.setUser(user1);
+            order.setPickupDateTime(pickupDateTime);
+            order.setStatus(status);
+            order.setServices(service);
+            order.setPhonenumber(phonenumber);
+            order.setPriceorder(priceorder);
+            
+            ordersList.add(order);
+        }
+        
+        resultSet.close();
+        preparedStatement.close();
+        //connection.close();
+    } catch (SQLException ex) {
+        System.err.println("Error while retrieving orders: " + ex.getMessage());
+    }
+    
+   return FXCollections.observableArrayList(ordersList);
+}
+
+   
+   
 }

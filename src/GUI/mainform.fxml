@@ -5,7 +5,6 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -199,7 +198,7 @@
                               </Separator>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="service_form" layoutX="162.0" layoutY="137.0" prefHeight="600.0" prefWidth="877.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="service_form" layoutX="162.0" layoutY="137.0" prefHeight="600.0" prefWidth="877.6" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="6.0" prefHeight="565.0" prefWidth="510.0" stylesheets="@../STYLING/listeservice.css">
                                  <styleClass>
@@ -235,18 +234,13 @@
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <TableView fx:id="order_tableView" layoutX="10.0" layoutY="27.0" onMouseClicked="#orderSelectOrder" prefHeight="218.0" prefWidth="206.0">
+                                    <TableView fx:id="order_tableView" layoutX="10.0" layoutY="27.0" onMouseClicked="#orderSelectOrder" prefHeight="218.0" prefWidth="229.0">
                                        <columns>
                                           <TableColumn fx:id="order_col_orderID" prefWidth="75.0" text="num_order" />
-                                          <TableColumn fx:id="order_col_type" prefWidth="65.0" text="status" />
-                                          <TableColumn fx:id="order_col_service" prefWidth="63.2000732421875" text="prix" />
+                                          <TableColumn fx:id="order_col_type" prefWidth="82.40008544921875" text="status" />
+                                          <TableColumn fx:id="order_col_service" prefWidth="70.39990234375" text="prix" />
                                        </columns>
                                     </TableView>
-                                    <Label layoutX="24.0" layoutY="358.0" text="Date of Pickup:" textFill="#252f9c" underline="true">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Label>
                                     <Label layoutX="137.0" layoutY="391.0" text="Total:" textFill="#2721d9">
                                        <font>
                                           <Font size="15.0" />
@@ -273,16 +267,15 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="order_payBtn" layoutX="39.0" layoutY="498.0" mnemonicParsing="false" onAction="#orderPayBtn" prefHeight="42.0" prefWidth="111.0" style="@../STYLING/listeservice.css" styleClass="btn" text="Pay" textFill="#1373e1" />
-                                    <Button fx:id="order_removeBtn" layoutX="227.0" layoutY="81.0" mnemonicParsing="false" onAction="#orderRemoveBtn" prefHeight="35.0" prefWidth="74.0" styleClass="btn" stylesheets="@../STYLING/listeservice.css" text="Remove" />
+                                    <Button fx:id="order_payBtn" layoutX="21.0" layoutY="498.0" mnemonicParsing="false" onAction="#orderPayBtn" prefHeight="42.0" prefWidth="111.0" style="@../STYLING/listeservice.css" styleClass="btn" text="Pay" textFill="#1373e1" />
+                                    <Button fx:id="order_removeBtn" layoutX="242.0" layoutY="190.0" mnemonicParsing="false" onAction="#orderRemoveBtn" prefHeight="35.0" prefWidth="74.0" styleClass="btn" stylesheets="@../STYLING/listeservice.css" text="Remove" />
                                     <Button fx:id="order_receiptBtn" layoutX="169.0" layoutY="498.0" mnemonicParsing="false" onAction="#orderReceiptBtn" prefHeight="42.0" prefWidth="118.0" style="*: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" styleClass="btn" stylesheets="@../STYLING/listeservice.css" text="Receipt" />
-                                    <DatePicker fx:id="order_dateP" layoutX="143.0" layoutY="356.0" prefHeight="25.0" prefWidth="151.0" />
-                                    <Button fx:id="order_refreshBtn" layoutX="227.0" layoutY="25.0" mnemonicParsing="false" onAction="#orderRefreshBtn" prefHeight="34.0" prefWidth="73.0" styleClass="btn" stylesheets="@../STYLING/listeservice.css" text="Refresh" />
-                                    <Button fx:id="sms" layoutX="74.0" layoutY="308.0" mnemonicParsing="false" onAction="#SMS" prefHeight="27.0" prefWidth="169.0" styleClass="btn" stylesheets="@../STYLING/listeservice.css" text="Send  SMS Verification" />
-                                    <Text fill="#131fcf" layoutX="37.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PHONE NUMBER  :" underline="true" wrappingWidth="93.5198974609375" />
-                                    <TextField fx:id="numrotel" layoutX="120.0" layoutY="252.0" promptText="216+.." />
-                                    <Button fx:id="order_rating" layoutX="229.0" layoutY="135.0" mnemonicParsing="false" onAction="#orderrating" prefHeight="34.0" prefWidth="73.0" styleClass="btn" stylesheets="@../STYLING/listeservice.css" text="Rating" />
-                                    <Button fx:id="HISTO" layoutX="228.0" layoutY="189.0" mnemonicParsing="false" onAction="#Historic" prefHeight="34.0" prefWidth="73.0" styleClass="btn" stylesheets="@../STYLING/listeservice.css" text="Historic" />
+                                    <Button fx:id="order_refreshBtn" layoutX="244.0" layoutY="106.0" mnemonicParsing="false" onAction="#orderRefreshBtn" prefHeight="34.0" prefWidth="71.0" styleClass="btn" stylesheets="@../STYLING/listeservice.css" text="Refresh" />
+                                    <Button fx:id="sms" layoutX="14.0" layoutY="346.0" mnemonicParsing="false" onAction="#SMS" prefHeight="32.0" prefWidth="183.0" styleClass="btn" stylesheets="@../STYLING/listeservice.css" text="Send  SMS Verification !" />
+                                    <Text fill="#131fcf" layoutX="9.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PHONE NUMBER  :" underline="true" wrappingWidth="123.9197998046875" />
+                                    <TextField fx:id="numrotel" layoutX="124.0" layoutY="304.0" prefHeight="26.0" prefWidth="162.0" promptText="216+.." />
+                                    <Button fx:id="order_rating" layoutX="162.0" layoutY="255.0" mnemonicParsing="false" onAction="#orderrating" prefHeight="34.0" prefWidth="73.0" styleClass="btn" stylesheets="@../STYLING/listeservice.css" text="Rating" />
+                                    <Button fx:id="HISTO" layoutX="29.0" layoutY="256.0" mnemonicParsing="false" onAction="#Historic" prefHeight="34.0" prefWidth="73.0" styleClass="btn" stylesheets="@../STYLING/listeservice.css" text="Historic" />
                                     <Label layoutX="71.0" layoutY="2.0" text="Your Basket " textFill="#252f9c" underline="true">
                                        <font>
                                           <Font size="15.0" />
@@ -293,7 +286,7 @@
                               <Separator layoutX="517.0" layoutY="-11.0" orientation="VERTICAL" prefHeight="610.0" prefWidth="34.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="HISTO_form" prefHeight="600.0" prefWidth="878.0" visible="false">
+                        <AnchorPane fx:id="HISTO_form" prefHeight="600.0" prefWidth="878.0">
                            <children>
                               <AnchorPane prefHeight="280.0" prefWidth="854.0" stylesheets="@../STYLING/listeservice.css" AnchorPane.bottomAnchor="304.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="16.0">
                                  <styleClass>
@@ -312,7 +305,7 @@
                                           <Button fx:id="goback" layoutX="22.0" layoutY="11.0" mnemonicParsing="false" onAction="#goback" prefHeight="15.0" prefWidth="86.0" styleClass="btn" text="&lt; Go Back" />
                                        </children>
                                     </AnchorPane>
-                                    <ScrollPane fx:id="ordercardsscrollpane" layoutX="11.0" layoutY="52.0" prefHeight="194.0" prefWidth="832.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="52.0">
+                                    <ScrollPane fx:id="ordercardsscrollpane" layoutX="6.0" layoutY="52.0" prefHeight="226.0" prefWidth="837.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="52.0">
                                        <content>
                                           <GridPane fx:id="customers_gridPane" prefHeight="14.0" prefWidth="99.0">
                                              <columnConstraints>
