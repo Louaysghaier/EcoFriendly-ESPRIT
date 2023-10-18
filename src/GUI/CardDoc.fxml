@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="250.0" prefWidth="234.0" stylesheets="@../STYLING/LIBRARYSTYLING.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLERS.CLIENT.CardDocController">
+   <children>
+      <AnchorPane id="AnchorPane" fx:id="card_form_D" prefHeight="263.0" prefWidth="260.0" styleClass="card" stylesheets="@../CONTROLLERS/STYLING/customerCardDesign.css">
+         <children>
+            <VBox layoutX="108.0" layoutY="30.0" prefHeight="255.0" prefWidth="280.0" AnchorPane.bottomAnchor="-25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="124.0" prefWidth="280.0" stylesheets="@../CONTROLLERS/STYLING/customerCardDesign.css">
+                     <children>
+                        <ImageView fx:id="showImage_D" fitHeight="134.0" fitWidth="184.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="300.0">
+                     <children>
+                        <Label prefHeight="22.0" prefWidth="102.0" text="Document :">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="doc_name_d" text="Label">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="159.0" prefHeight="36.0" prefWidth="300.0">
+                     <children>
+                        <Label text="Type">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="type_doc_d" text="Label">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="48.0" prefWidth="280.0">
+                     <children>
+                        <Button fx:id="card_updateinfo_D1" mnemonicParsing="false" onAction="#updateInfoBtnD" prefHeight="31.0" prefWidth="146.0" styleClass="btn" stylesheets="@../CONTROLLERS/STYLING/customerCardDesign.css" text="Update Document" visible="false" />
+                        <Button fx:id="card_moreInfo_D" mnemonicParsing="false" onAction="#moreInfoBtnD" prefHeight="31.0" prefWidth="146.0" styleClass="btn" stylesheets="@../CONTROLLERS/STYLING/customerCardDesign.css" text="More Info" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
