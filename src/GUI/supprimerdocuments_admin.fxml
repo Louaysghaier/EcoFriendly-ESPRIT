@@ -4,12 +4,15 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="CONTROLLERS.ADMIN.Supprimerdocuments_adminController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLERS.ADMIN.Supprimerdocuments_adminController">
     <stylesheets>
         <URL value="@supprimerdocuments_admin.css" />
     </stylesheets>
@@ -32,21 +35,43 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <TableView fx:id="treeview_d" layoutX="11.0" layoutY="65.0" prefHeight="322.0" prefWidth="646.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" stylesheets="@affichagedocuments.css">
-                    <columns>
-                      <TableColumn prefWidth="112.80001831054688" text="Name Document" />
-                      <TableColumn prefWidth="67.20001220703125" text="semester" />
-                        <TableColumn prefWidth="67.20001220703125" text="level" />
-                        <TableColumn prefWidth="67.20001220703125" text="Topic" />
-                        <TableColumn prefWidth="67.20001220703125" text="Type" />
-                        <TableColumn prefWidth="255.20001220703125" text="image" />
-                    </columns>
-                  </TableView>
-                  <Button layoutX="650.0" layoutY="414.0" mnemonicParsing="false" onAction="#delete_d" prefHeight="44.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" text="Delete" textFill="#f2f2f2">
-                     <font>
-                        <Font name="Mistral" size="25.0" />
-                     </font>
-                  </Button>
+                  <Separator layoutX="-20.0" layoutY="338.0" prefHeight="4.0" prefWidth="877.0" />
+                  <AnchorPane layoutX="7.0" layoutY="62.0" prefHeight="269.0" prefWidth="846.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);">
+                     <children>
+                        <TableView fx:id="treeview_d" layoutX="14.0" layoutY="11.0" prefHeight="248.0" prefWidth="659.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" stylesheets="@affichagedocuments.css">
+                          <columns>
+                            <TableColumn fx:id="name_doc_d" prefWidth="112.80001831054688" text="Name Document" />
+                            <TableColumn fx:id="semester_d" prefWidth="67.20001220703125" text="semester" />
+                              <TableColumn fx:id="level_d" prefWidth="67.20001220703125" text="level" />
+                              <TableColumn fx:id="topic_d" prefWidth="90.4000244140625" text="Topic" />
+                              <TableColumn fx:id="type_d" prefWidth="124.79998779296875" text="Type" />
+                              <TableColumn fx:id="image_d" prefWidth="194.4000244140625" text="image" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="727.0" layoutY="96.0" mnemonicParsing="false" onAction="#delete_d" prefHeight="44.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" text="Delete" textFill="#f2f2f2">
+                           <font>
+                              <Font name="Mistral" size="25.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="820.0" layoutY="1.0" mnemonicParsing="false" onAction="#refrech_d" prefHeight="17.0" prefWidth="15.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" text="refresh" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="7.0" layoutY="351.0" prefHeight="235.0" prefWidth="846.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);">
+                     <children>
+                        <ListView fx:id="listeview" layoutX="92.0" layoutY="7.0" prefHeight="226.0" prefWidth="230.0" />
+                        <Button layoutX="557.0" layoutY="46.0" mnemonicParsing="false" onAction="#ajoutettopic_d" prefHeight="47.0" prefWidth="110.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" text="ADD" textFill="#f2f2f2">
+                           <font>
+                              <Font name="Mistral" size="25.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="dorratopic" layoutX="341.0" layoutY="93.0" prefHeight="26.0" prefWidth="184.0" promptText="Name Topic" />
+                        <Button layoutX="557.0" layoutY="126.0" mnemonicParsing="false" onAction="#deletetopic_d" prefHeight="47.0" prefWidth="110.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" text="Delete" textFill="#f2f2f2">
+                           <font>
+                              <Font name="Mistral" size="25.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>

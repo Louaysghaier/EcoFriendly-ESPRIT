@@ -18,7 +18,10 @@ import SERVICES.NiveauServiceImp;
 import SERVICES.SemestreServiceImp;
 import SERVICES.TopicServiceImp;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,6 +47,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
@@ -90,6 +94,8 @@ Alert alert;
     private DocumentService documentService=new DocumentServiceImp();
     @FXML
     private ImageView adocImage_d;
+    @FXML
+    private Button uploadDoc_d;
 
    
     /**
@@ -145,17 +151,16 @@ Alert alert;
     @FXML
     private void atélécharger_d(ActionEvent event) {
          FileChooser fileChooser = new FileChooser();
-fileChooser.setTitle("Choisir une image");
-// Définir les filtres pour n'afficher que les fichiers image
+
 fileChooser.getExtensionFilters().addAll(
     new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif")
 );
 
-// Ouvrir la boîte de dialogue de sélection de fichier
+
 File imageFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
 
 if (imageFile != null) {
-    // Load the selected image and set it to the ImageView
+  
     Image image = new Image(imageFile.toURI().toString());
     adocImage_d.setImage(image);
 }}
@@ -175,36 +180,36 @@ if (imageFile != null) {
       aniveau_d.setConverter(new StringConverter<Niveau>() {
     @Override
     public String toString(Niveau niveau) {
-        return niveau.getNiveauName(); // Assuming that 'getName()' is the method to get the name.
+        return niveau.getNiveauName(); 
     }
 
     @Override
     public Niveau fromString(String string) {
-        // This method doesn't need to be implemented in this case.
+       
         return null;
     }
 });
       atopic_d.setConverter(new StringConverter<Topic>() {
     @Override
     public String toString(Topic topic) {
-        return topic.getTopicName(); // Assuming that 'getName()' is the method to get the name.
+        return topic.getTopicName(); 
     }
 
     @Override
     public Topic fromString(String string) {
-        // This method doesn't need to be implemented in this case.
+      
         return null;
     }
 });
       asemestre_d.setConverter(new StringConverter<Semestre>() {
     @Override
     public String toString(Semestre semestre) {
-        return semestre.getSemestreName(); // Assuming that 'getName()' is the method to get the name.
+        return semestre.getSemestreName(); 
     }
 
     @Override
     public Semestre fromString(String string) {
-        // This method doesn't need to be implemented in this case.
+       
         return null;
     }
 });
@@ -227,7 +232,7 @@ if (imageFile != null) {
     }
     
      public void initializeCards() {
- // TODO
+
         try{
             List<Document>  document= documentService.getAllDocuments();
             int row = 0 ;
@@ -335,10 +340,10 @@ if (imageFile != null) {
             Optional<ButtonType> option = alert.showAndWait();
             if (option.get().equals(ButtonType.OK)) {
                 documentService.DeleteDocument(id);
-               // System.out.println("louay hna");
+              
               this.onDestroy();
               this.initializeCards();
-                // TO CLEAR ALL FIELDS
+              
 
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Message");
@@ -357,6 +362,48 @@ if (imageFile != null) {
             e.printStackTrace();
         }
     }
+    }
+
+   
+
+    @FXML
+    private void uploadDocD(ActionEvent event) {
+        
+     FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Documents", "*.pdf", "*.docx"));
+    File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow()); // primaryStage should be your application's primary stage
+    if (selectedFile != null) {
+        try {
+            String uploadURL = "URL_FOR_UPLOAD_API_ENDPOINT";
+            URL url = new URL(uploadURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            OutputStream os = connection.getOutputStream();
+
+            FileInputStream fis = new FileInputStream(selectedFile);
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            os.close();
+
+            int responseCode = connection.getResponseCode();
+            System.out.println("Upload response code: " + responseCode);
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                System.out.println("Upload successful!");
+            } else {
+                System.out.println("Upload failed.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Upload error: " + e.getMessage());
+        }
+    }    
+        
     }
      
 }

@@ -104,7 +104,7 @@
                         <Font name="Modern No. 20" size="16.0" />
                      </font>
                   </Button>
-                  <ImageView fx:id="adocImage_d" fitHeight="104.0" fitWidth="134.0" layoutX="30.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="adocImage_d" fitHeight="104.0" fitWidth="134.0" layoutX="15.0" layoutY="379.0" onDragDetected="#uploadDocD" pickOnBounds="true" preserveRatio="true" />
                   <Button layoutX="176.0" layoutY="444.0" mnemonicParsing="false" onAction="#amodif_d" prefHeight="42.0" prefWidth="118.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" text="Modif" textFill="#faf5f5">
                      <font>
                         <Font name="Modern No. 20" size="16.0" />
@@ -122,6 +122,11 @@
                      </font>
                   </Button>
                   <FontAwesomeIcon layoutX="276.0" layoutY="36.0" />
+                  <Button fx:id="uploadDoc_d" layoutX="176.0" layoutY="389.0" mnemonicParsing="false" onAction="#uploadDocD" prefHeight="42.0" prefWidth="118.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" text="Upload" textFill="#faf5f5">
+                     <font>
+                        <Font name="Modern No. 20" size="16.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             <Separator fx:id="aseparator_d" layoutX="517.0" layoutY="-11.0" orientation="VERTICAL" prefHeight="610.0" prefWidth="34.0" />

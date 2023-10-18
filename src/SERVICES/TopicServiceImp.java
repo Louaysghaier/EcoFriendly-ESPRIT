@@ -12,9 +12,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -96,40 +99,76 @@ public Topic getTopicById(int id) {
     return topic;
 }
 
+    /**
+     *
+     * @param t
+     * @return 
+     */
+  @Override
+public void addTopic(Topic t) {
+    String insertSql = "INSERT INTO topic (topicName) VALUES (?)";
 
+    try {
+        Connection connection = myconnection.getInstance().getCnx();
+        PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
+        preparedStatement.setString(1, t.getTopicName()); // Set the topic name
 
+        // Execute the INSERT statement
+        preparedStatement.executeUpdate();
+    } catch (SQLException ex) {
+        Logger.getLogger(TopicServiceImp.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
 
-   private List<Topic> topics = new ArrayList<>();
-    
     
     @Override
-    public void ajouterTopic(int idTopic, String topicName) {
-        Topic nouveauTopic = new Topic(idTopic, topicName);
-        topics.add(nouveauTopic);
+    public void modifierTopic(int idTopic, String nouveauNom) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public boolean supprimerTopic(int idTopic) {
+ try {
+        
+        Connection connection = myconnection.getInstance().getCnx();
+
+       
+        String deleteSql = "DELETE FROM topic WHERE idTopic = ?";
+
+        // Create a PreparedStatement and set the parameter to the document's ID
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteSql);
+        preparedStatement.setInt(1, idTopic);
+
+       
+        int rowsDeleted = preparedStatement.executeUpdate();
+
+       
+     
+      
+
+      
+        if (rowsDeleted > 0) {
+
+            return true;
+        } else {
+         
+            return false;
+        }
+
     
-
-
-
-@Override
-public void modifierTopic(int idTopic, String nouveauNom) {
-    for (Topic topic : topics) {
-        if (topic.getIdTopic() == idTopic) {
-            topic.setTopicName(nouveauNom);
-            break; 
-        }
-    }}
-@Override
-public void supprimerTopic(int idTopic) {
-    Iterator<Topic> iterator = topics.iterator();
-    while (iterator.hasNext()) {
-        Topic topic = iterator.next();
-        if (topic.getIdTopic() == idTopic) {
-            iterator.remove();
-        }
+    } catch (SQLException ex) {
+      
+        ex.printStackTrace();
+    
+        return false;
     }
+}
+
+        }  
+            
+   
+   
+   
 
 
-
-}}
 

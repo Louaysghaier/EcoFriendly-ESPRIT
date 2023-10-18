@@ -16,7 +16,8 @@ import java.util.List;
 public interface TopicService {
      List<Topic> getAllTopics();
     Topic getTopicById(int id);
-void ajouterTopic(int idTopic, String topicName);
     void modifierTopic(int idTopic, String nouveauNom);
-    void supprimerTopic(int idTopic);
+    void addTopic(Topic t);
+
+     boolean supprimerTopic(int idTopic);
 }

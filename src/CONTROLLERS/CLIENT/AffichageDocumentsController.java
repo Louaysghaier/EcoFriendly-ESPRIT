@@ -19,7 +19,10 @@ import SERVICES.NiveauServiceImp;
 import SERVICES.SemestreServiceImp;
 import SERVICES.TopicServiceImp;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -219,8 +222,34 @@ this.initializeCards(filteredDocuments);
         this.initializeCards(filteredDocuments);
     }
 
+    
     @FXML
     private void upload_d(ActionEvent event) {
+        
+        
+        
+        
+        Document document=new Document();
+        if (document != null) {
+        // Récupérez l'URL du document
+        String documentURL = document.getDocumentName(); // Remplacez par la manière dont vous obtenez l'URL du document
+
+        if (documentURL != null && !documentURL.isEmpty()) {
+           try {
+        URL url = new URL(documentURL);
+        InputStream in = url.openStream();
+        Files.copy(in, Paths.get("LOCAL_PATH_TO_SAVE_DOCUMENT"));
+        in.close();
+        System.out.println("Download successful!");
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.out.println("Download error: " + e.getMessage());
+    }
+        } else {
+            System.out.println("L'URL du document est vide ou nul.");
+        }}
+        
+        
     }
 
     @FXML

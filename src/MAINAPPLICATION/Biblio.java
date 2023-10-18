@@ -26,7 +26,7 @@ public class Biblio extends Application {
     public void start(Stage primaryStage) throws IOException {
       //  FXMLLoader loader = new FXMLLoader(getClass().getResource("Affichercategorie.fxml")) ;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/AjoutDocuments.fxml")) ;
-         //  FXMLLoader loader = new FXMLLoader(getClass().getResource("ajouterdocuments.fxml")) ;
+         //  FXMLLoader loader = new FXMLLoader(getClass().getResource("supprimerdocuments_admin.fxml")) ;
 
         Parent root=loader.load() ;
         Scene scene = new Scene(root);
