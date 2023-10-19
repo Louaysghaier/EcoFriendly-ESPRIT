@@ -6,12 +6,15 @@
 package CONTROLLERS.CLIENT;
 
 import INTERFACES.DocumentService;
+import INTERFACES.HistoriqueDocumentsService;
 import INTERFACES.NiveauService;
 import INTERFACES.SemestreService;
 import INTERFACES.TopicService;
 import MODELS.CurrentDocument;
 import MODELS.Document;
+import MODELS.HistoriqueDocument;
 import SERVICES.DocumentServiceImp;
+import SERVICES.HistoriqueServiceImp;
 import SERVICES.NiveauServiceImp;
 import SERVICES.SemestreServiceImp;
 import SERVICES.TopicServiceImp;
@@ -52,11 +55,20 @@ public class PopUpDocController implements Initializable {
     private SemestreService semestreService=new SemestreServiceImp();
     private TopicService topicService=new TopicServiceImp();
     private DocumentService documentService=new DocumentServiceImp();
+        private HistoriqueDocumentsService historiqueService=new HistoriqueServiceImp();
+
+    @FXML
+    private Label nbrview_d;
+    @FXML
+    private Label nbrdownload_d;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        int vue=0;
+        int dw=0;
+
         System.out.println(CurrentDocument.getDocument());
 if(CurrentDocument.getDocument()!=null){
      doctomodif=CurrentDocument.getDocument();
@@ -69,6 +81,12 @@ if(CurrentDocument.getDocument()!=null){
        topic_d.setText(topicService.getTopicById(docToUpdate.getIdTopic().getIdTopic()).getTopicName());
        Image image = new Image(docToUpdate.getDocumentImage());
        imageviewuplo_d.setImage(image);  
+       vue=(int) historiqueService.gethistoriquedocumentByIdDoc(CurrentDocument.getDocument().getIdDoc()).stream().filter(h->h.getOperation().equals("v")).count();
+     dw=(int) historiqueService.gethistoriquedocumentByIdDoc(CurrentDocument.getDocument().getIdDoc()).stream().filter(h->h.getOperation().equals("t")).count();
+     System.out.println(vue);
+     nbrview_d.setText(""+vue);
+     nbrdownload_d.setText(""+dw);
+
 }
       }    
 
@@ -82,7 +100,9 @@ if(CurrentDocument.getDocument()!=null){
 
     @FXML
     private void upload_d(ActionEvent event) {
-                System.out.println(CurrentDocument.getDocument());
+    System.out.println(CurrentDocument.getDocument());
+                historiqueService.addhistorique(new HistoriqueDocument(1,1,CurrentDocument.getDocument().getIdDoc(),"t"));
+
 
     }
     

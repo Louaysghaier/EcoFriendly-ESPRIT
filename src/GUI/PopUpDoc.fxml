@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="390.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="CONTROLLERS.CLIENT.PopUpDocController">
+<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="390.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLERS.CLIENT.PopUpDocController">
     <stylesheets>
         <URL value="@popupdoc.css" />
     </stylesheets>
@@ -73,18 +73,30 @@
                         <Font name="Mistral" size="17.0" />
                      </font>
                   </Button>
-                  <ImageView fx:id="imageviewuplo_d" fitHeight="87.0" fitWidth="184.0" layoutX="101.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageviewuplo_d" fitHeight="87.0" fitWidth="184.0" layoutX="189.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true" />
                   <Button layoutX="274.0" layoutY="14.0" mnemonicParsing="false" onAction="#rloadAffichage_d" prefHeight="33.0" prefWidth="47.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" textAlignment="RIGHT" textFill="#faf6f6">
                      <font>
                         <Font name="Mistral" size="17.0" />
                      </font>
                   </Button>
                   <FontAwesomeIcon layoutX="292.0" layoutY="35.0" />
-                  <Button layoutX="123.0" layoutY="491.0" mnemonicParsing="false" onAction="#upload_d" prefHeight="0.0" prefWidth="152.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" stylesheets="@affichagedocuments.css" text="Download" textFill="#fffcfc">
+                  <Button layoutX="205.0" layoutY="484.0" mnemonicParsing="false" onAction="#upload_d" prefHeight="0.0" prefWidth="152.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" stylesheets="@affichagedocuments.css" text="Download" textFill="#fffcfc">
                      <font>
                         <Font name="Mistral" size="33.0" />
                      </font>
                   </Button>
+                  <Label layoutX="10.0" layoutY="419.0" text="Nbr view:" textFill="#f4f2f2">
+                     <font>
+                        <Font name="Mistral" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nbrview_d" layoutX="72.0" layoutY="422.0" prefHeight="18.0" prefWidth="47.0" textFill="#fcf9f9" />
+                  <Label layoutX="5.0" layoutY="457.0" text="Nbr download:" textFill="#f7f5f5">
+                     <font>
+                        <Font name="Mistral" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nbrdownload_d" layoutX="91.0" layoutY="459.0" prefHeight="18.0" prefWidth="72.0" textFill="#f7f3f3" />
                </children>
             </AnchorPane>
          </children>

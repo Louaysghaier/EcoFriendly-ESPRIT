@@ -5,8 +5,11 @@
  */
 package CONTROLLERS.CLIENT;
 
+import INTERFACES.HistoriqueDocumentsService;
 import MODELS.CurrentDocument;
 import MODELS.Document;
+import MODELS.HistoriqueDocument;
+import SERVICES.HistoriqueServiceImp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +52,8 @@ public class CardDocController implements Initializable {
     private  static Document doctomodif=new Document();
     @FXML
     private Button card_updateinfo_D1;
+    
+    private HistoriqueDocumentsService historiqueService=new HistoriqueServiceImp();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -63,7 +68,7 @@ public class CardDocController implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/GUI/PopUpDoc.fxml"));
             Stage stage = new Stage();
             Scene scene = new Scene(root);
-            
+            historiqueService.addhistorique(new HistoriqueDocument(1,1,doc.getIdDoc(),"v"));
             stage.initStyle(StageStyle.UTILITY);
             stage.setScene(scene);
             stage.show();

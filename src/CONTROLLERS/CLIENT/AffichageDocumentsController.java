@@ -10,6 +10,7 @@ import INTERFACES.NiveauService;
 import INTERFACES.SemestreService;
 import INTERFACES.TopicService;
 import MODELS.Document;
+import MODELS.HistoriqueDocument;
 import MODELS.Niveau;
 import MODELS.SearchDocumentDTO;
 import MODELS.Semestre;
@@ -85,6 +86,8 @@ public class AffichageDocumentsController implements Initializable {
     private SemestreService semestreService=new SemestreServiceImp();
     private TopicService topicService=new TopicServiceImp();
     private DocumentService documentService=new DocumentServiceImp();
+        private HistoriqueDocument historiqueDocument=new HistoriqueDocument();
+
     @FXML
     private AnchorPane anchorpanedownload_d;
     @FXML
