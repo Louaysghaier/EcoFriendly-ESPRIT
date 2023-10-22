@@ -5,37 +5,36 @@
  */
 package models;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 /**
  *
  * @author Mekni
  */
 public class Participation {
-      private int idParticipation;
-    private int idEvent; // Clé étrangère faisant référence à l'événement associé
-    private int idUser; // Clé étrangère faisant référence à l'utilisateur associé
+    private int idParticipation;
+    private Event event; // Clé étrangère faisant référence à l'événement associé
+    private User user; // Clé étrangère faisant référence à l'utilisateur associé
     private String codeQR; // Code QR lié à la participation (si nécessaire)
 
-    // Constructeur
-      public Participation( int idUser, String codeQR) {
-       
-        this.idUser = idUser;
-        this.codeQR = codeQR;
-      }
-    public Participation(int idEvent, int idUser, String codeQR) {
-        this.idEvent = idEvent;
-        this.idUser = idUser;
-        this.codeQR = codeQR;
+    public Participation(){
+        // Constructeur vide
     }
-public Participation(int idParticipation,int idEvent, int idUser, String codeQR) {
-        this.idParticipation=idParticipation;
-         this.idEvent = idEvent;
-        this.idUser = idUser;
+    
+    public Participation(int idParticipation, Event event, User user, String codeQR) {
+        this.idParticipation = idParticipation;
+        this.event = event;
+        this.user = user;
         this.codeQR = codeQR;
     }
 
-    
-    
-    // Getters et setters
     public int getIdParticipation() {
         return idParticipation;
     }
@@ -44,20 +43,20 @@ public Participation(int idParticipation,int idEvent, int idUser, String codeQR)
         this.idParticipation = idParticipation;
     }
 
-    public int getIdEvent() {
-        return idEvent;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setIdEvent(int idEvent) {
-        this.idEvent = idEvent;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getCodeQR() {
@@ -67,18 +66,10 @@ public Participation(int idParticipation,int idEvent, int idUser, String codeQR)
     public void setCodeQR(String codeQR) {
         this.codeQR = codeQR;
     }
-
     
-    
-    @Override
-public String toString() {
-    return "Participation{" +
-            "idParticipation=" + idParticipation +
-            ", idEvent=" + idEvent +
-            ", iduser=" + idUser +
-            ", codeqr='" + codeQR + '\'' +
-            '}';
+    public int getIdUser() {
+    return user.getIduser();
 }
-    
-    
-    }
+
+
+}

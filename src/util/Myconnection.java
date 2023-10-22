@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class Myconnection {
     
     //DB Credentials
-    final String URL = "jdbc:mysql://localhost:3306/event";
+    final String URL = "jdbc:mysql://localhost:3306/events";
     final String USR = "root";
     final String PWD = "";
     

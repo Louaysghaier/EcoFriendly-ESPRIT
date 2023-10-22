@@ -5,13 +5,17 @@
  */
 
 package evenement;
+
 import java.sql.Date;
 import java.util.List;
 import models.Event;
 import models.Participation;
+import models.User;
 import services.Eventservice;
 import services.Participationservice;
+import services.Userservice;
 import util.Myconnection;
+
 /**
  *
  * @author Mekni
@@ -25,107 +29,213 @@ public class Evenement {
         // TODO code application logic here
         Myconnection aa= Myconnection.getInstance();
         
-         Event event1 = new Event(
-        "Salle de conférence A",
-        new Date(System.currentTimeMillis()), // Date de début
-        new Date(System.currentTimeMillis() + 3600000), // Date de fin (1 heure après le début)
-        "100", // Nombre maximum de participants
-        "25.00", // Prix du ticket
-        "Conférence sur la technologie",
-        "Conférence",
-        "Une conférence informative sur les dernières technologies."
-    );
-         
-         Event event2 = new Event(
-    "Salle de réunion B",
-    new Date(System.currentTimeMillis() + 86400000), // Date de début (1 jour après le début du premier événement)
-    new Date(System.currentTimeMillis() + 90000000), // Date de fin (1 jour et 5 heures après le début)
-    "50", // Nombre maximum de participants
-    "15.00", // Prix du ticket
-    "Atelier de développement",
-    "Atelier",
-    "Un atelier pratique sur le développement de logiciels."
-);
-
-         Event event3 = new Event(
-    "Salle de conférence C",
-    new Date(System.currentTimeMillis() + 172800000), // Date de début (2 jours après le début du premier événement)
-    new Date(System.currentTimeMillis() + 187200000), // Date de fin (2 jours et 3 heures après le début)
-    "200", // Nombre maximum de participants
-    "10.00", // Prix du ticket
-    "Salon de l'emploi",
-    "Salon",
-    "Un salon de l'emploi pour les professionnels de l'informatique."
-);
-         Event event4 = new Event(
-    "Salle de conférence C",
-    new Date(System.currentTimeMillis() + 172800000), // Date de début (2 jours après le début du premier événement)
-    new Date(System.currentTimeMillis() + 187200000), // Date de fin (2 jours et 3 heures après le début)
-    "200", // Nombre maximum de participants
-    "10.00", // Prix du ticket
-    "Salon de l'emploi",
-    "Salon",
-    "Un salon de l'emploi pour les professionnels de l'informatique."
-);
-         
-         Event updatedEvent = new Event(
-        5,
-        "Nouveau lieu de l'événement",
-        new Date(System.currentTimeMillis()), // Nouvelle date de début
-        new Date(System.currentTimeMillis() + 7200000), // Nouvelle date de fin (2 heures après le début)
-        "150", // Nouveau nombre maximum de participants
-        "30.00", // Nouveau prix du ticket
-        "Nouveau nom de l'événement",
-        "Nouveau type d'événement",
-        "Nouvelle description de l'événement"
-    );
-
-
+        
        Eventservice eventService = new Eventservice();
        
-      // eventService.ajouterEvent(event4);
-        //eventService.ajouterEvent(event2);
-        // eventService.ajouterEvent(event3);
-       
-       //System.out.println(eventService.afficherEvent());
-       //eventService.updateEvent(updatedEvent);
-       //System.out.println(eventService.afficherEvent());
-        
-        
-        
-       // eventService.deleteEvent(5);
-         //eventService.deleteEvent(7);
-         
-             Participation participation3 = new Participation(8, 2, "codeQR14") ;
-             Participation participation2 = new Participation(10, 2, "codeQR14") ;
-            // Participation participation2 = new Participation(2 ,1, 2, "QR123"); // Exemple d'ID d'événement, d'ID d'utilisateur et de code QR
-                
-           //  event2.addParticipation(event2, participation1);
-         //    event2.addParticipation(event2, participation2);
-              
-    // Vérifiez si la participation a été ajoutée à la liste de participations de l'événement
-  // List<Participation> participations = event2.getParticipations();
+//
+User user = new User(2, "med");
+////user.setIduser(1); // Assurez-vous que l'ID correspond à l'utilisateur existant dans votre base de données
+//
+//Event event5 = new Event();
+//event5.setNomEvent("Fête d'été");
+//event5.setDateDebutEvent(new Date(System.currentTimeMillis()));
+//event5.setDurée(4);
+//event5.setLieuEvent("Parc central");
+//event5.setPrixTicket(10.0);
+//event5.setNbmaxParticipant(100);
+//event5.setTypeEvent("Fête en plein air");
+//event5.setDescriptionEvent("Une fête d'été amusante pour toute la famille !");
+
+//event5.setUser(user);
+//eventService.ajouterEvent(event5, user);
+
+//    Event event1 = new Event();
+//    event1.setNomEvent("Soirée de Gala");
+//    event1.setDateDebutEvent(new Date(System.currentTimeMillis()));
+//    event1.setDurée(5);
+//    event1.setLieuEvent("Hôtel de Luxe");
+//    event1.setPrixTicket(50.0);
+//    event1.setNbmaxParticipant(200);
+//    event1.setTypeEvent("Gala élégant");
+//    event1.setDescriptionEvent("Une soirée de gala pour une occasion spéciale.");
+//    event1.setImage(System.getProperty("user.home") + "/Desktop/gala.jpg");
+//    event1.setUser(user);
+//    eventService.ajouterEvent(event1, user);
+//
+//    // Événement 2 : Randonnée en montagne
+//    Event event2 = new Event();
+//    event2.setNomEvent("Randonnée en montagne");
+//    event2.setDateDebutEvent(new Date(System.currentTimeMillis()));
+//    event2.setDurée(6);
+//    event2.setLieuEvent("Montagnes pittoresques");
+//    event2.setPrixTicket(20.0);
+//    event2.setNbmaxParticipant(50);
+//    event2.setTypeEvent("Aventure en plein air");
+//    event2.setDescriptionEvent("Une randonnée en montagne avec des paysages à couper le souffle.");
+//    event2.setImage(System.getProperty("user.home") + "/Desktop/randonnee.jpg");
+//    event2.setUser(user);
+//    eventService.ajouterEvent(event2, user);
+//
+//    // Événement 3 : Atelier de cuisine
+//    Event event3 = new Event();
+//    event3.setNomEvent("Atelier de cuisine");
+//    event3.setDateDebutEvent(new Date(System.currentTimeMillis()));
+//    event3.setDurée(3);
+//    event3.setLieuEvent("École de cuisine locale");
+//    event3.setPrixTicket(30.0);
+//    event3.setNbmaxParticipant(15);
+//    event3.setTypeEvent("Cours de cuisine interactif");
+//    event3.setDescriptionEvent("Apprenez à cuisiner des plats délicieux avec nos chefs expérimentés.");
+//    event3.setImage(System.getProperty("user.home") + "/Desktop/cuisine.jpg");
+//    event3.setUser(user);
+//    eventService.ajouterEvent(event3, user);
+//
+//
+//
+//
+//
+//List<Event> events = eventService.afficherEvents();
+//    for (Event e : events) {
+//        System.out.println("ID: " + e.getIdEvent());
+//        System.out.println("Nom: " + e.getNomEvent());
+//        System.out.println("Date de début: " + e.getDateDebutEvent());
 
 
-//event2.afficherParticipations();
-Participationservice participationservice=new Participationservice();
-//participationservice.ajouterParticipation(participation3);
-
-           Participation participationToUpdate = new Participation(6,6, 4, "NouveauQRCode"); // Remplacez les valeurs par les données correctes
-
-               // participationservice.updateParticipation(participationToUpdate);
-            
-                     //   participationservice.deleteParticipation(5);
-                     //affichage
-                      List<Participation> participations = participationservice.afficherParticipation();
-                    for (Participation participation : participations) {
-            System.out.println(participation);
-        }
 
 
+
+//int eventIdToDelete = 13;
+  //  eventService.deleteEvent(eventIdToDelete);
+//Event eventToUpdate = eventService.getEventById(11); // Remplacez "11" par l'ID de l'événement que vous souhaitez mettre à jour
+
+//if (eventToUpdate != null) {
+    // Mettez à jour les propriétés de eventToUpdate
+  //  eventToUpdate.setLieuEvent("Nouvel emplacement");
+    //eventToUpdate.setPrixTicket(15.0);
+    
+   // eventService.updateEvent(eventToUpdate);
+//} else {
+  //  System.out.println("L'événement avec l'ID spécifié n'a pas été trouvé.");
+//}
+
+//Eventservice eventService1 = new Eventservice();
+
+//Participationservice p=new Participationservice();
+// Event event5 = eventService.getEventById(5);
+////        if (event5 != null) {
+//            // L'événement existe, vous pouvez ajouter une participation
+//            User user = new User(2, "nom_utilisateur"); // Assurez-vous que l'ID correspond à l'utilisateur que vous souhaitez associer
+//
+//            Participation participation = new Participation();
+//            participation.setEvent(event5);
+//            participation.setUser(user);
+//            participation.setCodeQR("CodeQR123"); // Code QR de la participation (si nécessaire)
+//
+//            p.ajouterParticipation(participation);
+//        } else {
+//            System.err.println("Erreur : L'événement associé à la participation n'existe pas.");
+//        }
+//    
+
+///////////////////////////////////////////////////////////////////////////////////////
+//  int participationIdToDelete = 4;
+//    p.deleteParticipation(participationIdToDelete);
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+//Event event = eventService.getEventById(16);
+
+    // Créez une nouvelle participation
+   // Participation participation = new Participation(5, event, user, "NouveauCodeQR");
+
+    // Mettez à jour la participation
+   // p.updateParticipation(participation);
+
+    
+    
+    
+    
+    
+    
+    
+    Userservice U = new Userservice();
+int currentUserId = U.getUserIdById(2); // Remplacez 2 par l'ID de l'utilisateur actuellement connecté
+List<Event> userEvents = eventService.afficherEventsByUser(currentUserId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int idUserToRetrieve=2;
+   List<List<String>> eventInfoList = eventService.getEventNamesByUser(idUserToRetrieve);
+
+    System.out.println("Liste des événements pour l'utilisateur avec l'ID " + idUserToRetrieve + ":");
+
+    for (List<String> eventInfo : eventInfoList) {
+        String username = eventInfo.get(0);
+        String eventName = eventInfo.get(1);
+        String eventCount = eventInfo.get(2);
+
+        System.out.println("Utilisateur : " + username);
+        System.out.println("Nom de l'événement : " + eventName);
+        System.out.println("Nombre total d'événements : " + eventCount);
+        System.out.println("-------------------------");
+    }
 }
 
+
+
+
+
+
+
+
+
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
 
 
 
