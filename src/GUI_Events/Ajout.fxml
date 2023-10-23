@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -11,21 +9,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="main_form" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="731.0" prefWidth="1046.0" styleClass="shadow" stylesheets="@ajout.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_Events.AjoutController">
+<AnchorPane fx:id="main_form" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="720.0" stylesheets="@ajout.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_Events.AfficheDetailsController">
 
    <children>
-      <AnchorPane prefHeight="731.0" prefWidth="822.0" stylesheets="@ajout.css">
-         <styleClass>
-            <String fx:value="shadow" />
-            <String fx:value="card" />
-         </styleClass>
+      <AnchorPane layoutY="-9.0" prefHeight="679.0" prefWidth="720.0" styleClass="card1" stylesheets="@ajout.css">
          <children>
-            <Label layoutX="281.0" layoutY="23.0" prefHeight="126.0" prefWidth="492.0" text="Add your Event" textFill="#fffdfd">
+            <Label layoutX="166.0" layoutY="23.0" prefHeight="59.0" prefWidth="418.0" text="Update your Event">
                <font>
                   <Font name="Tahoma Bold" size="42.0" />
                </font>
             </Label>
-            <Label layoutX="35.0" layoutY="183.0" prefHeight="32.0" prefWidth="146.0" text="EVENT NAME">
+            <Label layoutX="42.0" layoutY="117.0" prefHeight="32.0" prefWidth="146.0" text="EVENT NAME">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
@@ -35,61 +29,57 @@
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="eventname" layoutX="259.0" layoutY="183.0" prefHeight="32.0" prefWidth="223.0" promptText="Event of happiness" />
-            <TextField fx:id="lieuevent" layoutX="259.0" layoutY="334.0" prefHeight="32.0" prefWidth="223.0" promptText="Esprit" />
-            <TextField fx:id="duree" layoutX="259.0" layoutY="285.0" prefHeight="32.0" prefWidth="223.0" promptText="2hours" />
-            <Label layoutX="35.0" layoutY="231.0" prefHeight="32.0" prefWidth="146.0" text="Start Day">
+            <TextField fx:id="upeventname" layoutX="266.0" layoutY="113.0" prefHeight="39.0" prefWidth="200.0" promptText="Event of happiness" styleClass="text-field" />
+            <TextField fx:id="lieueventup" layoutX="267.0" layoutY="266.0" prefHeight="39.0" prefWidth="200.0" promptText="Esprit" />
+            <TextField fx:id="dureeup" layoutX="266.0" layoutY="212.0" prefHeight="39.0" prefWidth="200.0" promptText="2hours" />
+            <Label layoutX="42.0" layoutY="164.0" prefHeight="32.0" prefWidth="146.0" text="Start Day">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <DatePicker fx:id="datedebut" layoutX="259.0" layoutY="231.0" prefHeight="34.0" prefWidth="223.0" promptText="14/10/2023" />
-            <Label layoutX="35.0" layoutY="285.0" prefHeight="32.0" prefWidth="146.0" text="Duration">
+            <DatePicker fx:id="datedebutup" layoutX="266.0" layoutY="164.0" prefHeight="32.0" prefWidth="200.0" promptText="14/10/2023" />
+            <Label layoutX="42.0" layoutY="205.0" prefHeight="32.0" prefWidth="146.0" text="Duration">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Label layoutX="35.0" layoutY="334.0" prefHeight="32.0" prefWidth="146.0" text="Location">
+            <Label layoutX="42.0" layoutY="263.0" prefHeight="32.0" prefWidth="146.0" text="Location">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Label layoutX="35.0" layoutY="378.0" prefHeight="32.0" prefWidth="146.0" text="Ticket Price">
+            <Label layoutX="35.0" layoutY="320.0" prefHeight="32.0" prefWidth="146.0" text="Ticket Price">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="ticketprice" layoutX="259.0" layoutY="378.0" prefHeight="32.0" prefWidth="223.0" promptText="50" />
-            <Label layoutX="35.0" layoutY="425.0" prefHeight="32.0" prefWidth="246.0" text="Maximum participation">
+            <TextField fx:id="ticketpriceup" layoutX="268.0" layoutY="317.0" prefHeight="39.0" prefWidth="200.0" promptText="50" />
+            <Label layoutX="35.0" layoutY="369.0" prefHeight="32.0" prefWidth="246.0" text="Maximum participation">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="nbmaxparticipation" layoutX="259.0" layoutY="425.0" prefHeight="32.0" prefWidth="223.0" promptText="80" />
-            <Label layoutX="35.0" layoutY="479.0" prefHeight="32.0" prefWidth="246.0" text="Event Type">
+            <TextField fx:id="nbmaxparticipationup" layoutX="269.0" layoutY="366.0" prefHeight="39.0" prefWidth="202.0" promptText="80" />
+            <Label layoutX="35.0" layoutY="422.0" prefHeight="32.0" prefWidth="246.0" text="Event Type">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="eventtype" layoutX="259.0" layoutY="479.0" prefHeight="32.0" prefWidth="223.0" promptText="sport" />
-            <Label layoutX="35.0" layoutY="572.0" prefHeight="32.0" prefWidth="246.0" text="Event Description">
+            <TextField fx:id="eventtypeup" layoutX="269.0" layoutY="419.0" prefHeight="39.0" prefWidth="202.0" promptText="sport" />
+            <Label layoutX="35.0" layoutY="509.0" prefHeight="32.0" prefWidth="246.0" text="Event Description">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <TextArea fx:id="eventdescription" layoutX="255.0" layoutY="549.0" prefHeight="119.0" prefWidth="231.0" styleClass="text-area" stylesheets="@ajout.css" />
-            <AnchorPane layoutX="563.0" layoutY="472.0" prefHeight="200.0" prefWidth="200.0" styleClass="card" stylesheets="@ajout.css">
+            <TextArea fx:id="eventdescriptionup" layoutX="263.0" layoutY="475.0" prefHeight="119.0" prefWidth="214.0" styleClass="text-area" stylesheets="@ajout.css" />
+            <AnchorPane layoutX="496.0" layoutY="205.0" prefHeight="200.0" prefWidth="200.0" styleClass="shadow" stylesheets="@ajout.css">
                <children>
-                  <Button fx:id="importeer" layoutY="160.0" mnemonicParsing="false" prefWidth="202.0" text="importer" />
+                  <Button fx:id="importeerup" layoutY="160.0" mnemonicParsing="false" onAction="#addEmployeeInsertImage" prefWidth="202.0" styleClass="butto" text="import" />
                   <ImageView fx:id="viewimage" fitHeight="162.0" fitWidth="200.0" layoutX="1.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
+            <Button fx:id="ok1" layoutX="330.0" layoutY="615.0" mnemonicParsing="false" onAction="#updateEvent" prefHeight="40.0" prefWidth="60.0" styleClass="butto" text="Ok" />
          </children>
       </AnchorPane>
-      <Button fx:id="importeer1" layoutX="829.0" layoutY="230.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="209.0" text="Add" />
-      <FontAwesomeIcon fill="WHITE" glyphName="PLUS" layoutX="867.0" layoutY="264.0" size="1.2em" />
-      <Button fx:id="clear1" layoutX="829.0" layoutY="326.0" mnemonicParsing="false" onAction="#Clear" prefHeight="56.0" prefWidth="209.0" text="Clear" />
-      <Button fx:id="consulter1" layoutX="829.0" layoutY="412.0" mnemonicParsing="false" onAction="#consulterButtonClicked" prefHeight="56.0" prefWidth="209.0" text="consult Events" />
-      <FontAwesomeIcon fill="WHITE" glyphName="EYE" layoutX="858.0" layoutY="446.0" size="1.2em" />
    </children>
 </AnchorPane>

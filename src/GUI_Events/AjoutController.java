@@ -103,8 +103,6 @@ public class AjoutController implements Initializable {
     @FXML
     private GridPane gridmyev;
     @FXML
-    private ListView<Event> listmyevents;
-    @FXML
     private VBox vboxxx;
     @FXML
     private VBox vboxmyev;
@@ -215,6 +213,7 @@ public class AjoutController implements Initializable {
     event.setTypeEvent(typeEvent);
     event.setDescriptionEvent(descriptionEvent);
     event.setImage(imagePath);
+    event.setDatecreation(new java.sql.Date(System.currentTimeMillis()));
 
     Userservice userService = new Userservice();
     int currentUserId = userService.getUserIdById(2);
@@ -222,12 +221,12 @@ public class AjoutController implements Initializable {
     event.setUser(currentUser);
 
     Eventservice eventService = new Eventservice();
-    eventService.ajouterEvent1(event);
+    eventService.ajouterEvent11(event);
 
     showAlert(AlertType.INFORMATION, "Succès", "L'événement a été ajouté avec succès.");
 
     Clear();
-    refreshEventList();
+   
 }
 
 private void showAlert(AlertType alertType, String title, String content) {
@@ -272,28 +271,7 @@ private void showAlert(AlertType alertType, String title, String content) {
         getData.path = "";
     }
 
-    private void consulterButtonClicked(ActionEvent event) {
-       
-    try {
-        // Charger le fichier FXML de l'interface AfficheEvent
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheEvent.fxml"));
-        Parent root = loader.load();
-
-        // Créer une nouvelle scène
-        Scene scene = new Scene(root);
-
-        // Obtenir la référence au stage actuel
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        // Remplacer la scène actuelle par la nouvelle scène
-        stage.setScene(scene);
-        stage.show();
-    } catch (IOException e) {
-        // Gérer l'exception d'E/S
-        e.printStackTrace();
-        // Vous pouvez afficher une boîte de dialogue d'erreur ou effectuer d'autres actions ici.
-    }
-}
+    
 
 
 
@@ -366,7 +344,7 @@ public AnchorPane getAnchroshoweven() {
             event.setNbmaxParticipant(rs.getInt("nbmaxParticipant"));
             event.setTypeEvent(rs.getString("typeEvent"));
             event.setDescriptionEvent(rs.getString("descriptionEvent"));
-
+            event.setDatecreation(rs.getDate("Datecreation"));
             Cardlistdata.add(event);
         }
     } catch (SQLException e) {
@@ -435,19 +413,20 @@ AfficheEventController aa = new AfficheEventController();
 
 
     
-private void refreshEventList() {
-    // Appelez la méthode pour mettre à jour la liste des événements
-    menuDisplayCard();
-}
-    
-public void refreshEventList11() {
-    // Appelez la méthode pour mettre à jour la liste des événements
-    
-  
-  
-        menuDisplayCardmy(selectedEventId);
-}
-    
+//private void refreshEventList() {
+//    // Appelez la méthode pour mettre à jour la liste des événements
+//    menuDisplayCard();
+//}
+//    
+//
+//public void refreshEventList11() {
+//    // Appelez la méthode pour mettre à jour la liste des événements
+//    
+//  
+//  
+//        menuDisplayCardmy(selectedEventId);
+//}
+//    
 
 
 
@@ -508,7 +487,7 @@ card1.setData1(tempList.get(q).getIdEvent(), tempList.get(q).getNomEvent(), temp
 
         // Supprimez les données de la liste principale après avoir terminé l'itération
         Cardlistdatamy.clear();
-        refreshEventList11(); //////////
+     
     } catch (IOException ex) {
         ex.printStackTrace();
     }
@@ -604,11 +583,11 @@ card1.setData1(tempList.get(q).getIdEvent(), tempList.get(q).getNomEvent(), temp
     
   @Override
     public void initialize(URL url, ResourceBundle rb) {
-          // menuDisplayCard();
+          
           int userId = 2; // Remplacez ceci par la valeur appropriée
-
+          menuDisplayCard();
         menuDisplayCardmy(userId);
-        
+       // refreshEventList11();
        
  //  afficherEvenementsUtilisateurActuel(userId);
    

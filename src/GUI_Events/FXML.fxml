@@ -164,7 +164,7 @@
                                  <content>
                                     <VBox fx:id="vboxxx" prefHeight="566.0" prefWidth="860.0">
                                        <children>
-                                          <GridPane fx:id="griddd" prefHeight="26.0" prefWidth="436.0" styleClass="grid-pane" stylesheets="@ajout.css">
+                                          <GridPane fx:id="griddd" prefHeight="41.0" prefWidth="860.0" styleClass="grid-pane" stylesheets="@ajout.css">
                                             <columnConstraints>
                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                             </columnConstraints>
@@ -181,15 +181,15 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="shadow" stylesheets="@ajout.css">
                            <children>
-                              <AnchorPane layoutX="7.0" layoutY="7.0" prefHeight="550.0" prefWidth="416.0" stylesheets="@ajout.css">
+                              <AnchorPane layoutX="7.0" layoutY="-1.0" prefHeight="572.0" prefWidth="866.0" stylesheets="@ajout.css">
                                  <styleClass>
                                     <String fx:value="shadow" />
                                     <String fx:value="white-bg2" />
                                  </styleClass>
                                  <children>
-                                    <ScrollPane layoutX="6.0" layoutY="4.0" prefHeight="541.0" prefWidth="860.0" stylesheets="@ajout.css">
+                                    <ScrollPane layoutX="3.0" layoutY="7.0" prefHeight="558.0" prefWidth="860.0" stylesheets="@ajout.css">
                                        <content>
-                                          <VBox fx:id="vboxmyev" prefHeight="542.0" prefWidth="843.0" styleClass="white-bg2">
+                                          <VBox fx:id="vboxmyev" prefHeight="552.0" prefWidth="859.0" styleClass="white-bg2">
                                              <children>
                                                 <GridPane fx:id="gridmyev" prefHeight="19.0" prefWidth="404.0">
                                                   <columnConstraints>

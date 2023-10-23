@@ -33,8 +33,11 @@ public class CardEventController implements Initializable{
 
     @FXML
     private AnchorPane cardevent;
+   @FXML
     private Label EventName;
+      @FXML
     private Label pricee;
+        @FXML
     private ImageView imageevent;
 
  
@@ -161,7 +164,7 @@ System.out.println("ID de l'événement : " + idEvent);// Mettez à jour selecte
 
         // Chargez les détails de l'événement en fonction de l'ID
         detailsController.loadEventDetails(idEvent);
-         detailsController.loadEventDetails(idEvent);
+        // detailsController.loadEventDetails(idEvent);
       // detailsController.getJoinanchro().setVisible(false);
         //detailsController.getJoinanchro().setManaged(false);
         
@@ -220,10 +223,10 @@ System.out.println("ID de l'événement : " + idEvent);// Mettez à jour selecte
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheDetails.fxml"));
         Parent root = loader.load();
-        AfficheDetailsController detailsController = loader.getController();
- detailsController.loadEventDetails22(idEvent);
+        AfficheDetailsController detailsController1 = loader.getController();
+ detailsController1.loadEventDetails22(idEvent);
         // Chargez les détails de l'événement en fonction de l'ID
-     //   detailsController.loadEventDetails(idEvent);
+      //  detailsController.loadEventDetails(idEvent);
       // detailsController.getJoinanchro().setVisible(true);
         //detailsController.getJoinanchro().setManaged(true);
         
@@ -238,7 +241,6 @@ System.out.println("ID de l'événement : " + idEvent);// Mettez à jour selecte
         ex.printStackTrace();
     }
 }
-
 
 
 

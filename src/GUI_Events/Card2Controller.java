@@ -5,6 +5,7 @@
  */
 package GUI_Events;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -12,13 +13,17 @@ import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import models.Event;
 import services.Eventservice;
 
@@ -131,7 +136,7 @@ System.out.println("-11111111111");
 alert.setHeaderText("Suppression de l'évenement réussie");
     
     alert.showAndWait();
-   ajoutController.refreshEventList11();
+//   ajoutController.refreshEventList11();
 
     // Réinitialisez les champs de texte et les contrôles d'interface utilisateur après la suppression
      
@@ -140,13 +145,55 @@ alert.setHeaderText("Suppression de l'évenement réussie");
     
     
     
+      private int eventToUpdate;
+
+    public void setEventToUpdate(int eventtoupdate) {
+        this.eventToUpdate = eventtoupdate;
+    }
     
     
+        @FXML
+private void updateselected(ActionEvent event) {
+    // Obtenez l'ID de l'événement à partir de la carte d'événement sélectionnée
+    int idEvent = getIdEvent();
+    selectedEventId = idEvent;
+   
+System.out.println("ID de l'événement : " + idEvent);// Mettez à jour selectedEventId avec l'ID de l'événement sélectionné
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Ajout.fxml"));
+        Parent root = loader.load();
+        AfficheDetailsController afficheDetailsController = loader.getController();
+
+          afficheDetailsController.setEventToUpdate(selectedEventId); 
+       // detailsController.loadEventDetails22(idEvent);
+        // detailsController.loadEventDetails22(idEvent);
+      // detailsController.getJoinanchro().setVisible(false);
+        //detailsController.getJoinanchro().setManaged(false);
+        
+        //detailsController.getMainformaffiche().setVisible(true);
+        //detailsController.getMainformaffiche().setManaged(true);
+
+        if (eventToUpdate != -1) {
+            // Your existing code for loading the event details and showing the form.
+        } else {
+            System.out.println("Invalid event ID: " + eventToUpdate);
+        }
+        // Affichez la vue de détails
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+}
+  
     
     
+     private AfficheDetailsController afficheDetailsController;
     
-    
-    
+    public Card2Controller(AfficheDetailsController afficheDetailsController) {
+        this.afficheDetailsController = afficheDetailsController;
+    }
     
     
     

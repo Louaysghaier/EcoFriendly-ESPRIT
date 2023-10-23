@@ -29,7 +29,7 @@ public class Event {
      private User username;
     private List<Participation> participations = new ArrayList<>();
     private User user;
-
+    private Date Datecreation;
        // Constructeur pour un événement avec ID
     
     public Event(){
@@ -49,9 +49,45 @@ public class Event {
         this.descriptionEvent = descriptionEvent;
         this.image = image;
     }
-
+   public Event(Integer idEvent, String nomEvent, Date dateDebutEvent, String Durée, String LieuEvent, Double PrixTicket, Integer nbmaxParticipant, String typeEvent, String descriptionEvent, String image, Date Datecreation) {
+        this.idEvent = idEvent;
+        this.nomEvent = nomEvent;
+        this.dateDebutEvent = dateDebutEvent;
+        this.Durée = Durée;
+        this.LieuEvent = LieuEvent;
+        this.PrixTicket = PrixTicket;
+        this.nbmaxParticipant = nbmaxParticipant;
+        this.typeEvent = typeEvent;
+        this.descriptionEvent = descriptionEvent;
+        this.image = image;
+        this.Datecreation = Datecreation;
+    }
     // Constructeur pour un événement sans ID (ID généré automatiquement par la base de données)
-    public Event(String nomEvent, Date dateDebutEvent, String Durée, String LieuEvent, Double PrixTicket, Integer nbmaxParticipant, String typeEvent, String descriptionEvent, String image,User iduser) {
+   
+    public Event( String nomEvent, Date dateDebutEvent, String Durée, String LieuEvent, Double PrixTicket, Integer nbmaxParticipant, String typeEvent, String descriptionEvent, String image, Date Datecreation) {
+       
+        this.nomEvent = nomEvent;
+        this.dateDebutEvent = dateDebutEvent;
+        this.Durée = Durée;
+        this.LieuEvent = LieuEvent;
+        this.PrixTicket = PrixTicket;
+        this.nbmaxParticipant = nbmaxParticipant;
+        this.typeEvent = typeEvent;
+        this.descriptionEvent = descriptionEvent;
+        this.image = image;
+        this.Datecreation = Datecreation;
+    }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   public Event(String nomEvent, Date dateDebutEvent, String Durée, String LieuEvent, Double PrixTicket, Integer nbmaxParticipant, String typeEvent, String descriptionEvent, String image,User iduser) {
         this.nomEvent = nomEvent;
         this.dateDebutEvent = dateDebutEvent;
         this.Durée = Durée;
@@ -189,7 +225,16 @@ public void setImage(String image) {
     this.image = image;
 }
 
-    
+    public Date getDatecreation() {
+        return Datecreation;
+    }
+
+    // Méthode pour définir (set) la valeur de Datecreation
+    public void setDatecreation(Date Datecreation) {
+        this.Datecreation = Datecreation;
+    }
+
+
 
   public User getIdUser() {
         return iduser;

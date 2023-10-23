@@ -63,6 +63,33 @@ public class Eventservice {
  
  
  
+// ...
+
+public void ajouterEvent11(Event event) {
+    String req = "INSERT INTO `event` (`nomEvent`, `dateDebutEvent`, `Durée`, `LieuEvent`, `PrixTicket`, `nbmaxParticipant`, `typeEvent`, `descriptionEvent`, `image`, `Datecreation`, `iduser`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    try {
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setString(1, event.getNomEvent());
+        ps.setDate(2, new java.sql.Date(event.getDateDebutEvent().getTime()));
+        ps.setString(3, event.getDurée());
+        ps.setString(4, event.getLieuEvent());
+        ps.setDouble(5, event.getPrixTicket());
+        ps.setInt(6, event.getNbmaxParticipant());
+        ps.setString(7, event.getTypeEvent());
+        ps.setString(8, event.getDescriptionEvent());
+        ps.setString(9, event.getImage());
+        ps.setDate(10, new java.sql.Date(System.currentTimeMillis())); // Utilisez la date actuelle
+        ps.setInt(11, event.getUser().getIduser());
+
+        ps.executeUpdate();
+        System.out.println("Event ajouté avec succès !");
+    } catch (SQLException ex) {
+        Logger.getLogger(Eventservice.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+
+// ...
  
  
  
@@ -194,7 +221,7 @@ public void ajouterEvent1(Event event) {
                 rs.getString("descriptionEvent"),
                 rs.getString("image")
             );
-
+             event.setDatecreation(rs.getDate("Datecreation")); // Récupérer la date de création depuis la base de données
             evenements.add(event);
         }
 
@@ -529,7 +556,11 @@ public List<List<String>> getEventNamesByUser(int iduser) {
                 String image = rs.getString("image");
                // int iduser = rs.getInt("iduser"); 
                 // Créez une instance de la classe Event
-                event = new Event(idEvent, nomEvent, dateDebutEvent, Durée, LieuEvent, PrixTicket, nbmaxParticipant, typeEvent, descriptionEvent, image);
+               // event = new Event(idEvent, nomEvent, dateDebutEvent, Durée, LieuEvent, PrixTicket, nbmaxParticipant, typeEvent, descriptionEvent, image);
+                Date Datecreation = rs.getDate("Datecreation"); // Récupérer la date de création depuis la base de données
+
+            // Créez une instance de la classe Event en incluant la date de création
+            event = new Event(idEvent, nomEvent, dateDebutEvent, Durée, LieuEvent, PrixTicket, nbmaxParticipant, typeEvent, descriptionEvent, image);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Eventservice.class.getName()).log(Level.SEVERE, null, ex);
@@ -597,7 +628,7 @@ public String getEventNameById(int eventId) {
 
 public List<Event> getEventsByUser(int iduser) {
     List<Event> events = new ArrayList<>();
-    String query = "SELECT e.idEvent, e.nomEvent, e.dateDebutEvent, e.Durée, e.LieuEvent, e.PrixTicket, e.nbmaxParticipant, e.typeEvent, e.descriptionEvent " +
+    String query = "SELECT e.idEvent, e.nomEvent, e.dateDebutEvent, e.Durée, e.LieuEvent, e.PrixTicket, e.nbmaxParticipant, e.typeEvent, e.descriptionEvent, e.Datecreation " +
             "FROM event e " +
             "WHERE e.iduser = ?";
 
@@ -617,6 +648,7 @@ public List<Event> getEventsByUser(int iduser) {
                 event.setNbmaxParticipant(resultSet.getInt("nbmaxParticipant"));
                 event.setTypeEvent(resultSet.getString("typeEvent"));
                 event.setDescriptionEvent(resultSet.getString("descriptionEvent"));
+                event.setDatecreation(resultSet.getDate("Datecreation")); // Récupérer la date de création depuis la base de données
                 events.add(event);
             }
         }

@@ -36,7 +36,7 @@
       </Label>
       <ImageView fx:id="im1" fitHeight="65.0" fitWidth="139.0" layoutX="10.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="delete1" layoutX="959.0" layoutY="31.0" mnemonicParsing="false" onAction="#deleteEvent" styleClass="butto" stylesheets="@ajout.css" text="Delete" />
-      <Button fx:id="update1" layoutX="1057.0" layoutY="31.0" mnemonicParsing="false" styleClass="butto" stylesheets="@ajout.css" text="update" />
+      <Button fx:id="update1" layoutX="1057.0" layoutY="31.0" mnemonicParsing="false" onAction="#updateselected" styleClass="butto" stylesheets="@ajout.css" text="update" />
       <Label fx:id="description1" layoutX="793.0" layoutY="39.0" prefHeight="21.0" prefWidth="150.0" text="Description">
          <font>
             <Font name="Arial Narrow" size="15.0" />
