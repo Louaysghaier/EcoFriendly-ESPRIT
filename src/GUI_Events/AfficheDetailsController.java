@@ -38,6 +38,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import models.Participation;
 import models.User;
@@ -76,31 +77,37 @@ public class AfficheDetailsController implements Initializable {
     
      private Event event;
     int selectedEventId;
-    @FXML
     private AnchorPane joinanchro;
-    @FXML
     private ImageView imahgejoin;
-    @FXML
     private Label labeleventnamejoin;
-    @FXML
     private Label pricejoin;
+    @FXML
     private AnchorPane main_form;
+    @FXML
     private TextField upeventname;
+    @FXML
     private TextField lieueventup;
+    @FXML
     private TextField dureeup;
+    @FXML
     private DatePicker datedebutup;
+    @FXML
     private TextField ticketpriceup;
+    @FXML
     private TextField nbmaxparticipationup;
-    private TextField eventtypeup;
+    @FXML
+    private ComboBox<String> eventtypeup = new ComboBox<>();
+    @FXML
     private TextArea eventdescriptionup;
+    @FXML
     private ImageView viewimage;
     
     
     Card2Controller aa = new Card2Controller();
     @FXML
-    private AnchorPane afficheform;
+    private Button importeerup;
     @FXML
-    private Button buttonpayer;
+    private Button ok1;
         
 
     
@@ -198,6 +205,7 @@ public void loadEventDetails(int eventId) {
 //}
 //    
     
+    @FXML
      public void addEmployeeInsertImage() {
         FileChooser open = new FileChooser();
         File file = open.showOpenDialog(main_form.getScene().getWindow());
@@ -302,7 +310,8 @@ private void showAlert(AlertType alertType, String title, String content) {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       
+           eventtypeup.getItems().addAll("Conférences académiques", "Compétitions académiques", "Événements culturels", "Activités sportives", "Événements de loisir");
+
     }    
 
 
@@ -349,7 +358,8 @@ private void showAlert(AlertType alertType, String title, String content) {
     public void setEventToUpdate(int selectedEventId) {
         this.selectedEventId = selectedEventId;
     }
-public void updateEvent(ActionEvent event) {
+    @FXML
+    public void updateEvent(ActionEvent event) {
     int eventId = selectedEventId;
     int userId = 2;
 
@@ -359,7 +369,7 @@ public void updateEvent(ActionEvent event) {
     LocalDate newDateDebut = datedebutup.getValue();
     String newPrixTicket = ticketpriceup.getText();
     String newNbMaxParticipants = nbmaxparticipationup.getText();
-    String newTypeEvent = eventtypeup.getText();
+    String newTypeEvent = (String) eventtypeup.getValue();
     String newDescriptionEvent = eventdescriptionup.getText();
     String newImagePath = getData.path;
 
@@ -507,7 +517,6 @@ public AnchorPane getMainformaffiche() {
 
 ////////////////////paiement ///////////////////
 
-    @FXML
     public void payer(ActionEvent event) {
     int eventId = selectedeven;
     int userId = 1; // Remplacez cela par l'ID de l'utilisateur actuel

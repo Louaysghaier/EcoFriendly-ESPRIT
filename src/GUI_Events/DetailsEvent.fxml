@@ -64,14 +64,47 @@
                   <Font name="Tahoma Bold" size="29.0" />
                </font>
             </Label>
-            <Label fx:id="affname" layoutX="290.0" layoutY="113.0" text="Label" />
-            <Label fx:id="affdate" layoutX="290.0" layoutY="145.0" text="Label" />
-            <Label fx:id="affduration" layoutX="290.0" layoutY="184.0" text="Label" />
-            <Label fx:id="afflocation" layoutX="290.0" layoutY="218.0" text="Label" />
-            <Label fx:id="affticketor" layoutX="290.0" layoutY="264.0" text="Label" />
-            <Label fx:id="affnbmaxpar" layoutX="290.0" layoutY="305.0" text="Label" />
-            <Label fx:id="affeventtype" layoutX="290.0" layoutY="350.0" text="Label" />
-            <Label fx:id="affdesc" layoutX="290.0" layoutY="404.0" text="Label" />
+            <Label fx:id="affname" layoutX="290.0" layoutY="113.0" text="Label">
+               <font>
+                  <Font name="Bodoni MT" size="15.0" />
+               </font></Label>
+            <Label fx:id="affdate" layoutX="290.0" layoutY="145.0" text="Label">
+               <font>
+                  <Font name="Bodoni MT" size="15.0" />
+               </font></Label>
+            <Label fx:id="afflocation" layoutX="290.0" layoutY="218.0" text="Label">
+               <font>
+                  <Font name="Bodoni MT" size="15.0" />
+               </font></Label>
+            <Label fx:id="affnbmaxpar" layoutX="290.0" layoutY="305.0" text="Label">
+               <font>
+                  <Font name="Bodoni MT" size="15.0" />
+               </font></Label>
+            <Label fx:id="affNumberOfParticipants" layoutX="128.0" layoutY="482.0" prefHeight="32.0" prefWidth="465.0" text="Label">
+               <font>
+                  <Font name="Bernard MT Condensed" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="affticketor" layoutX="290.0" layoutY="265.0" text="Label">
+               <font>
+                  <Font name="Bodoni MT" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="affeventtype" layoutX="290.0" layoutY="351.0" text="Label">
+               <font>
+                  <Font name="Bodoni MT" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="affdesc" layoutX="290.0" layoutY="406.0" text="Label">
+               <font>
+                  <Font name="Bodoni MT" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="affduration" layoutX="290.0" layoutY="186.0" text="Label">
+               <font>
+                  <Font name="Bodoni MT" size="15.0" />
+               </font>
+            </Label>
          </children>
          <styleClass>
             <String fx:value="shadow" />

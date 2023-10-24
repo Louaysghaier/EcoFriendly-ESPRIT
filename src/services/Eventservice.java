@@ -12,7 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Event;
@@ -364,7 +366,46 @@ public void deleteEvent(int idEvent) {
 }
 
        
-       
+       public String getTypeEventPlusDemande() {
+        // Utilisez une map pour stocker les types d'événements et leur somme de participations
+        Map<String, Integer> typeParticipationMap = new HashMap<>();
+
+        String query = "SELECT e.typeEvent, COUNT(p.idParticipation) AS totalParticipations " +
+                       "FROM event e " +
+                       "LEFT JOIN participation p ON e.idEvent = p.idEvent " +
+                       "GROUP BY e.typeEvent";
+
+        try (PreparedStatement statement = cnx.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            // Parcourez les résultats de la requête et stockez-les dans la map
+            while (resultSet.next()) {
+                String typeEvent = resultSet.getString("typeEvent");
+                int totalParticipations = resultSet.getInt("totalParticipations");
+                typeParticipationMap.put(typeEvent, totalParticipations);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Trouvez le type d'événement avec la plus grande somme de participations
+        String typePlusDemande = "";
+        int maxParticipations = 0;
+
+        for (Map.Entry<String, Integer> entry : typeParticipationMap.entrySet()) {
+            String typeEvent = entry.getKey();
+            int totalParticipations = entry.getValue();
+
+            if (totalParticipations > maxParticipations) {
+                maxParticipations = totalParticipations;
+                typePlusDemande = typeEvent;
+            }
+        }
+
+        return typePlusDemande;
+    }
+
        
        
        
@@ -699,10 +740,28 @@ public List<Event> getEventsByUser1(int iduser) {
 
 
 
+public Map<String, Integer> getParticipationCountByEventType() {
+    Map<String, Integer> participationCountMap = new HashMap<>();
 
+    // Remarquez l'utilisation de LEFT JOIN pour inclure tous les types d'événements
+    String query = "SELECT e.typeEvent, COUNT(*) " +
+                 "FROM event e " +
+                 "LEFT JOIN participation p ON p.idEvent = e.idEvent " +
+                 "GROUP BY e.typeEvent";
 
+    try (PreparedStatement ps = cnx.prepareStatement(query);
+         ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+            String eventType = rs.getString("typeEvent");
+            int count = rs.getInt("COUNT(*)");
+            participationCountMap.put(eventType, count);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
 
-
+    return participationCountMap;
+}
 
 
 

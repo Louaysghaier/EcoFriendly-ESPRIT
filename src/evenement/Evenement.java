@@ -6,8 +6,10 @@
 
 package evenement;
 
+import GUI_Events.AjoutController;
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 import models.Event;
 import models.Participation;
 import models.User;
@@ -161,10 +163,6 @@ User user = new User(2, "med");
     Userservice U = new Userservice();
 int currentUserId = U.getUserIdById(2); // Remplacez 2 par l'ID de l'utilisateur actuellement connecté
 List<Event> userEvents = eventService.afficherEventsByUser(currentUserId);
-
-
-
-
 
 
 

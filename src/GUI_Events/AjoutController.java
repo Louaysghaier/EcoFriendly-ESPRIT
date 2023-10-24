@@ -16,11 +16,15 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,12 +34,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -76,7 +87,8 @@ public class AjoutController implements Initializable {
     @FXML
     private TextField nbmaxparticipation;
     @FXML
-    private TextField eventtype;
+    private ComboBox<String> eventtype = new ComboBox<>();
+  
     @FXML
     private TextArea eventdescription;
     @FXML
@@ -106,6 +118,22 @@ public class AjoutController implements Initializable {
     private VBox vboxxx;
     @FXML
     private VBox vboxmyev;
+   @FXML
+    private Label Time;
+    @FXML
+    private Label nomeventpop;
+    @FXML
+    private Label currentnbpart;
+    @FXML
+    private Label favuser;
+    @FXML
+    private Label mosttype;
+    @FXML
+    private AnchorPane barconatin;
+    @FXML
+    private AnchorPane barcontainer;
+    @FXML
+    private StackedBarChart<String, Number> stackbar;
     
     @FXML
      public void addEmployeeInsertImage() {
@@ -166,6 +194,10 @@ public class AjoutController implements Initializable {
 //       
 //        Clear();
 //    }
+//
+
+    
+
 
 
 
@@ -181,13 +213,13 @@ public class AjoutController implements Initializable {
     LocalDate dateDebut = datedebut.getValue();
     String prixTicket = ticketprice.getText();
     String nbMaxParticipants = nbmaxparticipation.getText();
-    String typeEvent = eventtype.getText();
+    String typeEvent =  (String) eventtype.getValue();
     String descriptionEvent = eventdescription.getText();
     String imagePath = getData.path; // Récupérez le chemin de l'image sélectionnée
 
     // Effectuez des contrôles de saisie
     if (nomEvent.isEmpty() || lieuEvent.isEmpty() || dureeEvent.isEmpty() || dateDebut == null ||
-        prixTicket.isEmpty() || nbMaxParticipants.isEmpty() || typeEvent.isEmpty() || descriptionEvent.isEmpty()) {
+        prixTicket.isEmpty() || nbMaxParticipants.isEmpty() || typeEvent == null || descriptionEvent.isEmpty()) {
         showAlert(AlertType.ERROR, "Champs non remplis", "Veuillez remplir tous les champs.");
         return; // Arrêtez la création de l'événement si un champ est vide
     }
@@ -265,7 +297,8 @@ private void showAlert(AlertType alertType, String title, String content) {
         datedebut.getEditor().clear();
         ticketprice.clear();
         nbmaxparticipation.clear();
-        eventtype.clear();
+        eventtype.setValue(null);
+
         eventdescription.clear();
         viewimage.setImage(null);
         getData.path = "";
@@ -288,7 +321,10 @@ private void showAlert(AlertType alertType, String title, String content) {
         
         ticketprice.setText(String.valueOf(eventSelectionne.getPrixTicket()));
         nbmaxparticipation.setText(String.valueOf(eventSelectionne.getNbmaxParticipant()));
-        eventtype.setText(eventSelectionne.getTypeEvent());
+      //  eventtype.setText(eventSelectionne.getTypeEvent());
+        //eventtype=PosteEquipe.getSelectionModel().getSelectedItem());
+String selectedType = (String) eventtype.getSelectionModel().getSelectedItem();
+
         eventdescription.setText(eventSelectionne.getDescriptionEvent());
 
         // Chargez l'image depuis le chemin de l'événement
@@ -574,31 +610,118 @@ card1.setData1(tempList.get(q).getIdEvent(), tempList.get(q).getNomEvent(), temp
 //
 //
 
+ private void updateTime() {
+    Thread thread = new Thread(() -> {
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+        while (true) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Platform.runLater(() -> {
+                Time.setText(format.format(new java.util.Date()));
+            });
+        }
+    });
+    thread.setDaemon(true); // Permet au thread de se terminer lorsque l'application se ferme
+    thread.start();
+}
+public void updateMostPopularEvent() {
+    Participationservice participationService = new Participationservice();
+    String[] eventInfo = participationService.getEventNameAndParticipantsCountWithMostParticipants();
+
+    if (eventInfo != null && eventInfo.length == 2) {
+        String eventName = eventInfo[0].trim();
+        String participantsCount = eventInfo[1].trim();
+
+        nomeventpop.setText(eventName);
+        currentnbpart.setText(participantsCount);
+    }
+}
+ public void getUserParticipationCounts() {
+        Participationservice participationService = new Participationservice(); // Créez une instance de la classe ParticipationService
+          Userservice user = new Userservice();
+        Map<Integer, Integer> userParticipationCounts = participationService.countParticipationsByUser();
+
+        for (Map.Entry<Integer, Integer> entry : userParticipationCounts.entrySet()) {
+            int userId = entry.getKey();
+            int participationCount = entry.getValue();
+            String username = user.getUsernameById(userId); // Utilisez la méthode non statique via l'instance
+            System.out.println("UserID: " + userId + ", Username: " + username + ", Participation Count: " + participationCount);
+            // Vous pouvez faire ce que vous voulez avec le username ici
+        favuser.setText(username);
+        }
+
+ }
     
-    
-    
-    
-    
-    
-    
+ 
+ 
+ 
+  public void updateMostDemandedTypeLabel() {
+        // Créez une instance de EventService ou obtenez-la en fonction de votre configuration
+        Eventservice eventService = new Eventservice();
+
+        // Appelez la méthode pour obtenir le type d'événement le plus demandé
+        String mostDemandedType = eventService.getTypeEventPlusDemande();
+
+        // Définissez le texte du label avec le résultat
+        mosttype.setText("Type le plus demandé : " + mostDemandedType);
+    }
+ 
+private void updateStackedBarChart(Map<String, Integer> data) {
+    StackedBarChart<String, Number> eventStackedBarChart = stackbar;
+
+    // Supprimer toutes les données précédentes
+    eventStackedBarChart.getData().clear();
+
+    // Ajouter un titre
+    eventStackedBarChart.setTitle("Participations par type d'événement");
+
+    // Créez une série pour chaque type d'événement
+    for (Map.Entry<String, Integer> entry : data.entrySet()) {
+        String eventType = entry.getKey();
+        int count = entry.getValue();
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName(eventType);
+        series.getData().add(new XYChart.Data<>(eventType, count));
+
+        // Ajoutez la série au graphique empilé
+        eventStackedBarChart.getData().add(series);
+    }
+}
+
+ 
   @Override
     public void initialize(URL url, ResourceBundle rb) {
-          
+          updateTime();
           int userId = 2; // Remplacez ceci par la valeur appropriée
           menuDisplayCard();
         menuDisplayCardmy(userId);
        // refreshEventList11();
-       
+       updateMostPopularEvent();
+       getUserParticipationCounts();
  //  afficherEvenementsUtilisateurActuel(userId);
    
-   
-   
+   updateMostDemandedTypeLabel();
+    eventtype.getItems().addAll("Conférences académiques", "Compétitions académiques", "Événements culturels", "Activités sportives", "Événements de loisir");
+
+
+   Map<String, Integer> participationData = eventService.getParticipationCountByEventType();
+
+    // Utilisez les données pour mettre à jour le graphique empilé
+    updateStackedBarChart(participationData);
+}
+// Appel de la méthode pour obtenir les données de participation par type d'événement
+       
+    
     
     }
 
 
    
-}
+
 
 
 

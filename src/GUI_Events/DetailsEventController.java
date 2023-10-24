@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import models.Event;
 import services.Eventservice;
+import services.Participationservice;
 
 /**
  * FXML Controller class
@@ -48,8 +49,6 @@ public class DetailsEventController implements Initializable {
     private Label affeventtype;
     @FXML
     private Label affdesc;
- @FXML
-    private Label datecrea;
     /**
      * Initializes the controller class.
      */
@@ -62,6 +61,8 @@ public class DetailsEventController implements Initializable {
     
      private Event event;
     int selectedEventId;
+    @FXML
+    private Label affNumberOfParticipants;
    public void loadEventDetails(int eventId) {
     System.out.println("ID de l'événement : " + eventId);
     Eventservice eventService = new Eventservice();
@@ -91,8 +92,11 @@ public class DetailsEventController implements Initializable {
 //    System.out.println("Date de création n'est pas définie.");
 //    datecrea.setText("Date non disponible");
 //}
+Participationservice participationService = new Participationservice();
+int participations = participationService.countParticipationsByEventId(eventId);
 
-
+// Affichez le nombre de participations dans votre interface utilisateur (par exemple, dans un Label)
+affNumberOfParticipants.setText("Nombre de participants : " + participations);
         affdesc.setText(event.getDescriptionEvent());
 
         selectedEventId = event.getIdEvent();

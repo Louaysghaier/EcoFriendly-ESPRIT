@@ -19,7 +19,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -492,12 +494,51 @@ private boolean userExists(int idUser) {
 
     
     
+  public String[] getEventNameAndParticipantsCountWithMostParticipants() {
+    String query = "SELECT e.nomEvent, COUNT(*) AS participationCount " +
+                   "FROM event e " +
+                   "JOIN participation p ON e.idEvent = p.idEvent " +
+                   "GROUP BY e.nomEvent " +
+                   "ORDER BY participationCount DESC " +
+                   "LIMIT 1";
+
+    try (PreparedStatement preparedStatement = cnx.prepareStatement(query);
+         ResultSet resultSet = preparedStatement.executeQuery()) {
+        if (resultSet.next()) {
+            String nomEvent = resultSet.getString("nomEvent");
+            int participationCount = resultSet.getInt("participationCount");
+            return new String[]{nomEvent, String.valueOf(participationCount)};
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return null; // Retourne null en cas d'erreur ou si aucune participation n'a été trouvée
+}
+
+
     
     
     
-    
-    
-    
+     public Map<Integer, Integer> countParticipationsByUser() {
+        Connection cnx = Myconnection.getInstance().getCnx();
+        Map<Integer, Integer> userParticipationCount = new HashMap<>();
+
+        String query = "SELECT idUser, COUNT(*) AS participationCount FROM participation GROUP BY idUser";
+
+        try (PreparedStatement ps = cnx.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                int userId = rs.getInt("idUser");
+                int participationCount = rs.getInt("participationCount");
+                userParticipationCount.put(userId, participationCount);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userParticipationCount;
+    }
     
     
     

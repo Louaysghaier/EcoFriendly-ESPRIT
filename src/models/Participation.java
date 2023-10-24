@@ -70,6 +70,14 @@ public class Participation {
     public int getIdUser() {
     return user.getIduser();
 }
+ private int count;
 
+    public Participation(int count) {
+        this.count = count;
+    }
+
+    public int getCount() {
+        return count;
+    }
 
 }
