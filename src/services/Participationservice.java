@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,32 +99,34 @@ public boolean isEventFull(int eventId) {
     }
 }
 
- 
- 
-    
-    public void ajouterParticipation(Participation participation) {
-    // Vérifiez si l'événement (idEvent) existe
+ public void ajouterParticipation(Participation participation) {
     Userservice userService = new Userservice();
-Eventservice eventService = new Eventservice();
-    if (eventExists(participation.getEvent().getIdEvent()) && userExists(participation.getUser().getIduser())) {
-        String username = userService.getUsernameById(participation.getUser().getIduser()); // Obtenez le nom d'utilisateurbtenez le nom d'utilisateur
-        String eventName = eventService.getEventNameById(participation.getEvent().getIdEvent()); // Obtenez le nom de l'événement
-        String qrData = username + "-" + eventName; // Concaténez le nom d'utilisateur et le nom de l'événement
+    Eventservice eventService = new Eventservice();
 
-       String desktopPath = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "EventQr";
-String qrCodeFileName = username + "-" + eventName + ".png";
-String qrCodeFilePath = desktopPath + File.separator + qrCodeFileName;
+    if (eventExists(participation.getEvent().getIdEvent()) && userExists(participation.getUser().getIduser())) {
+        String username = userService.getUsernameById(participation.getUser().getIduser());
+        String eventName = eventService.getEventNameById(participation.getEvent().getIdEvent());
+        String qrData = username + "-" + eventName;
+
+        // Générez la date de participation courante
+        LocalDate dateParticipation = LocalDate.now();
+
+        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "EventQr";
+        String qrCodeFileName = username + "-" + eventName + ".png";
+        String qrCodeFilePath = desktopPath + File.separator + qrCodeFileName;
+
         // Générez le code QR avec les données combinées
         generateQRCode(qrData, qrCodeFilePath);
 
-        String req = "INSERT INTO `participation` (`idEvent`, `idUser`, `codeQR`) VALUES (?, ?, ?)";
+        String req = "INSERT INTO `participation` (`idEvent`, `idUser`, `codeQR`, `dateParticipation`) VALUES (?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
 
             ps.setInt(1, participation.getEvent().getIdEvent());
             ps.setInt(2, participation.getUser().getIduser());
-            ps.setString(3, qrData); // Enregistrez les données du code QR (nom d'utilisateur + nom de l'événement)
+            ps.setString(3, qrData);
+            ps.setObject(4, dateParticipation); // Enregistrez la date de participation
             ps.executeUpdate();
             System.out.println("Participation ajoutée avec succès !");
         } catch (SQLException ex) {
@@ -133,6 +136,41 @@ String qrCodeFilePath = desktopPath + File.separator + qrCodeFileName;
         System.err.println("L'événement associé à la participation n'existe pas, ou l'utilisateur n'existe pas.");
     }
 }
+
+ 
+//    
+//    public void ajouterParticipation(Participation participation) {
+//    // Vérifiez si l'événement (idEvent) existe
+//    Userservice userService = new Userservice();
+//Eventservice eventService = new Eventservice();
+//    if (eventExists(participation.getEvent().getIdEvent()) && userExists(participation.getUser().getIduser())) {
+//        String username = userService.getUsernameById(participation.getUser().getIduser()); // Obtenez le nom d'utilisateurbtenez le nom d'utilisateur
+//        String eventName = eventService.getEventNameById(participation.getEvent().getIdEvent()); // Obtenez le nom de l'événement
+//        String qrData = username + "-" + eventName; // Concaténez le nom d'utilisateur et le nom de l'événement
+//
+//       String desktopPath = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "EventQr";
+//String qrCodeFileName = username + "-" + eventName + ".png";
+//String qrCodeFilePath = desktopPath + File.separator + qrCodeFileName;
+//        // Générez le code QR avec les données combinées
+//        generateQRCode(qrData, qrCodeFilePath);
+//
+//        String req = "INSERT INTO `participation` (`idEvent`, `idUser`, `codeQR`) VALUES (?, ?, ?)";
+//
+//        try {
+//            PreparedStatement ps = cnx.prepareStatement(req);
+//
+//            ps.setInt(1, participation.getEvent().getIdEvent());
+//            ps.setInt(2, participation.getUser().getIduser());
+//            ps.setString(3, qrData); // Enregistrez les données du code QR (nom d'utilisateur + nom de l'événement)
+//            ps.executeUpdate();
+//            System.out.println("Participation ajoutée avec succès !");
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Participationservice.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    } else {
+//        System.err.println("L'événement associé à la participation n'existe pas, ou l'utilisateur n'existe pas.");
+//    }
+//}
 
 public void generateQRCode(String data, String filePath) {
     int width = 300;
@@ -540,7 +578,7 @@ private boolean userExists(int idUser) {
         return userParticipationCount;
     }
     
-    
+   
     
     
 

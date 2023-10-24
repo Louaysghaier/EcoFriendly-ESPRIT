@@ -24,7 +24,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_Events.AjoutController">
    <children>
-      <AnchorPane fx:id="ajout" layoutX="221.0" prefHeight="600.0" prefWidth="868.0" visible="false">
+      <AnchorPane fx:id="ajout" layoutX="221.0" prefHeight="600.0" prefWidth="868.0">
          <children>
             <AnchorPane fx:id="main_form" prefHeight="518.0" prefWidth="879.0" stylesheets="@ajout.css">
                <styleClass>
@@ -156,7 +156,7 @@
          </styleClass>
       </AnchorPane>
       <FontAwesomeIcon fill="#bca0a0" glyphName="COMMENTS" layoutX="50.0" layoutY="314.0" size="2em" text="" />
-      <AnchorPane fx:id="afficheevent" layoutX="220.0" prefHeight="600.0" prefWidth="879.0">
+      <AnchorPane fx:id="afficheevent" layoutX="220.0" prefHeight="600.0" prefWidth="879.0" visible="false">
          <children>
             <TabPane prefHeight="600.0" prefWidth="879.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -288,9 +288,9 @@
                                     <Label fx:id="mosttype" layoutX="170.0" layoutY="347.0" prefHeight="21.0" prefWidth="397.0" text="Label" />
                                     <ScrollPane layoutX="6.0" prefHeight="347.0" prefWidth="824.0">
                                       <content>
-                                        <AnchorPane fx:id="barcontainer" minHeight="0.0" minWidth="0.0" prefHeight="335.0" prefWidth="827.0">
+                                        <AnchorPane fx:id="barcontainer" minHeight="0.0" minWidth="0.0" prefHeight="354.0" prefWidth="827.0">
                                              <children>
-                                                <StackedBarChart fx:id="stackbar" layoutX="-3.0" layoutY="-1.0" prefHeight="355.0" prefWidth="818.0">
+                                                <StackedBarChart fx:id="stackbar" layoutX="-3.0" layoutY="-1.0" prefHeight="361.0" prefWidth="818.0">
                                                   <xAxis>
                                                     <CategoryAxis side="BOTTOM" />
                                                   </xAxis>

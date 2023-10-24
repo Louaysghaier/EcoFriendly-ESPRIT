@@ -77,37 +77,31 @@ public class AfficheDetailsController implements Initializable {
     
      private Event event;
     int selectedEventId;
+    @FXML
     private AnchorPane joinanchro;
+    @FXML
     private ImageView imahgejoin;
+    @FXML
     private Label labeleventnamejoin;
+    @FXML
     private Label pricejoin;
-    @FXML
     private AnchorPane main_form;
-    @FXML
     private TextField upeventname;
-    @FXML
     private TextField lieueventup;
-    @FXML
     private TextField dureeup;
-    @FXML
     private DatePicker datedebutup;
-    @FXML
     private TextField ticketpriceup;
-    @FXML
     private TextField nbmaxparticipationup;
-    @FXML
     private ComboBox<String> eventtypeup = new ComboBox<>();
-    @FXML
     private TextArea eventdescriptionup;
-    @FXML
     private ImageView viewimage;
     
     
     Card2Controller aa = new Card2Controller();
     @FXML
-    private Button importeerup;
+    private AnchorPane afficheform;
     @FXML
-    private Button ok1;
+    private Button buttonpayer;
         
 
     
@@ -205,7 +199,6 @@ public void loadEventDetails(int eventId) {
 //}
 //    
     
-    @FXML
      public void addEmployeeInsertImage() {
         FileChooser open = new FileChooser();
         File file = open.showOpenDialog(main_form.getScene().getWindow());
@@ -358,7 +351,6 @@ private void showAlert(AlertType alertType, String title, String content) {
     public void setEventToUpdate(int selectedEventId) {
         this.selectedEventId = selectedEventId;
     }
-    @FXML
     public void updateEvent(ActionEvent event) {
     int eventId = selectedEventId;
     int userId = 2;
@@ -517,6 +509,7 @@ public AnchorPane getMainformaffiche() {
 
 ////////////////////paiement ///////////////////
 
+    @FXML
     public void payer(ActionEvent event) {
     int eventId = selectedeven;
     int userId = 1; // Remplacez cela par l'ID de l'utilisateur actuel

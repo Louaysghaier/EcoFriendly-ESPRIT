@@ -12,6 +12,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import javax.imageio.ImageIO;
 
 /**
@@ -23,7 +24,7 @@ public class Participation {
     private Event event; // Clé étrangère faisant référence à l'événement associé
     private User user; // Clé étrangère faisant référence à l'utilisateur associé
     private String codeQR; // Code QR lié à la participation (si nécessaire)
-
+   private Date dateParticipation;
     public Participation(){
         // Constructeur vide
     }
@@ -35,6 +36,16 @@ public class Participation {
         this.codeQR = codeQR;
     }
 
+    
+    
+       public Participation(int idParticipation, Event event, User user, String codeQR , Date dateParticipation ) {
+        this.idParticipation = idParticipation;
+        this.event = event;
+        this.user = user;
+        this.codeQR = codeQR;
+        this.dateParticipation=dateParticipation;
+    }
+    
     public int getIdParticipation() {
         return idParticipation;
     }
@@ -79,5 +90,11 @@ public class Participation {
     public int getCount() {
         return count;
     }
+ public Date getDateParticipation() {
+        return dateParticipation;
+    }
 
+    public void setDateParticipation(Date dateParticipation) {
+        this.dateParticipation = dateParticipation;
+    }
 }

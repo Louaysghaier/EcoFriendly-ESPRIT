@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -613,6 +615,43 @@ public List<List<String>> getEventNamesByUser(int iduser) {
 
       
       
+       public Event getEventById1(int idEvent) {
+        String req = "SELECT * FROM event WHERE idEvent = ?";
+     Event event = new Event() ;
+
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, idEvent);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // Récupérez les données de l'événement depuis le résultat de la requête
+                String nomEvent = rs.getString("nomEvent");
+                Date dateDebutEvent = rs.getDate("dateDebutEvent");
+                String Durée = rs.getString("Durée");
+                String LieuEvent = rs.getString("LieuEvent");
+                Double PrixTicket = rs.getDouble("PrixTicket");
+                Integer nbmaxParticipant = rs.getInt("nbmaxParticipant");
+                String typeEvent = rs.getString("typeEvent");
+                String descriptionEvent = rs.getString("descriptionEvent");
+                // Récupérez le chemin de l'image
+                String image = rs.getString("image");
+               // int iduser = rs.getInt("iduser"); 
+                // Créez une instance de la classe Event
+               // event = new Event(idEvent, nomEvent, dateDebutEvent, Durée, LieuEvent, PrixTicket, nbmaxParticipant, typeEvent, descriptionEvent, image);
+                Date Datecreation = rs.getDate("Datecreation"); // Récupérer la date de création depuis la base de données
+
+            // Créez une instance de la classe Event en incluant la date de création
+            event = new Event(idEvent, nomEvent, dateDebutEvent, Durée, LieuEvent, PrixTicket, nbmaxParticipant, typeEvent, descriptionEvent, image,Datecreation);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Eventservice.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return event;
+    }
+
+
       
       
       
@@ -809,6 +848,108 @@ public int getUserIdByEventId(int eventId) {
     }
 
     return userId;
+}
+
+
+
+
+
+
+
+
+ public List<Participation> getParticipationsForEvent(int idevent) {
+    // Utilisez votre connexion à la base de données
+   
+    
+    String query = "SELECT * FROM participation WHERE idevent = ?";
+    List<Participation> participations = new ArrayList<>();
+    
+    try (PreparedStatement ps = cnx.prepareStatement(query)) {
+        ps.setInt(1, idevent);
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Participation participation = new Participation();
+                // Remplissez les détails de la participation à partir des résultats de la requête
+                participation.setIdParticipation(rs.getInt("idParticipation"));
+                // ... Remplissez les autres détails de la participation
+                participations.add(participation);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    return participations;
+}
+
+
+
+
+
+public void updateTicketPrice(int idevent) {
+    Event event = getEventById(idevent); // Remplacez par votre méthode pour obtenir un événement par son id
+    LocalDate startDate = event.getDatecreation().toLocalDate();
+    LocalDate endDate = event.getDateDebutEvent().toLocalDate();
+
+    // Calcul de la date du milieu entre la date de création et la date de début
+    LocalDate halfwayDate = startDate.plusDays(ChronoUnit.DAYS.between(startDate, endDate) / 2);
+
+    List<Participation> participations = getParticipationsForEvent(idevent); // Remplacez par votre méthode pour obtenir les participations de l'événement
+
+    // Calcul du nombre de participations dans la première moitié de la période
+    int participantsInFirstHalf = 0;
+
+    for (Participation participation : participations) {
+        LocalDate participationDate = participation.getDateParticipation().toLocalDate();
+
+        if (participationDate.isAfter(startDate) && participationDate.isBefore(halfwayDate)) {
+            participantsInFirstHalf++;
+        }
+    }
+
+    // Comparaison avec la moitié du nombre maximum de places
+    int halfMaxParticipants = event.getNbmaxParticipant() / 2;
+
+    if (participantsInFirstHalf < halfMaxParticipants) {
+        // Réduction du prix du billet de 20 %
+        double currentPrice = event.getPrixTicket();
+        double reducedPrice = currentPrice * 0.8;
+        event.setPrixTicket(reducedPrice);
+        
+        // Enregistrez la mise à jour du prix dans la base de données (vous devez implémenter cette partie)
+        updateEventTicketPrice(idevent, reducedPrice);
+    }
+}
+
+public void updateEventTicketPrice(int idevent, double reducedPrice) {
+    // Utilisez votre connexion à la base de données
+    Connection cnx = Myconnection.getInstance().getCnx();
+    
+    String query = "UPDATE event SET PrixTicket = ? WHERE idEvent = ?";
+    
+    try (PreparedStatement ps = cnx.prepareStatement(query)) {
+        ps.setDouble(1, reducedPrice);
+        ps.setInt(2, idevent);
+        
+        int rowsUpdated = ps.executeUpdate();
+        if (rowsUpdated > 0) {
+            System.out.println("Prix du billet de l'événement mis à jour avec succès !");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+
+public boolean isFirstPeriodOver(int eventId) {
+    Event event = getEventById1(eventId); // Remplacez par votre méthode pour obtenir un événement par son id
+
+    LocalDate startDate = event.getDateDebutEvent().toLocalDate();
+    LocalDate currentDate = LocalDate.now();
+    LocalDate halfwayDate = event.getDatecreation().toLocalDate().plusDays(ChronoUnit.DAYS.between(event.getDatecreation().toLocalDate(), startDate) / 2);
+
+    return currentDate.isAfter(startDate) && currentDate.isAfter(halfwayDate);
 }
 
 
