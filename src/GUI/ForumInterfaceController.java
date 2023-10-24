@@ -6,6 +6,7 @@
 package GUI;
 
 import GUI.ItemController;
+import Models.Commentaire;
 import Models.Post;
 import Models.getData;
 import java.awt.Insets;
@@ -40,9 +41,14 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import util.MyConnection;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
+
 
 /**
  * FXML Controller class
@@ -77,6 +83,8 @@ public class ForumInterfaceController implements Initializable {
     @FXML
     private Button close;
     @FXML
+    private ScrollPane Scrollpane;
+    @FXML
     private Button buttonMinus;
     private double x = 0;
     private double y = 0;
@@ -84,52 +92,65 @@ public class ForumInterfaceController implements Initializable {
     Connection cnx = Mycnx.getCnx();
     @FXML
     private AnchorPane main_form;
+    @FXML
+    private Button buttoninterfaceaddpost1;
+    @FXML
+    private GridPane gridForum1;
+    @FXML
+    private Button buttoninterfaceaddpost2;
+    @FXML
+    private GridPane gridForum2;
+    @FXML
+    private ScrollPane scrollpane;
+    @FXML
+    private Tab tabCodingProblems;
+    @FXML
+    private Tab tabEspritProblems;
+    @FXML
+    private Tab tabSaleExchange;
+    @FXML
+    private Button buttonMyPosts1;
+    @FXML
+    private Button buttonMyComments1;
+    @FXML
+    private Button buttonMyComments2;
+    @FXML
+    private Button buttonMyPosts2;
+    @FXML
+    private ScrollPane Scrollpane2;
+    @FXML
+    private Button buttonMyComments3;
+    @FXML
+    private Button buttonMyPosts3;
+    
+    public GridPane getGridPaneSaleExchange() {
+        return gridForum;
+    }
+
+    public GridPane getGridPaneCodingProblems() {
+        return gridForum1;
+    }
+
+    public GridPane getGridPaneEspritProblems() {
+        return gridForum2;
+    }
 
     /**
      * Initializes the controller class.
      */
+    //private GridPane TargetGridPane;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         menuDisplayCard();
-        /*posts.addAll(getData());
-        int column =0;
-        int row =0;
-        try{
-            for (int i=0;i<posts.size();i++){
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                String name;
-                //fxmlLoader.setLocation(getClass().getResource( name: "/GUI/Item.fxml"));
-                Parent root = FXMLLoader.load(getClass().getResource("../GUI/Item.fxml"));
-
-                AnchorPane anchorPane =fxmlLoader.load();
-
-
-                //fxmlLoader.setLocation(getClass().getResource( name: "/GUI/Item.fxml" ));
-
-                ItemController itemController = fxmlLoader.getController();
-                itemController.setData(posts.get(i));
-                if(column ==3){
-                    column=0;
-                    row++;
-                }
-                
-                gridForum.add(anchorPane,column,row);
-                
-                //GridPane.setMargin(anchorPane, new Insets(topRightBottomLeft:10));
-               gridForum.setMinWidth(Region.USE_COMPUTED_SIZE);
-               gridForum.setPrefWidth(Region.USE_COMPUTED_SIZE);
-               gridForum.setMaxWidth(Region.USE_PREF_SIZE);
-               
-               gridForum.setMinHeight(Region.USE_COMPUTED_SIZE);
-               gridForum.setPrefHeight(Region.USE_COMPUTED_SIZE);
-               gridForum.setMaxHeight(Region.USE_PREF_SIZE);
-
-
-            }
-         }catch(IOException e){
-                e.printStackTrace();
-            } */
+     
     } 
+    private AddPostController addPostController; // Ajoutez ce champ
+
+    // Ajoutez cette méthode pour initialiser le contrôleur
+    public void setForumInterfaceController(AddPostController  addPostController) {
+        this.addPostController = addPostController;
+    }
+    
     ObservableList<Post> Cardlistdata = FXCollections.observableArrayList();
     public ObservableList<Post> AffichePost() {
    
@@ -153,6 +174,7 @@ public class ForumInterfaceController implements Initializable {
             post.setNbreComment(rs.getInt("nbreComment"));
             post.setTitle(rs.getString("title"));
             post.setDescriptionp(rs.getString("descriptionp"));
+            post.setSubject(rs.getString("subject"));
             
 
             Cardlistdata.add(post);
@@ -165,137 +187,107 @@ public class ForumInterfaceController implements Initializable {
     return Cardlistdata;
 }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////
-//public void menuDisplayCard() {
-//    try {
-//        ObservableList<Event> tempList = FXCollections.observableArrayList();
-//        tempList.addAll(AfficheEvent());
-//
-//        int row = 0;
-//        int column = 0;
-//
-//        griddd.getRowConstraints().clear();
-//        griddd.getColumnConstraints().clear();
-//
-//        for (int q = 0; q < tempList.size(); q++) {
-//            FXMLLoader load = new FXMLLoader();
-//            load.setLocation(getClass().getResource("CardEvent.fxml"));
-//
-//            AnchorPane pane = load.load();
-//            CardEventController card = load.getController();
-//
-//            // Passez les données nécessaires à la carte, y compris le chemin de l'image
-//            card.initialize(tempList.get(q).getIdEvent());
-//            card.setData(tempList.get(q).getNomEvent(), tempList.get(q).getPrixTicket(), tempList.get(q).getImage());
-//
-//            if (column == 3) {
-//                column = 0;
-//                row += 1;
-//            }
-//            griddd.add(pane, column++, row);
-//        }
-//
-//        // Supprimez les données de la liste principale après avoir terminé l'itération
-//        Cardlistdata.clear();
-//    } catch (IOException ex) {
-//        ex.printStackTrace();
-//    }
-//}
-//
-
-   
-//    
-//    public void menuDisplayCard() {
-//    try {
-//        ObservableList<Event> tempList = FXCollections.observableArrayList();
-//        tempList.addAll(AfficheEvent());
-//
-//        int row = 0;
-//        int column = 0;
-//
-//        griddd.getRowConstraints().clear();
-//        griddd.getColumnConstraints().clear();
-//
-//        for (int q = 0; q < tempList.size(); q++) {
-//            FXMLLoader load = new FXMLLoader();
-//            load.setLocation(getClass().getResource("CardEvent.fxml"));
-//
-//            AnchorPane pane = load.load();
-//            CardEventController card = load.getController();
-//
-//            // Définir l'ID de l'événement
-//            card.setEventId(tempList.get(q).getIdEvent());
-//
-//            // Passez les données nécessaires à la carte, y compris le chemin de l'image
-//            card.setData(tempList.get(q).getNomEvent(), tempList.get(q).getPrixTicket(), tempList.get(q).getImage());
-//
-//            if (column == 3) {
-//                column = 0;
-//                row += 1;
-//            }
-//            griddd.add(pane, column++, row);
-//        }
-//
-//        // Supprimez les données de la liste principale après avoir terminé l'itération
-//        Cardlistdata.clear();
-//    } catch (IOException ex) {
-//        ex.printStackTrace();
-//    }
-//}
 
       private int currentPage = 0;
       private int cardsPerPage = 9;
    
    
+ public void scrollToMiddle() {
+    scrollpane.setVvalue(0.5);
+}
  
+  
 
-public void menuDisplayCard() {
-    System.out.println("menuDisplayCard called");
+    public void setAddPostController(AddPostController addPostController) {
+        this.addPostController = addPostController;
+    }
+    public void menuDisplayCard() {
+    int row = 0;
+    int column = 0;
+    int row1 = 0;
+    int column1 = 0;
+    int row2 = 0;
+    int column2 = 0;
     try {
         ObservableList<Post> tempList = FXCollections.observableArrayList();
         tempList.addAll(AffichePost());
 
-        int row = 0;
-        int column = 0;
-
         gridForum.getRowConstraints().clear();
         gridForum.getColumnConstraints().clear();
+        gridForum1.getRowConstraints().clear();
+        gridForum1.getColumnConstraints().clear();
+        gridForum2.getRowConstraints().clear();
+        gridForum2.getColumnConstraints().clear();
 
         for (int q = 0; q < tempList.size(); q++) {
             FXMLLoader load = new FXMLLoader();
-            load.setLocation(getClass().getResource("Item.fxml"));
-
+            load.setLocation(getClass().getResource("/GUI/ItemPhoto.fxml"));
             AnchorPane pane = load.load();
-            ItemController card = load.getController();
+            ItemPhotoController card = load.getController();
 
-            
             card.setPostId(tempList.get(q).getIdPost());
+            card.setData(
+                    tempList.get(q).getNomUser(),
+                    tempList.get(q).getPrenomUser(),
+                    tempList.get(q).getImage(),
+                    tempList.get(q).getTitle(),
+                    tempList.get(q).getDescriptionp(),
+                    tempList.get(q).getNbreComment(),
+                    tempList.get(q).getDateCreationp()
+            );
 
-            // Passez les données nécessaires à la carte, y compris le chemin de l'image
-            card.setData(tempList.get(q).getNomUser(), 
-                         tempList.get(q).getPrenomUser(), 
-                         tempList.get(q).getImage(),
-                         tempList.get(q).getTitle(), 
-                         tempList.get(q).getDescriptionp(), 
-                         tempList.get(q).getNbreComment(),
-                         tempList.get(q).getDateCreationp());
+            int postId = tempList.get(q).getIdPost();
+            String sujet = getSubjectFromDatabase(postId);
 
             if (column == 3) {
                 column = 0;
                 row += 1;
             }
-            gridForum.add(pane, column++, row);
-        }
+            if (column1 == 3) {
+                column1 = 0;
+                row1 += 1;
+            }
+            if (column2 == 3) {
+                column2 = 0;
+                row2 += 1;
+            }
 
-        // Supprimez les données de la liste principale après avoir terminé l'itération
-        Cardlistdata.clear();
+
+            switch (sujet) {
+                case "Sale & Exchange":
+                    gridForum.add(pane, column++, row);
+                    break;
+                case "Coding Problems":
+                    gridForum1.add(pane, column1++, row1);
+                    break;
+                case "Esprit Problems":
+                    gridForum2.add(pane, column2++, row2);
+                    break;
+            }
+        }
     } catch (IOException ex) {
         ex.printStackTrace();
     }
+}
 
-System.out.println("menuDisplayCard called");
-    }    
+    
+    private String getSubjectFromDatabase(int postId) {
+    String sujet = "";
+    try {
+        PreparedStatement ps = cnx.prepareStatement("SELECT `subject` FROM post WHERE `idPost`=?");
+        ps.setInt(1, postId);  // Set the value for the parameter
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            sujet = rs.getString("subject");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return sujet;
+}
+
+
+
 
     @FXML
     private void switchForm(ActionEvent event) {
@@ -454,28 +446,39 @@ System.out.println("menuDisplayCard called");
     public void AddbtnInterface(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/AddPost.fxml"));
         Parent root = loader.load();
+        AddPostController addPostController = loader.getController();
+        addPostController.setForumInterfaceController(this);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         
     }
-    /*private List<Post> posts = new ArrayList<>();
-    private List<Post> getData(){
-        List<Post> posts = new ArrayList<>();
-        Post post;
-        Date date = new Date(System.currentTimeMillis());
-        for(int i=0;i<20;i++){
-            post = new Post();
-            post.setNomUser("Grati");
-            post.setPrenomUser("Eya");
-            post.setDescriptionp("J'ai un probléme dans mon projet pi");
-            post.setTitle("JavaFX");
-            post.setImage("/styel/eya.jpg");
-            post.setDateCreationp(date);
-            post.setNbreComment(5);
-            posts.add(post);
-        }
-        return posts;
+    /*private int getPostIdFromButton(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        int postId = (int) button.getUserData(); 
+        return postId;
     }*/
+    
+    private List<Commentaire> getCommentsForPost(int postId) {
+        List<Commentaire> comments = new ArrayList<>();
+        try {
+            Statement st = cnx.createStatement();
+            String sql = "SELECT * FROM commentaire WHERE `idPost`=?" ;
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                Commentaire comment = new Commentaire();
+                comment.setIdComment(rs.getInt("idComment"));
+                comment.setIdPost(rs.getInt("idPost"));
+                comment.setDescription(rs.getString("Description"));
+                comments.add(comment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return comments;
+    }
+    
+    
+    
 
     @FXML
     private void close() {
@@ -486,6 +489,42 @@ System.out.println("menuDisplayCard called");
     if (stage != null) {
         stage.setIconified(true);
     }
+    }
+
+    @FXML
+    private void MyPosts1(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MyPostsInterface.fxml"));
+        Parent root = loader.load();
+       // AddPostController addPostController = loader.getController();
+        //addPostController.setForumInterfaceController(this);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+    }
+
+    @FXML
+    private void MyComments1(ActionEvent event) throws IOException {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MyComments.fxml"));
+        Parent root = loader.load();
+       // AddPostController addPostController = loader.getController();
+        //addPostController.setForumInterfaceController(this);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+    }
+
+    @FXML
+    private void MyComments2(ActionEvent event) {
+    }
+
+    @FXML
+    private void MyPosts2(ActionEvent event) {
+    }
+
+    @FXML
+    private void MyComments3(ActionEvent event) {
+    }
+
+    @FXML
+    private void MyPosts3(ActionEvent event) {
     }
   
 

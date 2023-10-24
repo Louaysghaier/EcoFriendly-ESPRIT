@@ -5,9 +5,9 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -91,60 +91,96 @@
                      <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <AnchorPane fx:id="dashboard_form" layoutX="34.0" layoutY="64.0" prefHeight="600.0" prefWidth="878.0" style="-fx-background-color: DDDDDD;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane fx:id="dashboard_form" layoutX="34.0" layoutY="64.0" prefHeight="600.0" prefWidth="895.0" style="-fx-background-color: DDDDDD;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <TabPane layoutY="48.0" prefHeight="552.0" prefWidth="890.0" tabClosingPolicy="UNAVAILABLE">
                                        <tabs>
-                                          <Tab text="Sale &amp; Exchange">
+                                          <Tab fx:id="tabSaleExchange" text="Sale &amp; Exchange">
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="524.0" prefWidth="890.0">
                                                    <children>
                                                       <AnchorPane layoutY="-3.0" prefHeight="92.0" prefWidth="894.0">
                                                          <children>
-                                                            <Button fx:id="buttoninterfaceaddpost" layoutX="26.0" layoutY="28.0" mnemonicParsing="false" onAction="#AddbtnInterface" prefHeight="38.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" styleClass="button-add" stylesheets="@../Style/foruminterface.css" text="Add Post" textFill="WHITE">
+                                                            <Button fx:id="buttoninterfaceaddpost" layoutX="28.0" layoutY="27.0" mnemonicParsing="false" onAction="#AddbtnInterface" prefHeight="38.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" styleClass="button-add" stylesheets="@../Style/foruminterface.css" text="Add Post" textFill="WHITE">
                                                                <font>
                                                                   <Font name="System Bold" size="15.0" />
                                                                </font>
                                                             </Button>
-                                                            <FontAwesomeIcon fill="WHITE" glyphName="PLUS" layoutX="46.0" layoutY="52.0" size="1.3em" />
+                                                            <FontAwesomeIcon fill="WHITE" glyphName="PLUS" layoutX="50.0" layoutY="51.0" size="1.3em" wrappingWidth="12.257143020629883" />
+                                                            <Button fx:id="buttonMyPosts1" layoutX="602.0" layoutY="25.0" mnemonicParsing="false" onAction="#MyPosts1" prefHeight="41.0" prefWidth="96.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" text="My Posts" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="buttonMyComments1" layoutX="722.0" layoutY="26.0" mnemonicParsing="false" onAction="#MyComments1" prefHeight="41.0" prefWidth="135.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" text="My Comments" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Button>
                                                          </children>
                                                       </AnchorPane>
                                                       <AnchorPane layoutY="78.0" prefHeight="492.0" prefWidth="890.0">
                                                          <children>
-                                                            <GridPane fx:id="gridForum" prefHeight="0.0" prefWidth="13.0">
-                                                              <columnConstraints>
-                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                              </columnConstraints>
-                                                            </GridPane>
+                                                            <ScrollPane fx:id="Scrollpane" prefHeight="445.0" prefWidth="885.0">
+                                                               <content>
+                                                                  <AnchorPane prefHeight="526.0" prefWidth="889.0">
+                                                                     <children>
+                                                                        <GridPane fx:id="gridForum" layoutX="8.0" layoutY="8.0" prefHeight="4.0" prefWidth="13.0">
+                                                                          <columnConstraints>
+                                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                          </columnConstraints>
+                                                                        </GridPane>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                               </content>
+                                                            </ScrollPane>
                                                          </children>
                                                       </AnchorPane>
                                                    </children>
                                                 </AnchorPane>
                                              </content>
                                           </Tab>
-                                          <Tab text="Coding Problems">
+                                          <Tab fx:id="tabCodingProblems" text="Coding Problems">
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
                                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="524.0" prefWidth="890.0">
                                                          <children>
-                                                            <AnchorPane layoutY="-3.0" prefHeight="92.0" prefWidth="894.0">
+                                                            <AnchorPane layoutX="-2.0" layoutY="-6.0" prefHeight="92.0" prefWidth="894.0">
                                                                <children>
-                                                                  <Button fx:id="buttoninterfaceaddpost1" layoutX="26.0" layoutY="28.0" mnemonicParsing="false" onAction="#AddbtnInterface" prefHeight="38.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" styleClass="button-add" stylesheets="@../Style/foruminterface.css" text="Add Post" textFill="WHITE">
+                                                                  <Button fx:id="buttoninterfaceaddpost1" layoutX="28.0" layoutY="28.0" mnemonicParsing="false" onAction="#AddbtnInterface" prefHeight="38.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" styleClass="button-add" stylesheets="@../Style/foruminterface.css" text="Add Post" textFill="WHITE">
                                                                      <font>
                                                                         <Font name="System Bold" size="15.0" />
                                                                      </font>
                                                                   </Button>
-                                                                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" layoutX="46.0" layoutY="52.0" size="1.3em" />
+                                                                  <FontAwesomeIcon fill="WHITE" glyphName="PLUS" layoutX="51.0" layoutY="52.0" size="1.3em" />
+                                                                  <Button fx:id="buttonMyComments2" layoutX="714.0" layoutY="27.0" mnemonicParsing="false" onAction="#MyComments1" prefHeight="41.0" prefWidth="135.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" text="My Comments" textFill="WHITE">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="buttonMyPosts2" layoutX="599.0" layoutY="26.0" mnemonicParsing="false" onAction="#MyPosts1" prefHeight="41.0" prefWidth="96.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" text="My Posts" textFill="WHITE">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </Button>
                                                                </children>
                                                             </AnchorPane>
                                                             <AnchorPane layoutY="78.0" prefHeight="492.0" prefWidth="890.0">
                                                                <children>
-                                                                  <GridPane fx:id="gridForum1" prefHeight="0.0" prefWidth="13.0">
-                                                                     <columnConstraints>
-                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                     </columnConstraints>
-                                                                  </GridPane>
+                                                                  <ScrollPane fx:id="Scrollpane2" layoutX="-1.0" prefHeight="444.0" prefWidth="883.0">
+                                                                     <content>
+                                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1236.0" prefWidth="1208.0">
+                                                                           <children>
+                                                                              <GridPane fx:id="gridForum1" layoutX="8.0" layoutY="10.0" prefHeight="0.0" prefWidth="13.0">
+                                                                                 <columnConstraints>
+                                                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                 </columnConstraints>
+                                                                              </GridPane>
+                                                                           </children>
+                                                                        </AnchorPane>
+                                                                     </content>
+                                                                  </ScrollPane>
                                                                </children>
                                                             </AnchorPane>
                                                          </children>
@@ -152,7 +188,7 @@
                                                    </children></AnchorPane>
                                              </content>
                                           </Tab>
-                                          <Tab text="Esprit Problems">
+                                          <Tab fx:id="tabEspritProblems" text="Esprit Problems">
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
@@ -160,21 +196,39 @@
                                                          <children>
                                                             <AnchorPane layoutY="-3.0" prefHeight="92.0" prefWidth="894.0">
                                                                <children>
-                                                                  <Button fx:id="buttoninterfaceaddpost2" layoutX="26.0" layoutY="28.0" mnemonicParsing="false" onAction="#AddbtnInterface" prefHeight="38.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" styleClass="button-add" stylesheets="@../Style/foruminterface.css" text="Add Post" textFill="WHITE">
+                                                                  <Button fx:id="buttoninterfaceaddpost2" layoutX="25.0" layoutY="27.0" mnemonicParsing="false" onAction="#AddbtnInterface" prefHeight="38.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" styleClass="button-add" stylesheets="@../Style/foruminterface.css" text="Add Post" textFill="WHITE">
                                                                      <font>
                                                                         <Font name="System Bold" size="15.0" />
                                                                      </font>
                                                                   </Button>
                                                                   <FontAwesomeIcon fill="WHITE" glyphName="PLUS" layoutX="46.0" layoutY="52.0" size="1.3em" />
+                                                                  <Button fx:id="buttonMyComments3" layoutX="716.0" layoutY="21.0" mnemonicParsing="false" onAction="#MyComments1" prefHeight="41.0" prefWidth="135.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" text="My Comments" textFill="WHITE">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="buttonMyPosts3" layoutX="598.0" layoutY="21.0" mnemonicParsing="false" onAction="#MyPosts1" prefHeight="41.0" prefWidth="96.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" text="My Posts" textFill="WHITE">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </Button>
                                                                </children>
                                                             </AnchorPane>
                                                             <AnchorPane layoutY="78.0" prefHeight="492.0" prefWidth="890.0">
                                                                <children>
-                                                                  <GridPane fx:id="gridForum2" prefHeight="0.0" prefWidth="13.0">
-                                                                     <columnConstraints>
-                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                     </columnConstraints>
-                                                                  </GridPane>
+                                                                  <ScrollPane fx:id="scrollpane" prefHeight="444.0" prefWidth="883.0">
+                                                                     <content>
+                                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="707.0" prefWidth="1202.0">
+                                                                           <children>
+                                                                              <GridPane fx:id="gridForum2" layoutX="14.0" layoutY="6.0" prefHeight="0.0" prefWidth="13.0">
+                                                                                 <columnConstraints>
+                                                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                 </columnConstraints>
+                                                                              </GridPane>
+                                                                           </children>
+                                                                        </AnchorPane>
+                                                                     </content>
+                                                                  </ScrollPane>
                                                                </children>
                                                             </AnchorPane>
                                                          </children>
@@ -185,11 +239,9 @@
                                        </tabs>
                                     </TabPane>
                                     <Button fx:id="close" layoutX="838.0" layoutY="2.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: transparent;" />
-                                    <FontAwesomeIcon glyphName="CLOSE" layoutX="861.0" layoutY="19.0" size="1.2em" />
+                                    <FontAwesomeIcon glyphName="CLOSE" layoutX="861.0" layoutY="19.0" />
                                     <Button fx:id="buttonMinus" layoutX="785.0" layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
-                                    <FontAwesomeIcon glyphName="MINUS" layoutX="804.0" layoutY="19.0" size="1.2em" />
-                                    <TextField layoutX="22.0" layoutY="15.0" prefHeight="25.0" prefWidth="261.0" promptText="Search Post" style="-fx-background-color: white;" styleClass="search" stylesheets="@../Style/foruminterface.css" />
-                                    <FontAwesomeIcon glyphName="SEARCH" layoutX="30.0" layoutY="31.0" />
+                                    <FontAwesomeIcon glyphName="MINUS" layoutX="804.0" layoutY="19.0" />
                                  </children>
                               </AnchorPane>
                            </children>

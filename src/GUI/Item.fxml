@@ -9,9 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="186.0" prefWidth="257.0" stylesheets="@../Style/foruminterface.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ItemController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="216.0" prefWidth="287.0" stylesheets="@../Style/foruminterface.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ItemController">
+   <styleClass>
+      <String fx:value="shadow-img" />
+      <String fx:value="white-bg" />
+   </styleClass>
    <children>
-      <VBox layoutX="114.0" layoutY="-28.0" prefHeight="186.0" prefWidth="257.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="-3.0" layoutY="-3.0" prefHeight="225.0" prefWidth="296.0">
          <children>
             <AnchorPane prefHeight="51.0" prefWidth="257.0">
                <children>
@@ -23,34 +27,37 @@
                   <Label fx:id="labelprenom" layoutX="58.0" layoutY="18.0" prefHeight="20.0" prefWidth="51.0" text="eya">
                      <font>
                         <Font name="System Bold" size="14.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <Label fx:id="labelnom" layoutX="113.0" layoutY="18.0" prefHeight="20.0" prefWidth="51.0" text="grati">
                      <font>
                         <Font name="System Bold" size="14.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <Label fx:id="datePost" layoutX="190.0" layoutY="17.0" text="date" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="79.0" prefWidth="257.0">
+            <AnchorPane prefHeight="152.0" prefWidth="296.0">
                <children>
-                  <Label fx:id="labelpost" layoutX="33.0" layoutY="31.0" text="post" />
-                  <Label fx:id="labletitrepost" layoutX="46.0" layoutY="6.0" text="titre">
+                  <Label fx:id="labelpost" layoutX="6.0" layoutY="23.0" prefHeight="89.0" prefWidth="170.0" text="post" />
+                  <Label fx:id="labletitrepost" layoutX="48.0" layoutY="4.0" text="titre">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="54.0" prefWidth="257.0">
+            <AnchorPane prefHeight="91.0" prefWidth="296.0">
                <children>
                   <Label fx:id="labelnbrecomment" layoutX="15.0" layoutY="7.0" text="nbres comments" textFill="#f21e1e" />
-                  <Button fx:id="buttonAddComment" alignment="BOTTOM_RIGHT" layoutX="128.0" layoutY="15.0" mnemonicParsing="false" onAction="#Add" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" styleClass="button-add" stylesheets="@../Style/foruminterface.css" text="Add Comment" textFill="#fcfafa">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
                   <Button fx:id="buttonReadComments" layoutX="-2.0" layoutY="24.0" mnemonicParsing="false" onAction="#ReadComments" prefHeight="17.0" prefWidth="123.0" styleClass="button-read" stylesheets="@../Style/foruminterface.css" text="Read Comments" textFill="#6b6363">
                      <font>
                         <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonAddComment" alignment="BOTTOM_RIGHT" layoutX="174.0" layoutY="9.0" mnemonicParsing="false" onAction="#Add" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #FF0000);" styleClass="button-add" stylesheets="@../Style/foruminterface.css" text="Add Comment" textFill="#fcfafa">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
                </children>
@@ -58,8 +65,4 @@
          </children>
       </VBox>
    </children>
-   <styleClass>
-      <String fx:value="shadow-img" />
-      <String fx:value="white-bg" />
-   </styleClass>
 </AnchorPane>

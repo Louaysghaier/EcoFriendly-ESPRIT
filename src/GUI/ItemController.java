@@ -46,12 +46,15 @@ public class ItemController implements Initializable {
     private Label labletitrepost;
     @FXML
     private Label labelnbrecomment;
-     @FXML
-    private ImageView imguser;
+     
     @FXML
     private Button buttonAddComment;
     @FXML
     private Button buttonReadComments;
+    @FXML
+    private ImageView imguser;
+    @FXML
+    private ImageView imgisert;
 
     /**
      * Initializes the controller class.
@@ -60,7 +63,7 @@ public class ItemController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }  
-    /*private Post post;
+   /* private Post post;
     public void setData(Post post){
         this.post = post;
         labelnom.setText(post.getNomUser());
@@ -88,20 +91,20 @@ public class ItemController implements Initializable {
 //    
  
 
-   private Date datep;
-   private Image image;
-   public void setData(String nomUser, String prenomUser, String imagePath, String title, String description, int nbreComment, Date datep) {
-    labelnom.setText(nomUser);
-    labelprenom.setText(prenomUser);
-    labletitrepost.setText(title);
-    labelpost.setText(description);
-    labelnbrecomment.setText(String.valueOf(nbreComment) + "Comments");
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Format de la date
-    datePost.setText( sdf.format(datep));
+    private Date datep;
+    private Image image;
+    public void setData(String nomUser, String prenomUser, String imagePath, String title, String description, int nbreComment, Date datep) {
+        labelnom.setText(nomUser);
+        labelprenom.setText(prenomUser);
+        labletitrepost.setText(title);
+        labelpost.setText(description);
+        labelnbrecomment.setText(String.valueOf(nbreComment) + "Comments");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Format de la date
+        datePost.setText( sdf.format(datep));
 
-    // Chargez l'image depuis le chemin de l'image
-    Image image = new Image("file:" + imagePath, 190, 100, false, true);
-    imguser.setImage(image); // Affichez l'image
+        // Chargez l'image depuis le chemin de l'image
+        Image image = new Image("file:" + imagePath, 190, 100, false, true);
+        imguser.setImage(image); // Affichez l'image
 }
 
 

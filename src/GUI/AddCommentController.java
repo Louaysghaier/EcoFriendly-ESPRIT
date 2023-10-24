@@ -6,9 +6,13 @@
 package GUI;
 
 import java.io.IOException;
+import Models.Post;
+import GUI.ItemPhotoController;
+import API.BadWords;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -29,6 +33,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import util.MyConnection;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import net.openhft.hashing.LongHashFunction;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 /**
  * FXML Controller class
@@ -46,8 +58,6 @@ public class AddCommentController implements Initializable {
     private Button buttonAddComment;
     @FXML
     private TextField inputDescriptionComment;
-    @FXML
-    private Button buttonReturnComment;
     @FXML
     private Label username;
     @FXML
@@ -72,8 +82,11 @@ public class AddCommentController implements Initializable {
     private Button minus;
     @FXML
     private Label labelStatus;
+    
     MyConnection Mycnx = MyConnection.getInstance();
     Connection cnx = Mycnx.getCnx();
+   
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         buttonAddComment.setOnAction((event) -> {
@@ -93,6 +106,14 @@ public class AddCommentController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root)); 
     }
+    
+    
+    private int idPost;
+     public void initData(int idPost) {
+        this.idPost = idPost; // Initialisez l'ID du post
+    }
+     
+     
     @FXML
     private void close() {
             System.exit(0);
@@ -109,9 +130,16 @@ public class AddCommentController implements Initializable {
     
     @FXML
     private boolean Add(ActionEvent event) throws IOException {
-        try{
+        
             Alert alert;
-            if (inputDescriptionComment.getText().isEmpty() ) {
+            if (BadWords.containsBadWords(inputDescriptionComment.getText()) ) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("The description contains inappropriate words.");
+                alert.showAndWait();
+                return false;
+            }else if (inputDescriptionComment.getText().isEmpty() ) {
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
@@ -120,15 +148,16 @@ public class AddCommentController implements Initializable {
                 return false;     
             }else{
                 System.out.println("Add button clicked");
-        
+                try{
             
                 String inputDescriptionCommentValue = inputDescriptionComment.getText();
                 
 
 
-                String query = "INSERT INTO commentaire (`DateCreation`,`Description`) VALUES (NOW(),?)";
+                String query = "INSERT INTO commentaire (`DateCreation`,`Description`, `idPost`) VALUES (NOW(),?,?)";
                 PreparedStatement statement = cnx.prepareStatement(query);
                 statement.setString(1, inputDescriptionCommentValue);
+                statement.setInt(2, idPost);
 
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
@@ -146,21 +175,53 @@ public class AddCommentController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
                 statement.close();
-                cnx.close();
+        
 
-            } 
+        return false;
+
+            
         
          }catch (SQLException e) {
                 e.printStackTrace();
-            }
+            }}
          return true;
     
     }
+   
+
 
     @FXML
     private void minimize() {
         Stage stage = (Stage) AddComment_form.getScene().getWindow();
         stage.setIconified(true);
     }
-    
+    public void loadEventDetails(int idPost) {
+    try {
+        String query = "SELECT * FROM commentaire WHERE idPost = ?";
+        PreparedStatement statement = cnx.prepareStatement(query);
+        statement.setInt(1, idPost);
+        ResultSet rs = statement.executeQuery();
+
+        if (rs.next()) {
+            String description = rs.getString("Description");
+            inputDescriptionComment.setText(description);
+        }
+
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
 }
+   
+    // private int idPost;
+    public void setPostIdd(int postId) {
+        this.idPost = postId;
+    }
+
+	
+	
+}
+
+    
+    
+

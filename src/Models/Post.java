@@ -6,6 +6,7 @@
 package Models;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -17,11 +18,16 @@ public class Post {
     private Date dateCreationp;
     private String nomUser, prenomUser;
     private int idSujet;
-    private String title, descriptionp, image;
+    private String title, descriptionp, image,subject;
+    private List<Commentaire> comments;
     public Post() {
     }
 
-    public Post(int idPost, int idUser, int nbreComment, Date dateCreationp, String nomUser, String prenomUser, int idSujet, String title, String descriptionp, String image) {
+    public Post(int idPost, int idUser, 
+                int nbreComment, Date dateCreationp, 
+                String nomUser, String prenomUser,
+                int idSujet, String title,
+                String descriptionp, String image, String subject) {
         this.idPost = idPost;
         this.idUser = idUser;
         this.nbreComment = nbreComment;
@@ -32,9 +38,25 @@ public class Post {
         this.title = title;
         this.descriptionp = descriptionp;
         this.image = image;
+        this.subject = subject;
     }
     
-    public Post( int idUser, int nbreComment, Date dateCreationp, String nomUser, String prenomUser, String title, String descriptionp, String image) {
+    public Post(int idPost,  String prenomUser,String  nomUser,String subject,
+               String title, String descriptionp, String image , Date dateCreationp){
+        this.idPost = idPost;
+        this.prenomUser = prenomUser;
+        this.nomUser = nomUser;
+        this.subject = subject;
+        this.title = title;
+        this.descriptionp = descriptionp;
+        this.image = image;
+        this.dateCreationp = dateCreationp;
+       
+    }
+    
+    public Post( int idUser, int nbreComment, Date dateCreationp, 
+                 String nomUser, String prenomUser, String title,
+                 String descriptionp, String image, String subject) {
         this.idUser = idUser;
         this.nbreComment = nbreComment;
         this.dateCreationp = dateCreationp;
@@ -43,6 +65,14 @@ public class Post {
         this.title = title;
         this.descriptionp = descriptionp;
         this.image = image;
+        this.subject = subject;
+    }
+    public Post(Date dateCreationp, String title, String descriptionp, String image, String subject) {
+
+        this.dateCreationp = dateCreationp;
+        this.title = title;
+        this.descriptionp = descriptionp;
+        this.subject = subject;
     }
 
     public int getIdPost() {
@@ -121,6 +151,12 @@ public class Post {
      
     public void setImage(String image) {
         this.image = image;
+    }
+     public void setSubject(String subject) {
+        this.subject = subject;
+    }
+     public String getSubject() {
+        return subject;
     }
 
   

@@ -28,7 +28,7 @@ public class PostService {
     Connection cnx = Mycnx.getCnx();
     
     public void ajouterPost(Post p){
-        String req = "INSERT INTO `Post`(`idUser`, `nomUser`, `prenomUser`,`dateCreationp`,`nbrecomment`,`title`,`descriptionp`,`image`) VALUES (?,?,?,?,?,?,?,?)";
+        String req = "INSERT INTO `Post`(`idUser`, `nomUser`, `prenomUser`,`dateCreationp`,`nbrecomment`,`title`,`descriptionp`,`image`,`subject`) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, p.getIdUser());
@@ -38,7 +38,8 @@ public class PostService {
             ps.setInt(5, p.getNbreComment());
             ps.setString(6, p.getTitle ());
             ps.setString(7, p.getDescriptionp ());
-            ps.setString(6, p.getImage ());
+            ps.setString(8, p.getImage ());
+            ps.setString(9, p.getSubject());
             ps.executeUpdate();
             System.out.println("Post ajoutée avec succes!");
         } catch (SQLException ex) {
@@ -65,6 +66,7 @@ public class PostService {
                 post.setTitle(rs.getString("title"));
                 post.setDescriptionp(rs.getString("descriptionp"));
                 post.setImage(rs.getString("image"));
+                post.setSubject(rs.getString("subject"));
 
                 posts.add(post);
             }
@@ -78,7 +80,7 @@ public class PostService {
     }
     
      public void modifierPost(Post p) {
-    String req = "UPDATE `Post` SET `idUser`=?,  `nomUser`=?, `prenomUser`=? ,`dateCreationp`=?,`nbreComment`=?,`title`=?,`descriptionp`=?,`image`=?   WHERE `idPost`=?";
+    String req = "UPDATE `Post` SET `idUser`=?,  `nomUser`=?, `prenomUser`=? ,`dateCreationp`=?,`nbreComment`=?,`title`=?,`descriptionp`=?,`image`=?,`subject`=?   WHERE `idPost`=?";
     try {
         PreparedStatement ps = cnx.prepareStatement(req);
         ps.setInt(1, p.getIdUser());
@@ -89,7 +91,8 @@ public class PostService {
         ps.setString(6, p.getTitle());
         ps.setString(7, p.getDescriptionp());
         ps.setString(8, p.getImage());
-        ps.setInt(9, p.getIdPost());
+        ps.setString(9, p.getSubject());
+        ps.setInt(10, p.getIdPost());
 
         int rowsAffected = ps.executeUpdate();
         
@@ -136,6 +139,7 @@ public class PostService {
                 post.setTitle(rs.getString("title"));
                 post.setDescriptionp(rs.getString("descriptionp"));
                 post.setImage(rs.getString("image"));
+                post.setSubject(rs.getString("subject"));
                 posts.add(post);
             }
 

@@ -30,6 +30,19 @@ public class Commentaire {
         this.prenomUser = prenomUser;
     }
     
+    public Commentaire(  int idComment,int idPost, String Description) {
+        this.idComment = idComment;
+        this.idPost = idPost;
+        this.Description = Description;
+    }
+    public Commentaire( int idUser, Date dateCreation, String Description, int idPost) {
+        this.idUser = idUser;
+        this.dateCreation = dateCreation;
+        this.Description = Description;
+        this.idPost = idPost;
+    
+    }
+    
      public Commentaire( int idUser, Date dateCreation, String Description, int idPost,String nomUser,String prenomUser) {
         this.idUser = idUser;
         this.dateCreation = dateCreation;
