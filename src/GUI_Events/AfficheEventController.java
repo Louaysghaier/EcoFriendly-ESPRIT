@@ -6,6 +6,7 @@
 package GUI_Events;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,16 +25,24 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Event;
+import models.Participation;
+import services.Eventservice;
+import services.Participationservice;
+import services.Userservice;
 import util.Myconnection;
 
 /**
@@ -42,122 +52,65 @@ import util.Myconnection;
  */
 public class AfficheEventController implements Initializable {
 
-//    @FXML
-//    private VBox vboxxx;
-//    @FXML
-//    public GridPane griddd;
-//    
-//       Myconnection Mycnx = Myconnection.getInstance();
-//    Connection cnx = Mycnx.getCnx();
+    
+    
+   
+
 //
-//    
-//    
-//    Event eventData;
-//    
-//    
-//    
-//    
-//    
-//    private int selectedEventId = -1; // Initialisez-le à une valeur qui n'aura pas de correspondance dans la base de données
+//    public void setEventToUpdate(int selectedEventId) {
+//        this.selectedEventId = selectedEventId;
+//    }
+//    public void updateEvent(ActionEvent event) {
+//    int eventId = selectedEventId;
+//    int userId = 2;
 //
-//    
-//    ObservableList<Event> Cardlistdata = FXCollections.observableArrayList(); 
-//    private TextField SEARCH;
-//    private AnchorPane anchroshoweven;
-//    @FXML
-//    private Button addaff;
-//    
-//public AnchorPane getAnchroshoweven() {
-//    return anchroshoweven;
-//}
+//    String newNomEvent = upeventname.getText();
+//    String newLieuEvent = lieueventup.getText();
+//    String newDuree = dureeup.getText();
+//    LocalDate newDateDebut = datedebutup.getValue();
+//    String newPrixTicket = ticketpriceup.getText();
+//    String newNbMaxParticipants = nbmaxparticipationup.getText();
+//    String newTypeEvent = (String) eventtypeup.getValue();
+//    String newDescriptionEvent = eventdescriptionup.getText();
+//    String newImagePath = getData.path;
 //
-//    
-//    public ObservableList<Event> AfficheEvent() {
-//    
-//
-//    try {
-//        Statement st = cnx.createStatement();
-//        String sql = "SELECT * FROM event"; // Assurez-vous que votre table s'appelle "event"
-//
-//        ResultSet rs = st.executeQuery(sql);
-//
-//        while (rs.next()) {
-//            // Créez un modèle Event à partir des données de la base de données
-//            Event event = new Event();
-//
-//            // Récupérez toutes les colonnes de la table event
-//            event.setIdEvent(rs.getInt("idEvent"));
-//            event.setNomEvent(rs.getString("nomEvent"));
-//            event.setPrixTicket(rs.getDouble("PrixTicket"));
-//            event.setImage(rs.getString("image"));
-//            event.setDateDebutEvent(rs.getDate("dateDebutEvent"));
-//            event.setDurée(rs.getString("Durée"));
-//            event.setLieuEvent(rs.getString("LieuEvent"));
-//            event.setNbmaxParticipant(rs.getInt("nbmaxParticipant"));
-//            event.setTypeEvent(rs.getString("typeEvent"));
-//            event.setDescriptionEvent(rs.getString("descriptionEvent"));
-//
-//            Cardlistdata.add(event);
-//        }
-//    } catch (SQLException e) {
-//        e.printStackTrace();
+//    if (newNomEvent.isEmpty() || newLieuEvent.isEmpty() || newDuree.isEmpty() || newDateDebut == null
+//        || newPrixTicket.isEmpty() || newNbMaxParticipants.isEmpty() || newTypeEvent.isEmpty() || newDescriptionEvent.isEmpty()) {
+//        showAlert(Alert.AlertType.ERROR, "Champs vides", "Veuillez remplir tous les champs obligatoires.");
+//        return;
 //    }
 //
-//    return Cardlistdata;
-//}
+//    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+//    confirmationAlert.setTitle("Confirmation");
+//    confirmationAlert.setHeaderText("Confirmer la mise à jour");
+//    confirmationAlert.setContentText("Êtes-vous sûr de vouloir mettre à jour l'événement ?");
+//
+//    Optional<ButtonType> result = confirmationAlert.showAndWait();
+//    if (result.isPresent() && result.get() == ButtonType.OK) {
+//        Event updatedEvent = new Event();
+//        updatedEvent.setIdEvent(eventId);
+//        updatedEvent.setNomEvent(newNomEvent);
+//        updatedEvent.setLieuEvent(newLieuEvent);
+//        updatedEvent.setDurée(newDuree);
+//        updatedEvent.setDateDebutEvent(java.sql.Date.valueOf(newDateDebut));
+//        updatedEvent.setPrixTicket(Double.parseDouble(newPrixTicket));
+//        updatedEvent.setNbmaxParticipant(Integer.parseInt(newNbMaxParticipants));
+//        updatedEvent.setTypeEvent(newTypeEvent);
+//        updatedEvent.setDescriptionEvent(newDescriptionEvent);
+//        updatedEvent.setImage(newImagePath);
+//
+//        Eventservice eventService = new Eventservice();
+//        eventService.updateEvent(updatedEvent, userId);
+//        
+//      
+//        
 //
 //
-//
+//        showAlert(Alert.AlertType.INFORMATION, "Succès", "L'événement a été mis à jour avec succès.");
 //    
-//    public void menuDisplayCard() {
-//    try {
-//        ObservableList<Event> tempList = FXCollections.observableArrayList();
-//        tempList.addAll(AfficheEvent());
-//
-//        int row = 0;
-//        int column = 0;
-//
-//        griddd.getRowConstraints().clear();
-//        griddd.getColumnConstraints().clear();
-//
-//        for (int q = 0; q < tempList.size(); q++) {
-//            FXMLLoader load = new FXMLLoader();
-//            load.setLocation(getClass().getResource("CardEvent.fxml"));
-//
-//            AnchorPane pane = load.load();
-//            CardEventController card = load.getController();
-//
-//            // Définir l'ID de l'événement
-//            card.setEventId(tempList.get(q).getIdEvent());
-//
-//            // Passez les données nécessaires à la carte, y compris le chemin de l'image
-//            card.setData(tempList.get(q).getIdEvent(), tempList.get(q).getNomEvent(), tempList.get(q).getPrixTicket(), tempList.get(q).getImage());
-//
-//            if (column == 3) {
-//                column = 0;
-//                row += 1;
-//            }
-//            griddd.add(pane, column++, row);
-//        }
-//
-//        // Supprimez les données de la liste principale après avoir terminé l'itération
-//        Cardlistdata.clear();
-//    } catch (IOException ex) {
-//        ex.printStackTrace();
+//        // L'utilisateur a annulé la mise à jour, vous pouvez ajouter du code ici si nécessaire
 //    }
 //}
-
-//     public void removeEventFromUI(Event event) {
-//    // Supprimez l'événement de la liste observable
-//    Cardlistdata.remove(event);
-//    
-//    // Rechargez la grille des cartes
-//    griddd.getChildren().clear(); // Supprimez toutes les cartes actuellement affichées
-//
-//    // Réaffichez les cartes restantes après suppression
-//    menuDisplayCard();
-//}
-
 
 
     /**
@@ -199,31 +152,7 @@ public class AfficheEventController implements Initializable {
 //            }
 //        }
 //    }
-//}
-//@FXML
-//private void refreshEventList(ActionEvent event) {
-//    // Appelez la méthode pour mettre à jour la liste des événements
-//    menuDisplayCard();
-//}
 
-
-//
-//@FXML
-//public void handleAddAffButton(ActionEvent event) {
-//    // Code pour naviguer vers l'interface Ajout.fxml
-//    try {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("Ajout.fxml"));
-//        Parent root = loader.load();
-//        Stage stage = new Stage();
-//        stage.setScene(new Scene(root));
-//        stage.show();
-//
-//        // Fermez la fenêtre actuelle si nécessaire
-//        ((Node)(event.getSource())).getScene().getWindow().hide();
-//    } catch (IOException e) {
-//        e.printStackTrace();
-//    }
-//}
 //
 
 

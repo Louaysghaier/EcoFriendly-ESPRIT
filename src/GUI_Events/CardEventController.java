@@ -58,23 +58,9 @@ public class CardEventController implements Initializable{
 //    
      private int idEvent;
     @FXML
-    private Label evname1;
+    private Button details;
     @FXML
-    private Label date1;
-    @FXML
-    private Label prix1;
-    @FXML
-    private Label lieu1;
-    @FXML
-    private Label nb1;
-    @FXML
-    private Label type1;
-    @FXML
-    private Button delete1;
-    @FXML
-    private Button update1;
-    @FXML
-    private Label description1;
+    private Button join;
 
  
 

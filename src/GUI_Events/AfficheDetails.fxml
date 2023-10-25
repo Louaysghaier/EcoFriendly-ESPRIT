@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="afficheform" prefHeight="587.0" prefWidth="804.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_Events.AfficheDetailsController">
+<AnchorPane id="AnchorPane" fx:id="afficheform" prefHeight="587.0" prefWidth="804.0" stylesheets="@ajout.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_Events.AfficheDetailsController">
    <children>
       <AnchorPane fx:id="joinanchro" layoutX="14.0" layoutY="7.0" prefHeight="685.0" prefWidth="968.0" stylesheets="@ajout.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane layoutX="86.0" layoutY="125.0" prefHeight="359.0" prefWidth="571.0" styleClass="shadow" stylesheets="@ajout.css">
+            <AnchorPane layoutX="86.0" layoutY="125.0" prefHeight="359.0" prefWidth="571.0" stylesheets="@ajout.css">
                <children>
                   <ImageView fx:id="imahgejoin" fitHeight="311.0" fitWidth="609.0" layoutX="7.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="pricejoin" layoutX="495.0" layoutY="20.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@ajout.css" text=" Price" textFill="#ae2d3c">
@@ -34,17 +34,21 @@
                      </font>
                   </Label>
                </children>
+               <styleClass>
+                  <String fx:value="white-bg2" />
+                  <String fx:value="card4" />
+               </styleClass>
             </AnchorPane>
-            <Label layoutX="236.0" layoutY="14.0" prefHeight="126.0" prefWidth="396.0" text="Pay and join us" textFill="#ae2d3c">
+            <Label layoutX="236.0" layoutY="14.0" prefHeight="126.0" prefWidth="396.0" styleClass="payment-title" stylesheets="@ajout.css" text="Pay and join us" textFill="#463737">
                <font>
                   <Font name="Tahoma Bold" size="45.0" />
                </font>
             </Label>
-            <Button fx:id="buttonpayer" layoutX="370.0" layoutY="502.0" mnemonicParsing="false" onAction="#payer" styleClass="butto" stylesheets="@ajout.css" text="Pay" />
+            <Button fx:id="buttonpayer" layoutX="295.0" layoutY="502.0" mnemonicParsing="false" onAction="#payer" prefHeight="40.0" prefWidth="227.0" styleClass="butto" text="Pay" />
          </children>
          <styleClass>
+            <String fx:value="payment-container" />
             <String fx:value="shadow" />
-            <String fx:value="white-bg2" />
          </styleClass>
       </AnchorPane>
    </children>

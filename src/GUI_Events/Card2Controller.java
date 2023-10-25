@@ -73,7 +73,9 @@ public class Card2Controller implements Initializable {
     private Label nb11;
     @FXML
     private Button discount1;
-public void setData1(int eventId, String eventName, double ticketPrice, String imagePath ,String lieu, int nbrmax, String type, String description ,Date date) {
+    @FXML
+    private Label dureee;
+public void setData1(int eventId, String eventName, double ticketPrice, String imagePath ,String lieu, int nbrmax, String type, String description ,Date date , String Dur) {
     this.idEvent = eventId; // Définissez l'ID de l'événement
 
     evname1.setText(eventName); // Remplissez le nom de l'événement
@@ -84,6 +86,7 @@ public void setData1(int eventId, String eventName, double ticketPrice, String i
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Le format de date souhaité
     date1.setText(dateFormat.format(date)); // Formatez la date en chaîne et affichez-la
      description1.setText(description); 
+     dureee.setText(Dur);
     // Chargez l'image depuis le chemin de l'image
     Image image = new Image("file:" + imagePath, 190, 100, false, true);
     im1.setImage(image); // Affichez l'image
@@ -128,7 +131,7 @@ public Integer getIdEvent() {
     
 
 @FXML
-private void deleteEvent(ActionEvent event) {
+private void deleteEvent(ActionEvent event) throws IOException {
     int idEvent = getIdEvent();
     selectedEventId = idEvent;
     int eventIdToDelete = selectedEventId; // Récupérez l'ID de l'événement que vous souhaitez supprimer
@@ -166,6 +169,9 @@ private void deleteEvent(ActionEvent event) {
     } else {
         // L'utilisateur a annulé l'opération, ne faites rien
     }
+    
+             
+    
 }
 
    
@@ -180,7 +186,7 @@ private void deleteEvent(ActionEvent event) {
     
     
         @FXML
-private void updateselected(ActionEvent event) {
+private void updateselected(ActionEvent event) throws IOException {
     // Obtenez l'ID de l'événement à partir de la carte d'événement sélectionnée
     int idEvent = getIdEvent();
     selectedEventId = idEvent;
@@ -192,7 +198,7 @@ System.out.println("ID de l'événement : " + idEvent);// Mettez à jour selecte
         AfficheDetailsController afficheDetailsController = loader.getController();
 
           afficheDetailsController.setEventToUpdate(selectedEventId); 
-       // detailsController.loadEventDetails22(idEvent);
+      //  afficheDetailsController.loadEventDetails22(idEvent);
         // detailsController.loadEventDetails22(idEvent);
       // detailsController.getJoinanchro().setVisible(false);
         //detailsController.getJoinanchro().setManaged(false);
@@ -211,6 +217,8 @@ System.out.println("ID de l'événement : " + idEvent);// Mettez à jour selecte
         stage.show();
     } catch (IOException ex) {
         ex.printStackTrace();
+       
+             
     }
 }
   
@@ -289,6 +297,8 @@ private void DiscountButtonClick(ActionEvent event) {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        
     }    
 
    

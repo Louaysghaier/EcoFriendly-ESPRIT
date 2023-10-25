@@ -5,6 +5,9 @@
  */
 package GUI_Events;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.rest.lookups.v1.PhoneNumber;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -65,6 +68,32 @@ import services.Eventservice;
 import services.Participationservice;
 import services.Userservice;
 import util.Myconnection;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 
 /**
  * FXML Controller class
@@ -134,6 +163,14 @@ public class AjoutController implements Initializable {
     private AnchorPane barcontainer;
     @FXML
     private StackedBarChart<String, Number> stackbar;
+    @FXML
+    private Button refresh;
+    @FXML
+    private AnchorPane anchorPane1;
+    @FXML
+    private AnchorPane anchorPane2;
+    @FXML
+    private Button addev;
     
     @FXML
      public void addEmployeeInsertImage() {
@@ -196,16 +233,34 @@ public class AjoutController implements Initializable {
 //    }
 //
 
-    
-
-
-
-
+//    
+//public static final String ACCOUNT_SID = "ACa17a97ab87a2159a860330be83fb50dc";
+//    public static final String AUTH_TOKEN = "fbd6e645fec8c24db1a35b2b0c1fef24";
+//public static final String FROM_PHONE_NUMBER = "+14042366392"; // Numéro Twilio
+//
+//
+//   @FXML
+//    private void Sendsms(ActionEvent event) {
+//         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+//
+//        String toPhoneNumber = numero.getText(); // Numéro du destinataire au format "+1234567890"
+//
+//        String messageText = "Détails de la location du véhicule :" ;
+//              
+//
+//        Message message;
+//        message = Message.creator(
+//                new PhoneNumber(toPhoneNumber),new PhoneNumber(FROM_PHONE_NUMBER),
+//                messageText)
+//                .create();
+//
+//        System.out.println("SID du message Twilio : " + message.getSid());
+//    }
 
 
 
     @FXML
-    private void AjouterEvent1(ActionEvent Event) {
+    private void AjouterEvent1(ActionEvent Event) throws IOException {
     // Récupérez les données depuis les champs de texte et les contrôles de l'interface utilisateur
     String nomEvent = eventname.getText();
     String lieuEvent = lieuevent.getText();
@@ -258,7 +313,8 @@ public class AjoutController implements Initializable {
     showAlert(AlertType.INFORMATION, "Succès", "L'événement a été ajouté avec succès.");
 
     Clear();
-   
+   menuDisplayCard();
+        
 }
 
 private void showAlert(AlertType alertType, String title, String content) {
@@ -280,9 +336,15 @@ private void showAlert(AlertType alertType, String title, String content) {
     public void switchForm(ActionEvent event) {
         if (event.getSource() == consulter1) {
             ajout.setVisible(false);
-            afficheevent.setVisible(true);
-
+            afficheevent.setVisible(true);}
+             if (event.getSource() == addev) {
+            ajout.setVisible(true);
+            afficheevent.setVisible(false);
         }
+                    else{
+                    
+                    }
+                
 }
 
 
@@ -488,7 +550,6 @@ ObservableList<Event> Cardlistdatamy = FXCollections.observableArrayList();
     }
     
     
-    
     public void menuDisplayCardmy(int userId) {
     try {
         // Utilisez le userId pour charger les événements de l'utilisateur connecté
@@ -502,17 +563,17 @@ ObservableList<Event> Cardlistdatamy = FXCollections.observableArrayList();
         gridmyev.getColumnConstraints().clear();
 
         for (int q = 0; q < tempList.size(); q++) {
-            FXMLLoader load = new FXMLLoader();
-            load.setLocation(getClass().getResource("Card2.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Card2.fxml"));
+            AnchorPane pane = loader.load();
 
-            AnchorPane pane = load.load();
-            Card2Controller card1 = load.getController();
- card1.setAjoutController(this);
+            // Obtenez le contrôleur correct à partir de l'instance FXMLLoader
+            Card2Controller cardController = loader.getController();
+
             // Définir l'ID de l'événement
-            card1.setEventId(tempList.get(q).getIdEvent());
+            cardController.setEventId(tempList.get(q).getIdEvent());
 
             // Passez les données nécessaires à la carte, y compris le chemin de l'image
-card1.setData1(tempList.get(q).getIdEvent(), tempList.get(q).getNomEvent(), tempList.get(q).getPrixTicket(), tempList.get(q).getImage(), tempList.get(q).getLieuEvent(), tempList.get(q).getNbmaxParticipant(), tempList.get(q).getTypeEvent(), tempList.get(q).getDescriptionEvent(), tempList.get(q).getDateDebutEvent());
+            cardController.setData1(tempList.get(q).getIdEvent(), tempList.get(q).getNomEvent(), tempList.get(q).getPrixTicket(), tempList.get(q).getImage(), tempList.get(q).getLieuEvent(), tempList.get(q).getNbmaxParticipant(), tempList.get(q).getTypeEvent(), tempList.get(q).getDescriptionEvent(), tempList.get(q).getDateDebutEvent(), tempList.get(q).getDurée());
 
             if (column == 1) {
                 column = 0;
@@ -523,12 +584,54 @@ card1.setData1(tempList.get(q).getIdEvent(), tempList.get(q).getNomEvent(), temp
 
         // Supprimez les données de la liste principale après avoir terminé l'itération
         Cardlistdatamy.clear();
-     
     } catch (IOException ex) {
         ex.printStackTrace();
     }
 }
 
+    
+    
+    
+    
+//    public void menuDisplayCardmy(int userId) {
+//    try {
+//        // Utilisez le userId pour charger les événements de l'utilisateur connecté
+//        List<Event> userEvents = eventService.afficherEventsByUser(userId);
+//        ObservableList<Event> tempList = FXCollections.observableArrayList(userEvents);
+//
+//        int row = 0;
+//        int column = 0;
+//
+//        gridmyev.getRowConstraints().clear();
+//        gridmyev.getColumnConstraints().clear();
+//
+//        for (int q = 0; q < tempList.size(); q++) {
+//            FXMLLoader load = new FXMLLoader();
+//            load.setLocation(getClass().getResource("Card2.fxml"));
+//
+//            AnchorPane pane = load.load();
+//            Card2Controller card1 = load.getController();
+// card1.setAjoutController(this);
+//            // Définir l'ID de l'événement
+//            card1.setEventId(tempList.get(q).getIdEvent());
+//
+//            // Passez les données nécessaires à la carte, y compris le chemin de l'image
+//            card1.setData1(tempList.get(q).getIdEvent(), tempList.get(q).getNomEvent(), tempList.get(q).getPrixTicket(), tempList.get(q).getImage(), tempList.get(q).getLieuEvent(), tempList.get(q).getNbmaxParticipant(), tempList.get(q).getTypeEvent(), tempList.get(q).getDescriptionEvent(), tempList.get(q).getDateDebutEvent(), tempList.get(q).getDurée());
+//
+//            if (column == 1) {
+//                column = 0;
+//                row += 1;
+//            }
+//            gridmyev.add(pane, column++, row);
+//        }
+//
+//        // Supprimez les données de la liste principale après avoir terminé l'itération
+//        Cardlistdatamy.clear();
+//     
+//    } catch (IOException ex) {
+//        ex.printStackTrace();
+//    }
+//}
 
 
 
@@ -536,13 +639,13 @@ card1.setData1(tempList.get(q).getIdEvent(), tempList.get(q).getNomEvent(), temp
 
 
 
-
-
-
-
-
-
-
+ @FXML
+ private void Refresh(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+    }
 
 
 
@@ -708,14 +811,21 @@ private void updateStackedBarChart(Map<String, Integer> data) {
     eventtype.getItems().addAll("Conférences académiques", "Compétitions académiques", "Événements culturels", "Activités sportives", "Événements de loisir");
 
 
+    
+    
+    
    Map<String, Integer> participationData = eventService.getParticipationCountByEventType();
 
     // Utilisez les données pour mettre à jour le graphique empilé
     updateStackedBarChart(participationData);
+    
+   
+    
 }
 // Appel de la méthode pour obtenir les données de participation par type d'événement
-       
+
     
+   
     
     }
 

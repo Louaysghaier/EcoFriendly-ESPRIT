@@ -98,8 +98,7 @@ public boolean isEventFull(int eventId) {
         return false;
     }
 }
-
- public void ajouterParticipation(Participation participation) {
+public void ajouterParticipation(Participation participation) {
     Userservice userService = new Userservice();
     Eventservice eventService = new Eventservice();
 
@@ -110,6 +109,7 @@ public boolean isEventFull(int eventId) {
 
         // Générez la date de participation courante
         LocalDate dateParticipation = LocalDate.now();
+        java.sql.Date sqlDateParticipation = java.sql.Date.valueOf(dateParticipation); // Convertissez en java.sql.Date
 
         String desktopPath = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "EventQr";
         String qrCodeFileName = username + "-" + eventName + ".png";
@@ -126,7 +126,7 @@ public boolean isEventFull(int eventId) {
             ps.setInt(1, participation.getEvent().getIdEvent());
             ps.setInt(2, participation.getUser().getIduser());
             ps.setString(3, qrData);
-            ps.setObject(4, dateParticipation); // Enregistrez la date de participation
+            ps.setDate(4, sqlDateParticipation); // Enregistrez la date de participation en tant que java.sql.Date
             ps.executeUpdate();
             System.out.println("Participation ajoutée avec succès !");
         } catch (SQLException ex) {

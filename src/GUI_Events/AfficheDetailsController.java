@@ -32,10 +32,12 @@ import models.Event;
 import services.Eventservice;
 import models.Event;
 import GUI_Events.CardEventController ;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.sql.PreparedStatement;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -78,8 +80,6 @@ public class AfficheDetailsController implements Initializable {
      private Event event;
     int selectedEventId;
     @FXML
-    private AnchorPane joinanchro;
-    @FXML
     private ImageView imahgejoin;
     @FXML
     private Label labeleventnamejoin;
@@ -95,13 +95,11 @@ public class AfficheDetailsController implements Initializable {
     private ComboBox<String> eventtypeup = new ComboBox<>();
     private TextArea eventdescriptionup;
     private ImageView viewimage;
-    
-    
-    Card2Controller aa = new Card2Controller();
-    @FXML
-    private AnchorPane afficheform;
     @FXML
     private Button buttonpayer;
+    
+    
+   
         
 
     
@@ -155,50 +153,7 @@ public void loadEventDetails(int eventId) {
 }
 
 
-    
-//    
-//    @FXML
-//public void updateEvent(ActionEvent event) {
-//    if (selectedEventId == -1) {
-//        // Affichez un message d'erreur ou effectuez une action pour indiquer qu'aucun événement n'est sélectionné
-//        return;
-//    }
-//
-//    // Récupérez les nouvelles informations de l'événement à partir des champs de texte et des contrôles de l'interface utilisateur
-//    String newNomEvent = affname.getText();
-//    String newLieuEvent = afflocation.getText();
-//    String newDuree = affduration.getText();
-//    LocalDate newDateDebut = affdate.getValue();
-//    String newPrixTicket = affticketor.getText();
-//    String newNbMaxParticipants = affnbmaxpar.getText();
-//    String newTypeEvent = affeventtype.getText();
-//    String newDescriptionEvent = affdesc.getText();
-//
-//    // Récupérez l'image de l'événement (vous devrez implémenter la logique pour la gestion des images)
-//    String newImagePath = ""; // Remplacez ceci par la logique de récupération de l'image
-//
-//    // Créez un objet Event avec les nouvelles informations
-//    Event updatedEvent = new Event();
-//    updatedEvent.setIdEvent(selectedEventId);
-//    updatedEvent.setNomEvent(newNomEvent);
-//    updatedEvent.setLieuEvent(newLieuEvent);
-//    updatedEvent.setDurée(newDuree);
-//    updatedEvent.setDateDebutEvent(java.sql.Date.valueOf(newDateDebut));
-//    updatedEvent.setPrixTicket(Double.parseDouble(newPrixTicket));
-//    updatedEvent.setNbmaxParticipant(Integer.parseInt(newNbMaxParticipants));
-//    updatedEvent.setTypeEvent(newTypeEvent);
-//    updatedEvent.setDescriptionEvent(newDescriptionEvent);
-//    updatedEvent.setImage(newImagePath);
-//
-//    // Appelez la méthode de service pour mettre à jour l'événement
-//    Eventservice eventService = new Eventservice();
-//    eventService.updateEvent(updatedEvent);
-//
-//    // Affichez un message de confirmation ou effectuez d'autres actions selon vos besoins
-//    System.out.println("L'événement a été mis à jour avec succès !");
-//}
-//    
-    
+
      public void addEmployeeInsertImage() {
         FileChooser open = new FileChooser();
         File file = open.showOpenDialog(main_form.getScene().getWindow());
@@ -215,76 +170,7 @@ public void loadEventDetails(int eventId) {
     
     
 
-                        
-//                        
-//                        @FXML
-//public void updateEvent(ActionEvent event) {
-//    // Récupérez l'ID de l'événement et l'ID de l'utilisateur
-//    int eventId = selectedEventId;
-//    int userId = 4; // Remplacez cela par l'ID de l'utilisateur actuel
-// Eventservice eventService = new Eventservice();
-//    // Chargez l'événement à partir de la base de données
-//    Event existingEvent = eventService.getEventById(eventId);
-//   Userservice aa =new Userservice();
-//    if (existingEvent == null) {
-//        // L'événement n'existe pas, affichez un message d'erreur approprié.
-//        showAlert(AlertType.ERROR, "Erreur", "L'événement avec l'ID " + eventId + " n'existe pas.");
-//    }else if (existingEvent.getUserIdByEventId(selectedEventId) != userId) {
-//        // L'utilisateur actuel n'est pas l'auteur de l'événement, affichez un message d'erreur.
-//        showAlert(AlertType.ERROR, "Erreur", "Vous ne pouvez pas mettre à jour cet événement car vous n'en êtes pas l'auteur.");
-//    } else {
-//        // L'utilisateur actuel est l'auteur de l'événement, procédez à la mise à jour.
-//
-//        // Récupérez les nouvelles informations de l'événement depuis les champs de texte et les contrôles de l'interface utilisateur
-//        String newNomEvent = affname.getText();
-//        String newLieuEvent = afflocation.getText();
-//        String newDuree = affduration.getText();
-//        LocalDate newDateDebut = affdate.getValue();
-//        String newPrixTicket = affticketor.getText();
-//        String newNbMaxParticipants = affnbmaxpar.getText();
-//        String newTypeEvent = affeventtype.getText();
-//        String newDescriptionEvent = affdesc.getText();
-//        String newImagePath = getData.path;
-//
-//        // Vérifiez que tous les champs obligatoires sont remplis
-//        if (newNomEvent.isEmpty() || newLieuEvent.isEmpty() || newDuree.isEmpty() || newDateDebut == null
-//                || newPrixTicket.isEmpty() || newNbMaxParticipants.isEmpty() || newTypeEvent.isEmpty() || newDescriptionEvent.isEmpty()) {
-//            // Affichez une boîte de dialogue d'alerte pour informer l'utilisateur de remplir tous les champs
-//            showAlert(AlertType.ERROR, "Champs vides", "Veuillez remplir tous les champs obligatoires.");
-//        } else {
-//            // Créez l'objet Event mis à jour
-//            Event updatedEvent = new Event();
-//            updatedEvent.setIdEvent(eventId);
-//            updatedEvent.setNomEvent(newNomEvent);
-//            updatedEvent.setLieuEvent(newLieuEvent);
-//            updatedEvent.setDurée(newDuree);
-//            updatedEvent.setDateDebutEvent(java.sql.Date.valueOf(newDateDebut));
-//            updatedEvent.setPrixTicket(Double.parseDouble(newPrixTicket));
-//            updatedEvent.setNbmaxParticipant(Integer.parseInt(newNbMaxParticipants));
-//            updatedEvent.setTypeEvent(newTypeEvent);
-//            updatedEvent.setDescriptionEvent(newDescriptionEvent);
-//            updatedEvent.setImage(newImagePath);
-//
-//            // Appelez la méthode de service pour mettre à jour l'événement
-//            eventService.updateEvent(updatedEvent, userId);
-//
-//            showAlert(AlertType.INFORMATION, "Succès", "L'événement a été mis à jour avec succès.");
-//        }
-//    }
-//}
-//
-//private void showAlert(AlertType alertType, String title, String content) {
-//    Alert alert = new Alert(alertType);
-//    alert.setTitle(title);
-//    alert.setHeaderText(null);
-//    alert.setContentText(content);
-//    alert.showAndWait();
-//}
-//
-//                        
-//                        
-                        
-                        
+               
                         
                         
                         
@@ -346,7 +232,6 @@ private void showAlert(AlertType alertType, String title, String content) {
     }
    }
 
-  
 
     public void setEventToUpdate(int selectedEventId) {
         this.selectedEventId = selectedEventId;
@@ -392,9 +277,13 @@ private void showAlert(AlertType alertType, String title, String content) {
 
         Eventservice eventService = new Eventservice();
         eventService.updateEvent(updatedEvent, userId);
+        
+      
+        
+
 
         showAlert(Alert.AlertType.INFORMATION, "Succès", "L'événement a été mis à jour avec succès.");
-    } else {
+    
         // L'utilisateur a annulé la mise à jour, vous pouvez ajouter du code ici si nécessaire
     }
 }
@@ -453,63 +342,17 @@ private void showAlert(AlertType alertType, String title, String content) {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    //AfficheEventController aa= new AfficheEventController();
-    
-private void deleteEvent(ActionEvent event) {
-    int eventIdToDelete = selectedEventId; // Récupérez l'ID de l'événement que vous souhaitez supprimer
-boolean deletionSucceeded=false;
-    if (eventIdToDelete == -1) {
-        // Affichez un message d'erreur ou effectuez une action pour indiquer qu'aucun événement n'est sélectionné
-        return;
-    }
-
-    // Appelez la méthode de service pour supprimer l'événement
-    Eventservice eventService = new Eventservice();
-     eventService.deleteEvent(eventIdToDelete);
-
-    // Créez une boîte de dialogue pour afficher le résultat de la suppression
-    Alert alert = new Alert(AlertType.INFORMATION);
-    alert.setTitle("Suppression d'événement");
-alert.setHeaderText("Suppression de l'évenement réussie");
-    
-    alert.showAndWait();
-    
-clear();
-    // Réinitialisez les champs de texte et les contrôles d'interface utilisateur après la suppression
-     
-}
-
-
- public void clear(){
-     affname.clear();
-    affduration.clear();
-    afflocation.clear();
-    affticketor.clear();
-    affnbmaxpar.clear();
-    affeventtype.clear();
-    affdate.setValue(null);
-    affdesc.clear();
-    affimaimp.setImage(null);
- }
-
-   public AnchorPane getJoinanchro() {
-    return joinanchro;
-}
-
-public AnchorPane getMainformaffiche() {
-    return mainformaffiche;
-}
-
-////////////////////paiement ///////////////////
-
+ 
+   
     @FXML
+    private AnchorPane afficheform;
+    @FXML
+    private AnchorPane joinanchro;
+
+                        
+
+      
+@FXML
     public void payer(ActionEvent event) {
     int eventId = selectedeven;
     int userId = 1; // Remplacez cela par l'ID de l'utilisateur actuel
@@ -517,7 +360,7 @@ public AnchorPane getMainformaffiche() {
     System.out.println("ID de l'événement à payer : " + eventId); // Affichez l'ID de l'événement
 
     if (eventId == -1) {
-        showAlert(AlertType.ERROR, "Événement non sélectionné", "Veuillez sélectionner un événement à payer.");
+        showAlert(Alert.AlertType.ERROR, "Événement non sélectionné", "Veuillez sélectionner un événement à payer.");
         return;
     }
 
@@ -531,7 +374,7 @@ public AnchorPane getMainformaffiche() {
 
     if (event == null) {
         // Gérez le cas où l'événement n'existe pas (par exemple, affichez une alerte ou lancez une exception).
-        showAlert(AlertType.ERROR, "Événement introuvable", "L'événement avec l'ID " + eventId + " n'existe pas.");
+        showAlert(Alert.AlertType.ERROR, "Événement introuvable", "L'événement avec l'ID " + eventId + " n'existe pas.");
         return;
     }
  Participationservice part1 = new Participationservice();
@@ -539,7 +382,7 @@ public AnchorPane getMainformaffiche() {
      int currentParticipations = part1.countParticipationsByEventId(eventId);
 
     if (currentParticipations >= event1.getNbmaxParticipant()) {
-        showAlert(AlertType.ERROR, "Événement complet", "L'événement a atteint son nombre maximum de participations.");
+        showAlert(Alert.AlertType.ERROR, "Événement complet", "L'événement a atteint son nombre maximum de participations.");
         return;
     }
 
@@ -554,13 +397,13 @@ public AnchorPane getMainformaffiche() {
         // L'utilisateur a suffisamment de fonds pour payer le ticket de l'événement
 
         // Créez une boîte de dialogue de confirmation
-        Alert confirmationDialog = new Alert(AlertType.CONFIRMATION);
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationDialog.setTitle("Confirmation de paiement");
         confirmationDialog.setHeaderText("Confirmez le paiement ?");
         confirmationDialog.setContentText("Voulez-vous vraiment effectuer le paiement de l'événement ?");
 
-        ButtonType okButton = new ButtonType("OK", ButtonData.OK_DONE);
-        ButtonType cancelButton = new ButtonType("Annuler", ButtonData.CANCEL_CLOSE);
+        ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButton = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
         confirmationDialog.getButtonTypes().setAll(okButton, cancelButton);
 
         Optional<ButtonType> result = confirmationDialog.showAndWait();
@@ -572,7 +415,7 @@ public AnchorPane getMainformaffiche() {
             System.out.println("Nouveau solde du portefeuille après le paiement : " + newWalletAmount);
 
             // Le paiement a réussi, vous pouvez afficher un message de confirmation
-            showAlert(AlertType.INFORMATION, "Paiement réussi", "Le paiement de l'événement a été effectué avec succès.");
+            showAlert(Alert.AlertType.INFORMATION, "Paiement réussi", "Le paiement de l'événement a été effectué avec succès.");
 
             // Maintenant, générez une participation
             Participationservice part = new Participationservice();
@@ -605,15 +448,165 @@ public AnchorPane getMainformaffiche() {
             participation.setCodeQR(qrCodeFilePath);
 
             // Maintenant, ajoutez la participation à la base de données
-            part.ajouterParticipation(participation);
+         //   part.ajouterParticipation(participation);
         }
     } else {
         // L'utilisateur n'a pas suffisamment de fonds pour payer le ticket
-        showAlert(AlertType.ERROR, "Solde insuffisant", "Votre solde de portefeuille est insuffisant pour effectuer le paiement.");
+        showAlert(Alert.AlertType.ERROR, "Solde insuffisant", "Votre solde de portefeuille est insuffisant pour effectuer le paiement.");
     
 }
 }
+    
+    
+    
+    
+    
+    
+    //AfficheEventController aa= new AfficheEventController();
+private void deleteEvent(ActionEvent event) {
+    int eventIdToDelete = selectedEventId; // Récupérez l'ID de l'événement que vous souhaitez supprimer
+boolean deletionSucceeded=false;
+    if (eventIdToDelete == -1) {
+        // Affichez un message d'erreur ou effectuez une action pour indiquer qu'aucun événement n'est sélectionné
+        return;
+    }
 
+    // Appelez la méthode de service pour supprimer l'événement
+    Eventservice eventService = new Eventservice();
+     eventService.deleteEvent(eventIdToDelete);
+
+    // Créez une boîte de dialogue pour afficher le résultat de la suppression
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Suppression d'événement");
+alert.setHeaderText("Suppression de l'évenement réussie");
+    
+    alert.showAndWait();
+    
+//clear();
+    // Réinitialisez les champs de texte et les contrôles d'interface utilisateur après la suppression
+     
+}
+
+
+ public void clear(){
+     affname.clear();
+    affduration.clear();
+    afflocation.clear();
+    affticketor.clear();
+    affnbmaxpar.clear();
+    affeventtype.clear();
+    affdate.setValue(null);
+    affdesc.clear();
+    affimaimp.setImage(null);
+ }
+
+ 
+////////////////////paiement ///////////////////
+// @FXML
+//    public void payer(ActionEvent event) {
+//    int eventId = selectedeven;
+//    int userId = 1; // Remplacez cela par l'ID de l'utilisateur actuel
+//
+//    System.out.println("ID de l'événement à payer : " + eventId); // Affichez l'ID de l'événement
+//
+//    if (eventId == -1) {
+//        showAlert(AlertType.ERROR, "Événement non sélectionné", "Veuillez sélectionner un événement à payer.");
+//        return;
+//    }
+//
+//    // Déclarez les variables qrCodeData et filePath
+//    String qrCodeData = null;
+//    String filePath = null;
+//
+//    // Appelez la méthode de service pour obtenir l'objet Event
+//    Eventservice eventService = new Eventservice();
+//    Event event1 = eventService.getEventById(eventId);
+//
+//    if (event == null) {
+//        // Gérez le cas où l'événement n'existe pas (par exemple, affichez une alerte ou lancez une exception).
+//        showAlert(AlertType.ERROR, "Événement introuvable", "L'événement avec l'ID " + eventId + " n'existe pas.");
+//        return;
+//    }
+// Participationservice part1 = new Participationservice();
+//    // Vérifiez si le nombre de participations actuelles est inférieur au nombre maximum autorisé
+//     int currentParticipations = part1.countParticipationsByEventId(eventId);
+//
+//    if (currentParticipations >= event1.getNbmaxParticipant()) {
+//        showAlert(AlertType.ERROR, "Événement complet", "L'événement a atteint son nombre maximum de participations.");
+//        return;
+//    }
+//
+//    // Appelez la méthode de service pour obtenir le montant du portefeuille de l'utilisateur
+//    Userservice userService = new Userservice();
+//    double prixTicket = eventService.getPrixTicketById(eventId);
+//    double userWallet = userService.getUserWalletById(userId);
+//
+//    System.out.println("Prix du ticket : " + prixTicket);
+//
+//    if (userWallet >= prixTicket) {
+//        // L'utilisateur a suffisamment de fonds pour payer le ticket de l'événement
+//
+//        // Créez une boîte de dialogue de confirmation
+//        Alert confirmationDialog = new Alert(AlertType.CONFIRMATION);
+//        confirmationDialog.setTitle("Confirmation de paiement");
+//        confirmationDialog.setHeaderText("Confirmez le paiement ?");
+//        confirmationDialog.setContentText("Voulez-vous vraiment effectuer le paiement de l'événement ?");
+//
+//        ButtonType okButton = new ButtonType("OK", ButtonData.OK_DONE);
+//        ButtonType cancelButton = new ButtonType("Annuler", ButtonData.CANCEL_CLOSE);
+//        confirmationDialog.getButtonTypes().setAll(okButton, cancelButton);
+//
+//        Optional<ButtonType> result = confirmationDialog.showAndWait();
+//
+//        if (result.isPresent() && result.get() == okButton) {
+//            // Mise à jour du portefeuille de l'utilisateur
+//            double newWalletAmount = userWallet - prixTicket;
+//            userService.updateUserWallet(userId, newWalletAmount);
+//            System.out.println("Nouveau solde du portefeuille après le paiement : " + newWalletAmount);
+//
+//            // Le paiement a réussi, vous pouvez afficher un message de confirmation
+//            showAlert(AlertType.INFORMATION, "Paiement réussi", "Le paiement de l'événement a été effectué avec succès.");
+//
+//            // Maintenant, générez une participation
+//            Participationservice part = new Participationservice();
+//            Participation participation = new Participation();
+//            participation.setEvent(event1);
+//            String eventName = event1.getNomEvent();
+//            participation.setUser(userService.getUserById(userId));
+//            part.ajouterParticipation(participation);
+//
+//            // Générez un code QR pour cette participation (comme vous l'avez fait précédemment)
+//
+//            String username = userService.getUsernameById(userId);
+//
+//            String desktopPath = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "EventQr";
+//            String qrCodeFileName = username + "-" + eventName + ".png";
+//
+//            File qrCodeFile = new File(desktopPath, qrCodeFileName);
+//            int fileSuffix = 1;
+//            while (qrCodeFile.exists()) {
+//                // Si le fichier existe, ajoutez un suffixe numérique pour le rendre unique
+//                qrCodeFileName = username + "-" + eventName + "-" + fileSuffix + ".png";
+//                qrCodeFile = new File(desktopPath, qrCodeFileName);
+//                fileSuffix++;
+//            }
+//
+//            String qrCodeFilePath = desktopPath + File.separator + qrCodeFileName;
+//
+//            part.generateQRCode(username + "-" + eventName, qrCodeFilePath);
+//
+//            participation.setCodeQR(qrCodeFilePath);
+//
+//            // Maintenant, ajoutez la participation à la base de données
+//         //   part.ajouterParticipation(participation);
+//        }
+//    } else {
+//        // L'utilisateur n'a pas suffisamment de fonds pour payer le ticket
+//        showAlert(AlertType.ERROR, "Solde insuffisant", "Votre solde de portefeuille est insuffisant pour effectuer le paiement.");
+//    
+//}
+//}
+//
 
 }
 

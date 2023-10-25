@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="667.0" styleClass="white-bg2" stylesheets="@ajout.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_Events.DetailsEventController">
+<AnchorPane id="#modernAnchorPane" prefHeight="513.0" prefWidth="667.0" styleClass="payment-container" stylesheets="@ajout.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_Events.DetailsEventController">
    <children>
-      <AnchorPane fx:id="mainformaffiche" prefHeight="528.0" prefWidth="667.0" stylesheets="@ajout.css">
+      <AnchorPane id="modernAnchorPane" fx:id="mainformaffiche" prefHeight="555.0" prefWidth="667.0" stylesheets="@ajout.css">
          <children>
             <AnchorPane fx:id="affimaimp" layoutX="428.0" layoutY="160.0" prefHeight="130.0" prefWidth="200.0" stylesheets="@ajout.css">
                <children>
@@ -106,10 +106,6 @@
                </font>
             </Label>
          </children>
-         <styleClass>
-            <String fx:value="shadow" />
-            <String fx:value="white-bg2" />
-         </styleClass>
       </AnchorPane>
    </children>
 </AnchorPane>
