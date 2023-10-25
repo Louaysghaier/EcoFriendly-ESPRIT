@@ -25,7 +25,7 @@ public class HistoriqueServiceImp implements HistoriqueDocumentsService{
 
       @Override
 public void addhistorique(HistoriqueDocument h) {
-    boolean exist=isExistHistorique(h.getIdDoc(),1,h.getOperation());
+    boolean exist=isExistHistorique(h.getIdDoc(),2,h.getOperation());
           System.out.println("h"+h.toString());
     if(!exist){
     String insertSql = "INSERT INTO historique_doc (idUser,idDoc,operation) VALUES (?,?,?)";
@@ -33,7 +33,7 @@ public void addhistorique(HistoriqueDocument h) {
     try {
         Connection connection = myconnection.getInstance().getCnx();
         PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
-         preparedStatement.setInt(1, 1);
+         preparedStatement.setInt(1, 2);
          preparedStatement.setInt(2, h.getIdDoc());
          preparedStatement.setString(3, h.getOperation());// Set the topic name
 

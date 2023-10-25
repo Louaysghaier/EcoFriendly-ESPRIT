@@ -70,12 +70,16 @@ public class Supprimerdocuments_adminController implements Initializable {
     private ListView<String> listeview;
     @FXML
     private TextField dorratopic;
+    @FXML
+    private TableColumn<?, ?> valide_d;
   
    
 @Override
 public void initialize(URL url, ResourceBundle rb) {
            affichagelisteview();
 listeview.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        ActionEvent ActionEvent = null;
+  refrech_d(ActionEvent);
 }
     @FXML
     private void delete_d(ActionEvent event) {
@@ -85,21 +89,16 @@ listeview.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     if (selectedDocument != null) {
         int selectedDocumentId = selectedDocument.getIdDoc();
 
-        // Call your DeleteDocument method to delete the selected document from the database
-        boolean deleted = doc.DeleteDocument(selectedDocumentId);
 
-        if (deleted) {
-            // Remove the selected document from the data list
-            documentList.remove(selectedDocument);
+          doc.ban(selectedDocumentId);
 
-            // Clear the selection to avoid confusion
+        
+            
+            doc.getValidDocuments();
+            
             treeview_d.getSelectionModel().clearSelection();
-        } else {
-            // Handle the case where the document could not be deleted
-            // Display an error message or log the issue
-        }
-    } else {
-        // Inform the user to select an item before deleting
+            } else {
+       
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Avertissement");
         alert.setHeaderText("Aucun document sélectionné");
@@ -129,15 +128,12 @@ listeview.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     topic_d.setCellValueFactory(new PropertyValueFactory<>("idTopic.topicName"));
     type_d.setCellValueFactory(new PropertyValueFactory<>("documentType"));
     image_d.setCellValueFactory(new PropertyValueFactory<>("documentImage"));
+    valide_d.setCellValueFactory(new PropertyValueFactory<>("isvalid"));
 
-    // Set the data source for the TableView
+
    treeview_d.setItems(documentList);
 
     }
-    
-    
-
-    // Create an observable list to store the topics
     private ObservableList<Topic> topicsList = FXCollections.observableArrayList();
 
       private TopicService topicService=new TopicServiceImp(); 

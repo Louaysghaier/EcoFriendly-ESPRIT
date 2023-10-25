@@ -24,9 +24,12 @@ public class Biblio extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-      //  FXMLLoader loader = new FXMLLoader(getClass().getResource("Affichercategorie.fxml")) ;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/AffichageDocuments.fxml")) ;
-         //  FXMLLoader loader = new FXMLLoader(getClass().getResource("supprimerdocuments_admin.fxml")) ;
+     
+       // FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/AjoutDocuments.fxml")) ;
+          //FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/supprimerdocuments_admin.fxml")) ;
+          // FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/mail.fxml")) ;
+     
 
         Parent root=loader.load() ;
         Scene scene = new Scene(root);

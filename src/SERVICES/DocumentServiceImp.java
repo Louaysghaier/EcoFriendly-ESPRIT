@@ -228,7 +228,7 @@ public List<Document> searchDocuments(SearchDocumentDTO d) {
             selectSql += " AND idSemestre = ?";
             parameters.add(d.getIdSemestre());
         }
-        System.out.println(selectSql);
+       // System.out.println(selectSql);
         // Create a PreparedStatement
         PreparedStatement preparedStatement = connection.prepareStatement(selectSql);
 
@@ -250,9 +250,12 @@ public List<Document> searchDocuments(SearchDocumentDTO d) {
             d1.setDocumentCreationDate(resultSet.getDate("documentCreationDate"));
             d1.setDocumentImage(resultSet.getString("documentImage"));
             d1.setDocumentUrl(resultSet.getString("documentUrl"));
+           d1.setIsvalid(resultSet.getString("isvalid"));
+
              d1.setIdNiveau(new Niveau(resultSet.getInt("idNiveau")));
             d1.setIdSemestre(new Semestre(resultSet.getInt("idSemestre")));
             d1.setIdTopic(new Topic(resultSet.getInt("idtopic")));
+
             result.add(d1);
         }
 
@@ -300,6 +303,8 @@ public List<Document> getAllDocuments() {
             d.setIdNiveau(new Niveau(resultSet.getInt("idNiveau")));
             d.setIdSemestre(new Semestre(resultSet.getInt("idsemestre")));
             d.setIdTopic(new Topic(resultSet.getInt("idtopic")));
+            d.setIsvalid(resultSet.getString("isvalid"));
+            
             documents.add(d);
         }
 
@@ -314,7 +319,76 @@ public List<Document> getAllDocuments() {
     // Return the list of documents
     return documents;
 }
+ 
+public List<Document> getValidDocuments() {
+    List<Document> documents = new ArrayList<>();
+    try {
+        // Establish a connection to your database using myconnection or your preferred method
+        Connection connection = myconnection.getInstance().getCnx();
 
+        // Create an SQL SELECT statement to retrieve all documents
+        String selectSql = "SELECT * FROM documents WHERE isvalid='valid'";
+
+        // Create a PreparedStatement
+        PreparedStatement preparedStatement = connection.prepareStatement(selectSql);
+
+        // Execute the SELECT statement
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        // Iterate through the result set and create Document objects
+        while (resultSet.next()) {
+            Document d = new Document();
+            d.setIdDoc(resultSet.getInt("idDoc"));
+            d.setDocumentName(resultSet.getString("documentName"));
+            d.setDocumentType(resultSet.getString("documentType"));
+            d.setDocumentDate(resultSet.getString("documentDate"));
+            d.setDocumentCreationDate(resultSet.getDate("documentCreationDate"));
+            d.setDocumentImage(resultSet.getString("documentImage"));
+            d.setDocumentUrl(resultSet.getString("documentUrl"));
+            d.setIdNiveau(new Niveau(resultSet.getInt("idNiveau")));
+            d.setIdSemestre(new Semestre(resultSet.getInt("idsemestre")));
+            d.setIdTopic(new Topic(resultSet.getInt("idtopic")));
+            documents.add(d);
+        }
+
+        // Close the ResultSet and PreparedStatement
+        resultSet.close();
+        preparedStatement.close();
+    } catch (SQLException ex) {
+        // Handle exceptions (e.g., log the error, throw a custom exception)
+        ex.printStackTrace();
+    }
+
+    // Return the list of documents
+    return documents;
+}
+public void ban( int  iddoc){
+            String updateSql = "UPDATE documents SET  isvalid='novalid' WHERE idDoc = ?";
+
+try {
+        // Establish a connection to your database using myconnection or your preferred method
+        Connection connection = myconnection.getInstance().getCnx();
+
+        // Create an SQL UPDATE statement to update the document
+
+        // Create a PreparedStatement and set parameters
+        PreparedStatement preparedStatement = connection.prepareStatement(updateSql);
+        preparedStatement.setInt(1, iddoc);
+
+
+        // Execute the UPDATE statement
+        int rowsUpdated = preparedStatement.executeUpdate();
+        preparedStatement.close();
+
+         System.out.println("setnovalid successfuly");
+    } catch (SQLException ex) {
+        // Handle exceptions (e.g., log the error, throw a custom exception)
+        ex.printStackTrace();
+        
+    }
+
+
+}
    
 
 }

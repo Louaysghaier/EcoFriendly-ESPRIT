@@ -62,7 +62,7 @@ public class CardDocController implements Initializable {
     @FXML
     private void moreInfoBtnD(ActionEvent event) throws IOException {
           try{
-            // TO GET THE CUSTOMER ID OF THE CUSTOMER
+           
                               CurrentDocument.setDocument(doc);
 
             Parent root = FXMLLoader.load(getClass().getResource("/GUI/PopUpDoc.fxml"));
@@ -79,7 +79,7 @@ public class CardDocController implements Initializable {
     }
     public void setDocument(Document d){
         doc=d;
-        if(d!=null){
+        if (d != null && "valid".equals(d.getIsvalid())) {
             doc_name_d.setText(d.getDocumentName());
             type_doc_d.setText(d.getDocumentType());
            Image image = new Image(d.getDocumentImage());
@@ -97,10 +97,12 @@ public class CardDocController implements Initializable {
 
     @FXML
     private void updateInfoBtnD(ActionEvent event) throws IOException {
+    
          
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/AjoutDocuments.fxml"));
                 AnchorPane pane = loader.load();
                 AjoutDocumentsController ajoutDocumentsController = loader.getController();
+                
                 ajoutDocumentsController.setDocument(doc);
                 doctomodif=doc;
     }

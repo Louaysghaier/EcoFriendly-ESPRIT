@@ -5,6 +5,7 @@
  */
 package CONTROLLERS.CLIENT;
 
+import API.GoogleDriveService;
 import INTERFACES.DocumentService;
 import INTERFACES.NiveauService;
 import INTERFACES.SemestreService;
@@ -17,12 +18,15 @@ import SERVICES.DocumentServiceImp;
 import SERVICES.NiveauServiceImp;
 import SERVICES.SemestreServiceImp;
 import SERVICES.TopicServiceImp;
+import com.google.api.client.http.FileContent;
+import com.google.api.services.drive.Drive;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -96,6 +100,8 @@ Alert alert;
     private ImageView adocImage_d;
     @FXML
     private Button uploadDoc_d;
+    @FXML
+    private Button modifbutton;
 
    
     /**
@@ -239,7 +245,7 @@ if (imageFile != null) {
             int column = 1;
             for(int i = 0 ; i<document.size();i++){
                
-
+ if(document.get(i) != null && "valid".equals(document.get(i).getIsvalid())){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/CardDoc.fxml"));
                 AnchorPane pane = loader.load();
                 CardDocController controller = loader.getController();
@@ -247,6 +253,7 @@ if (imageFile != null) {
                 controller.getCard_moreInfo_D().setVisible(false);
                 controller.getCard_updateinfo_D1().setVisible(true);
                 agridpane_d.add(pane,column,row);
+ }
                 column+=1;
                 if(column>2){
                     column = 1;
@@ -301,16 +308,18 @@ if (imageFile != null) {
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Succès");
     alert.setHeaderText("Bienvenue");
-    alert.setContentText("Le produit a été ajouté avec succès !");
+    alert.setContentText("Le document  a été ajouté avec succès !");
     alert.showAndWait();
     this.onDestroy();
     this.initializeCards();
      }    
     }
 
+
     @FXML
     private void areloadmodif_d(ActionEvent event) {
-         docToUpdate=CardDocController.getDoctomodif();
+        modifbutton.setVisible(true);
+          docToUpdate=CardDocController.getDoctomodif();
         System.err.println(docToUpdate.toString());
          anomdoc_d.setText(docToUpdate.getDocumentName());
        atype_d.setValue(docToUpdate.getDocumentType());
@@ -319,6 +328,8 @@ if (imageFile != null) {
        atopic_d.setValue(topicService.getTopicById(docToUpdate.getIdTopic().getIdTopic()));
        Image image = new Image(docToUpdate.getDocumentImage());
        adocImage_d.setImage(image);
+     
+       
     }
 
     @FXML
@@ -364,46 +375,47 @@ if (imageFile != null) {
     }
     }
 
-   
-
-    @FXML
-    private void uploadDocD(ActionEvent event) {
-        
-     FileChooser fileChooser = new FileChooser();
+ @FXML
+private void uploadDocD(ActionEvent event) throws GeneralSecurityException {
+    // Obtain the selected file using FileChooser
+    FileChooser fileChooser = new FileChooser();
     fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Documents", "*.pdf", "*.docx"));
-    File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow()); // primaryStage should be your application's primary stage
+    java.io.File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+
     if (selectedFile != null) {
         try {
-            String uploadURL = "URL_FOR_UPLOAD_API_ENDPOINT";
-            URL url = new URL(uploadURL);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+          
+            Drive driveService = GoogleDriveService.initializeDriveService();
 
-            connection.setRequestMethod("POST");
-            connection.setDoOutput(true);
-            OutputStream os = connection.getOutputStream();
+          
+            com.google.api.services.drive.model.File fileMetadata = new com.google.api.services.drive.model.File();
+            fileMetadata.setName(selectedFile.getName());
 
-            FileInputStream fis = new FileInputStream(selectedFile);
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = fis.read(buffer)) != -1) {
-                os.write(buffer, 0, bytesRead);
-            }
-            os.close();
+          
+            FileContent mediaContent = new FileContent("application/pdf", selectedFile);
 
-            int responseCode = connection.getResponseCode();
-            System.out.println("Upload response code: " + responseCode);
+           
+            com.google.api.services.drive.model.File uploadedFile = driveService.files().create(fileMetadata, mediaContent)
+                .setFields("id")
+                .execute();
 
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                System.out.println("Upload successful!");
-            } else {
-                System.out.println("Upload failed.");
-            }
+            System.out.println("File uploaded with ID: " + uploadedFile.getId());
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Upload error: " + e.getMessage());
         }
-    }    
-        
     }
-     
+}
+
+
+    @FXML
+    private void uploadDocD(MouseEvent event) {
+    }
+
+    @FXML
+    private void rating_d(ActionEvent event) {
+    }
+
+
+
 }

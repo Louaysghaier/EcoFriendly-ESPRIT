@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="210.0" prefWidth="278.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLERS.CLIENT.RatingController">
+   <children>
+      <AnchorPane layoutY="-3.0" prefHeight="228.0" prefWidth="333.0">
+         <children>
+            <Label layoutX="59.0" layoutY="35.0" text="Document name : " />
+            <Label fx:id="d_name" layoutX="173.0" layoutY="35.0" prefHeight="18.0" prefWidth="122.0" text="Label" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

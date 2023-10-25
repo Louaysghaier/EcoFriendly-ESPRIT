@@ -20,6 +20,7 @@ public interface DocumentService {
     Document getDocumentByID(int d); 
     List<Document> searchDocuments(SearchDocumentDTO d);
      List<Document>  getAllDocuments();
+     
 
 
 

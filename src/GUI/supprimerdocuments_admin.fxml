@@ -38,17 +38,18 @@
                   <Separator layoutX="-20.0" layoutY="338.0" prefHeight="4.0" prefWidth="877.0" />
                   <AnchorPane layoutX="7.0" layoutY="62.0" prefHeight="269.0" prefWidth="846.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);">
                      <children>
-                        <TableView fx:id="treeview_d" layoutX="14.0" layoutY="11.0" prefHeight="248.0" prefWidth="659.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" stylesheets="@affichagedocuments.css">
+                        <TableView fx:id="treeview_d" layoutY="6.0" prefHeight="226.0" prefWidth="746.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" stylesheets="@affichagedocuments.css">
                           <columns>
                             <TableColumn fx:id="name_doc_d" prefWidth="112.80001831054688" text="Name Document" />
                             <TableColumn fx:id="semester_d" prefWidth="67.20001220703125" text="semester" />
                               <TableColumn fx:id="level_d" prefWidth="67.20001220703125" text="level" />
                               <TableColumn fx:id="topic_d" prefWidth="90.4000244140625" text="Topic" />
                               <TableColumn fx:id="type_d" prefWidth="124.79998779296875" text="Type" />
-                              <TableColumn fx:id="image_d" prefWidth="194.4000244140625" text="image" />
+                              <TableColumn fx:id="image_d" prefWidth="153.60000610351562" text="image" />
+                              <TableColumn fx:id="valide_d" prefWidth="124.79998779296875" text="valide" />
                           </columns>
                         </TableView>
-                        <Button layoutX="727.0" layoutY="96.0" mnemonicParsing="false" onAction="#delete_d" prefHeight="44.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" text="Delete" textFill="#f2f2f2">
+                        <Button layoutX="753.0" layoutY="214.0" mnemonicParsing="false" onAction="#delete_d" prefHeight="47.0" prefWidth="90.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" text="Valide" textFill="#f2f2f2">
                            <font>
                               <Font name="Mistral" size="25.0" />
                            </font>

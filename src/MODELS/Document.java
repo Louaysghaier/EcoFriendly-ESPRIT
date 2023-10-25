@@ -6,6 +6,7 @@
 package MODELS;
 
 import java.util.Date;
+import java.util.Objects;
 
 
 /**
@@ -20,11 +21,36 @@ public class Document {
        private Date documentCreationDate;
        private String documentImage;
        private String documentUrl;
+       
 
        private Niveau idNiveau;
        private Topic topic;
        private Semestre idSemestre;
        private User idUser;
+       private String isvalid;
+
+    public Document(int idDoc, String documentName, String documentType, String documentDate, Date documentCreationDate, String documentImage, String documentUrl, Niveau idNiveau, Topic topic, Semestre idSemestre, User idUser, String isvalid) {
+        this.idDoc = idDoc;
+        this.documentName = documentName;
+        this.documentType = documentType;
+        this.documentDate = documentDate;
+        this.documentCreationDate = documentCreationDate;
+        this.documentImage = documentImage;
+        this.documentUrl = documentUrl;
+        this.idNiveau = idNiveau;
+        this.topic = topic;
+        this.idSemestre = idSemestre;
+        this.idUser = idUser;
+        this.isvalid = isvalid;
+    }
+
+    public String getIsvalid() {
+        return isvalid;
+    }
+
+    public void setIsvalid(String isvalid) {
+        this.isvalid = isvalid;
+    }
 
     @Override
     public String toString() {
@@ -144,6 +170,30 @@ public class Document {
 
     public void setIdUser(User idUser) {
         this.idUser = idUser;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Document other = (Document) obj;
+        if (!Objects.equals(this.isvalid, other.isvalid)) {
+            return false;
+        }
+        return true;
     }
 
    

@@ -19,6 +19,7 @@ import SERVICES.DocumentServiceImp;
 import SERVICES.NiveauServiceImp;
 import SERVICES.SemestreServiceImp;
 import SERVICES.TopicServiceImp;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -32,6 +33,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
+import static javafx.embed.swing.SwingFXUtils.fromFXImage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,6 +50,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.StringConverter;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -110,8 +114,9 @@ public class AffichageDocumentsController implements Initializable {
          anchorpanedownload_d.setVisible(false);
         sanchorpane5_d.setVisible(true);
         this.initCombobox();
+        
     List<Document> filteredDocuments = documentService. searchDocuments(new SearchDocumentDTO());
-        this.initializeCards(filteredDocuments);
+        this.initializeCardssearch(filteredDocuments);
 
     }    
     
@@ -119,24 +124,26 @@ public class AffichageDocumentsController implements Initializable {
     @FXML
     private void srechercher_d(ActionEvent event) {
 
-    // Get the search criteria from the UI components
     int niveau =(sniveau_d.getValue()!=null)? sniveau_d.getValue().getIdNiveau() : 0 ;
     int topic =(stopic_d.getValue()!=null)? stopic_d.getValue().getIdTopic():0;
     String type = stype_d.getValue();
     String nomdoc = snomdoc_d.getText();
     int semestre =(ssemestre_d.getValue()!=null)?  ssemestre_d.getValue().getIdSemestre():0;
-        SearchDocumentDTO sd=new SearchDocumentDTO(nomdoc,type,niveau,topic,semestre);
-    // SearchDocumentDTO(String documentName, String documentType, int idNiveau, int topic, int idSemestre)
+        SearchDocumentDTO sd=new SearchDocumentDTO(nomdoc,type,niveau,topic,semestre,"valid");
+        
     List<Document> filteredDocuments = documentService. searchDocuments(sd);
-        System.out.println(sd.toString());
-    // Clear the current content of the GridPane
+        System.out.println(filteredDocuments.toString());
+   
     sgridpane_d.getChildren().clear();
-this.initializeCards(filteredDocuments);
+this.initializeCardssearch(filteredDocuments);
 }
 
         
         public void initializeCards(List<Document>  document) {
- // TODO
+                sgridpane_d.getChildren().clear();
+
+            DocumentServiceImp dosr=new DocumentServiceImp();
+            document.addAll(dosr.getAllDocuments());
         try{
             int row = 0 ;
             int column = 1;
@@ -146,14 +153,52 @@ this.initializeCards(filteredDocuments);
                 AnchorPane pane = loader.load();
                 CardDocController controller = loader.getController();
                 controller.setDocument(document.get(i));
+              //  if(dosr.getValidDocuments(document.get(i)))
+              
+               if(document.get(i) != null && "valid".equals(document.get(i).getIsvalid())){
                 controller.getCard_moreInfo_D().setVisible(true);
                 controller.getCard_updateinfo_D1().setVisible(false);
-
+               
                 sgridpane_d.add(pane,column,row);
+               }
                 column+=1;
                 if(column>2){
                     column = 1;
                     row +=1 ;
+                
+                }
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(AffichageDocumentsController.class.getName()).log(Level.SEVERE, null, ex);
+        }    }
+         public void initializeCardssearch(List<Document>  document) {
+               // sgridpane_d.getChildren().clear();
+
+           // DocumentServiceImp dosr=new DocumentServiceImp();
+           // document.addAll(dosr.getAllDocuments());
+        try{
+            int row = 0 ;
+            int column = 1;
+            for(int i = 0 ; i<document.size();i++){
+               
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/CardDoc.fxml"));
+                AnchorPane pane = loader.load();
+                CardDocController controller = loader.getController();
+                controller.setDocument(document.get(i));
+              //  if(dosr.getValidDocuments(document.get(i)))
+              
+               if(document.get(i) != null && "valid".equals(document.get(i).getIsvalid())){
+                controller.getCard_moreInfo_D().setVisible(true);
+                controller.getCard_updateinfo_D1().setVisible(false);
+               
+                sgridpane_d.add(pane,column,row);
+               }
+                column+=1;
+                if(column>2){
+                    column = 1;
+                    row +=1 ;
+                
                 }
             }
             
@@ -161,49 +206,50 @@ this.initializeCards(filteredDocuments);
             Logger.getLogger(AffichageDocumentsController.class.getName()).log(Level.SEVERE, null, ex);
         }    }    
 
+
             private void initCombobox(){
           ObservableList<Semestre> semestres=FXCollections.observableArrayList( semestreService.getAllSemestres());
       ObservableList<Topic> topics=FXCollections.observableArrayList( topicService.getAllTopics());
       ObservableList<Niveau> niveaus= FXCollections.observableArrayList(niveauService.getAllNiveaus());
       ObservableList<String> types=  FXCollections.observableArrayList();
       types.add("TD");
-       types.add("Devoirs");
+     types.add("Devoirs");
       types.add("Corrige TD");
       types.add("Cours");
 
       sniveau_d.setConverter(new StringConverter<Niveau>() {
     @Override
     public String toString(Niveau niveau) {
-        return niveau.getNiveauName(); // Assuming that 'getName()' is the method to get the name.
+        return niveau.getNiveauName(); 
     }
 
     @Override
     public Niveau fromString(String string) {
-        // This method doesn't need to be implemented in this case.
+        
         return null;
     }
 });
       stopic_d.setConverter(new StringConverter<Topic>() {
     @Override
     public String toString(Topic topic) {
-        return topic.getTopicName(); // Assuming that 'getName()' is the method to get the name.
+        return topic.getTopicName(); 
     }
 
     @Override
     public Topic fromString(String string) {
-        // This method doesn't need to be implemented in this case.
+       
         return null;
     }
 });
       ssemestre_d.setConverter(new StringConverter<Semestre>() {
     @Override
     public String toString(Semestre semestre) {
-        return semestre.getSemestreName(); // Assuming that 'getName()' is the method to get the name.
+        return semestre.getSemestreName(); 
     }
 
     @Override
     public Semestre fromString(String string) {
-        // This method doesn't need to be implemented in this case.
+       
         return null;
     }
 });
@@ -222,7 +268,7 @@ this.initializeCards(filteredDocuments);
        sniveau_d.setValue(null);
        ssemestre_d.setValue(null);
        stopic_d.setValue(null);
-        this.initializeCards(filteredDocuments);
+        this.initializeCardssearch(filteredDocuments);
     }
 
     
@@ -234,9 +280,8 @@ this.initializeCards(filteredDocuments);
         
         Document document=new Document();
         if (document != null) {
-        // Récupérez l'URL du document
-        String documentURL = document.getDocumentName(); // Remplacez par la manière dont vous obtenez l'URL du document
-
+       
+        String documentURL = document.getDocumentName();
         if (documentURL != null && !documentURL.isEmpty()) {
            try {
         URL url = new URL(documentURL);
@@ -250,11 +295,21 @@ this.initializeCards(filteredDocuments);
     }
         } else {
             System.out.println("L'URL du document est vide ou nul.");
-        }}
+        }}}
         
-        
-    }
-
+//       Image imagetobesaved = imageviewuplo_d.getImage();
+//
+//if (imagetobesaved != null) {
+//    File file = new File("/C:/Users/Dorra/Pictures/Screenshots/Capture%20d’écran%20(1).png");
+//    try {
+//        ImageIO.write(SwingFXUtils.fromFXImage(imagetobesaved, null), "png", file);
+//    } catch (IOException e) {
+//        e.printStackTrace();
+//    }
+//} else {
+//    System.out.println("L'objet ImageView ne contient pas d'image.");
+//}
+//    }
     @FXML
     private void retour_d(ActionEvent event) {
         anchorpanedownload_d.setVisible(false);

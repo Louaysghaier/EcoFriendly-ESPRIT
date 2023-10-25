@@ -19,16 +19,17 @@ public class SearchDocumentDTO {
        private int idNiveau;
        private int topic;
        private int idSemestre;
-
+       private String isvalid;
     public SearchDocumentDTO() {
     }
 
-    public SearchDocumentDTO(String documentName, String documentType, int idNiveau, int topic, int idSemestre) {
+    public SearchDocumentDTO(String documentName, String documentType, int idNiveau, int topic, int idSemestre,String isvalid) {
         this.documentName = documentName;
         this.documentType = documentType;
         this.idNiveau = idNiveau;
         this.topic = topic;
         this.idSemestre = idSemestre;
+        this.isvalid=isvalid;
     }
 
     public String getDocumentName() {
@@ -45,6 +46,14 @@ public class SearchDocumentDTO {
 
     public void setDocumentType(String documentType) {
         this.documentType = documentType;
+    }
+
+    public String getIsvalid() {
+        return isvalid;
+    }
+
+    public void setIsvalid(String isvalid) {
+        this.isvalid = isvalid;
     }
 
     public int getIdNiveau() {

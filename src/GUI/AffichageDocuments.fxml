@@ -37,6 +37,7 @@
                               <Font name="Castellar" size="27.0" />
                            </font>
                         </Label>
+                        <Button layoutX="463.0" layoutY="15.0" mnemonicParsing="false" onAction="#ADD_d" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" text="ADD " textFill="WHITE" />
                      </children>
                   </AnchorPane>
                   <ScrollPane fx:id="sscrollpane_d" layoutX="-4.0" layoutY="57.0" prefHeight="510.0" prefWidth="529.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="57.0">

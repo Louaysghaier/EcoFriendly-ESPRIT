@@ -6,9 +6,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-
+<?import org.controlsfx.control.Rating?>
 <AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="390.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLERS.CLIENT.PopUpDocController">
     <stylesheets>
         <URL value="@popupdoc.css" />
@@ -80,7 +81,7 @@
                      </font>
                   </Button>
                   <FontAwesomeIcon layoutX="292.0" layoutY="35.0" />
-                  <Button layoutX="205.0" layoutY="484.0" mnemonicParsing="false" onAction="#upload_d" prefHeight="0.0" prefWidth="152.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" stylesheets="@affichagedocuments.css" text="Download" textFill="#fffcfc">
+                  <Button layoutX="320.0" layoutY="487.0" mnemonicParsing="false" onAction="#upload_d" prefHeight="62.0" prefWidth="62.0" style="-fx-background-color: linear-gradient(to top right, #1e242e, #4082A8, #ae2d3c);" stylesheets="@affichagedocuments.css" text="|" textFill="#fffcfc">
                      <font>
                         <Font name="Mistral" size="33.0" />
                      </font>
@@ -97,6 +98,18 @@
                      </font>
                   </Label>
                   <Label fx:id="nbrdownload_d" layoutX="91.0" layoutY="459.0" prefHeight="18.0" prefWidth="72.0" textFill="#f7f3f3" />
+                  <HBox layoutX="19.0" layoutY="500.0" prefHeight="33.0" prefWidth="200.0"
+                  >
+                      <children>
+        <Rating fx:id="ratingControlDorra" rating="3" updateOnHover="false" max="5"/>
+    </children>
+
+</HBox>
+                  <Button fx:id="addRating" layoutX="255.0" layoutY="486.0" mnemonicParsing="false" onAction="#addRating" prefHeight="64.0" prefWidth="52.0" text="+">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </children>
