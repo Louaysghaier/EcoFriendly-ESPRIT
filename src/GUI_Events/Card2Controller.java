@@ -195,7 +195,7 @@ System.out.println("ID de l'événement : " + idEvent);// Mettez à jour selecte
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Ajout.fxml"));
         Parent root = loader.load();
-        AfficheDetailsController afficheDetailsController = loader.getController();
+        AfficheEventController afficheDetailsController = loader.getController();
 
           afficheDetailsController.setEventToUpdate(selectedEventId); 
       //  afficheDetailsController.loadEventDetails22(idEvent);
